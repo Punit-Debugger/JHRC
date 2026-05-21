@@ -18,6 +18,13 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use(
+    "/pdfs",
+    express.static(
+        path.join(process.cwd(), "pdfs")
+    )
+);
+
 mongoose.connect(process.env.MONGO_URI)
 
 .then(() => {
@@ -50,11 +57,22 @@ app.post("/admission", async (req, res) => {
         `${Date.now()}.pdf`;
 
         const filePath =
-        path.join(__dirname, "pdfs", fileName);
+        path.join(
+            process.cwd(),
+            "pdfs",
+            fileName
+        );
 
         generatePDF(req.body, filePath);
 
-        res.send("Admission Saved Successfully");
+        res.json({
+
+            message: "Admission Saved Successfully",
+
+            pdfUrl:
+            `https://jhrc.onrender.com/pdfs/${fileName}`
+
+        });
 
     }
 
