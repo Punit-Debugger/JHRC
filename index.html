@@ -31,6 +31,19 @@
 
         }
 
+        .logo {
+
+            text-align: center;
+            margin-bottom: 20px;
+
+        }
+
+        .logo img {
+
+            width: 120px;
+
+        }
+
         h1 {
 
             text-align: center;
@@ -154,7 +167,13 @@
 
     <div class="container">
 
-        <h1>Library Admission Form</h1>
+        <div class="logo">
+
+            <img src="logo.png" alt="JHRC Logo">
+
+        </div>
+
+        <h1>JHRC Library Admission Form</h1>
 
         <form id="admissionForm">
 
@@ -276,6 +295,56 @@
 
             </div>
 
+            <h2>Document Upload</h2>
+
+            <div class="row">
+
+                <div class="field">
+
+                    <label>Selfie Photo *</label>
+
+                    <input 
+                    type="file"
+                    name="selfiePhoto"
+                    accept="image/*"
+                    capture="user"
+                    required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>Aadhaar Front *</label>
+
+                    <input 
+                    type="file"
+                    name="aadhaarFront"
+                    accept="image/*"
+                    required
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="field">
+
+                    <label>Aadhaar Back *</label>
+
+                    <input 
+                    type="file"
+                    name="aadhaarBack"
+                    accept="image/*"
+                    required
+                    >
+
+                </div>
+
+            </div>
+
             <h2>Emergency Contact</h2>
 
             <div class="row">
@@ -302,7 +371,11 @@
 
                 <input type="checkbox" required>
 
-                <label>I agree to abide by the library rules and regulations.</label>
+                <label>
+
+                    I agree to abide by the library rules and regulations.
+
+                </label>
 
             </div>
 
@@ -318,75 +391,70 @@
 
     <script>
 
-    const form = document.getElementById("admissionForm");
+        const form =
+        document.getElementById("admissionForm");
 
-    const submitButton =
-    document.getElementById("submitButton");
+        const submitButton =
+        document.getElementById("submitButton");
 
-    form.addEventListener("submit", async function(event) {
+        form.addEventListener("submit", async function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        submitButton.disabled = true;
+            submitButton.disabled = true;
 
-        submitButton.innerText = "Saving Admission...";
+            submitButton.innerText = "Saving Admission...";
 
-        const formData =
-        Object.fromEntries(new FormData(form));
+            try {
 
-        try {
+                const formData =
+                new FormData(form);
 
-            const response = await fetch(
+                const response = await fetch(
 
-                "https://jhrc.onrender.com/admission",
+                    "https://jhrc.onrender.com/admission",
 
-                {
+                    {
 
-                    method: "POST",
+                        method: "POST",
 
-                    headers: {
+                        body: formData
 
-                        "Content-Type": "application/json"
+                    }
 
-                    },
+                );
 
-                    body: JSON.stringify(formData)
+                const result = await response.json();
+
+                alert(result.message);
+
+                if(result.pdfUrl){
+
+                    window.open(result.pdfUrl, "_blank");
 
                 }
 
-            );
-
-            const result = await response.json();
-
-            alert(result.message);
-
-            if(result.pdfUrl){
-
-                window.open(result.pdfUrl, "_blank");
+                form.reset();
 
             }
 
-            form.reset();
+            catch (error) {
 
-        }
+                alert("Error Saving Admission");
 
-        catch (error) {
+            }
 
-            alert("Error Saving Admission");
+            finally {
 
-        }
+                submitButton.disabled = false;
 
-        finally {
+                submitButton.innerText = "Submit Application";
 
-            submitButton.disabled = false;
+            }
 
-            submitButton.innerText = "Submit Application";
+        });
 
-        }
-
-    });
-
-</script>
+    </script>
 
 </body>
 

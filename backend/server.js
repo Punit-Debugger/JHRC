@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 
 const path = require("path");
 
+const multer = require("multer");
+
 const Student = require("./models/Student");
 
 const generatePDF = require("./generatePDF");
@@ -25,6 +27,13 @@ app.use(
     )
 );
 
+app.use(
+    "/uploads",
+    express.static(
+        path.join(process.cwd(), "uploads")
+    )
+);
+
 mongoose.connect(process.env.MONGO_URI)
 
 .then(() => {
@@ -39,58 +48,143 @@ mongoose.connect(process.env.MONGO_URI)
 
 });
 
+const storage = multer.diskStorage({
+
+    destination: function(req, file, cb){
+
+        cb(
+            null,
+            path.join(process.cwd(), "uploads")
+        );
+
+    },
+
+    filename: function(req, file, cb){
+
+        const uniqueName =
+        Date.now() + "-" + file.originalname;
+
+        cb(null, uniqueName);
+
+    }
+
+});
+
+const upload = multer({
+
+    storage: storage
+
+});
+
 app.get("/", (req, res) => {
 
     res.send("Library Backend Running Successfully");
 
 });
 
-app.post("/admission", async (req, res) => {
+app.post(
 
-    try {
+    "/admission",
 
-        const newStudent = new Student(req.body);
+    upload.fields([
 
-        await newStudent.save();
+        {
 
-        const fileName =
-        `${Date.now()}.pdf`;
+            name: "selfiePhoto",
+            maxCount: 1
 
-        const filePath =
-        path.join(
-            process.cwd(),
-            "pdfs",
-            fileName
-        );
+        },
 
-        generatePDF(req.body, filePath);
+        {
 
-        res.json({
+            name: "aadhaarFront",
+            maxCount: 1
 
-            message: "Admission Saved Successfully",
+        },
 
-            pdfUrl:
-            `https://jhrc.onrender.com/pdfs/${fileName}`
+        {
 
-        });
+            name: "aadhaarBack",
+            maxCount: 1
+
+        }
+
+    ]),
+
+    async (req, res) => {
+
+        try {
+
+            const studentData = {
+
+                ...req.body,
+
+                selfiePhoto:
+                req.files.selfiePhoto
+                ? req.files.selfiePhoto[0].filename
+                : "",
+
+                aadhaarFront:
+                req.files.aadhaarFront
+                ? req.files.aadhaarFront[0].filename
+                : "",
+
+                aadhaarBack:
+                req.files.aadhaarBack
+                ? req.files.aadhaarBack[0].filename
+                : ""
+
+            };
+
+            const newStudent =
+            new Student(studentData);
+
+            await newStudent.save();
+
+            const fileName =
+            `${Date.now()}.pdf`;
+
+            const filePath =
+            path.join(
+                process.cwd(),
+                "pdfs",
+                fileName
+            );
+
+            generatePDF(studentData, filePath);
+
+            res.json({
+
+                message:
+                "Admission Saved Successfully",
+
+                pdfUrl:
+                `https://jhrc.onrender.com/pdfs/${fileName}`
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            res
+            .status(500)
+            .send("Error Saving Admission");
+
+        }
 
     }
 
-    catch (error) {
-
-        console.log(error);
-
-        res.status(500).send("Error Saving Admission");
-
-    }
-
-});
+);
 
 app.get("/students", async (req, res) => {
 
     try {
 
-        const students = await Student.find();
+        const students =
+        await Student.find();
 
         res.json(students);
 
@@ -100,7 +194,9 @@ app.get("/students", async (req, res) => {
 
         console.log(error);
 
-        res.status(500).send("Error Fetching Students");
+        res
+        .status(500)
+        .send("Error Fetching Students");
 
     }
 
@@ -110,9 +206,13 @@ app.delete("/student/:id", async (req, res) => {
 
     try {
 
-        await Student.findByIdAndDelete(req.params.id);
+        await Student.findByIdAndDelete(
+            req.params.id
+        );
 
-        res.send("Student Deleted Successfully");
+        res.send(
+            "Student Deleted Successfully"
+        );
 
     }
 
@@ -120,16 +220,21 @@ app.delete("/student/:id", async (req, res) => {
 
         console.log(error);
 
-        res.status(500).send("Error Deleting Student");
+        res
+        .status(500)
+        .send("Error Deleting Student");
 
     }
 
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT =
+process.env.PORT || 5000;
 
 app.listen(PORT, () => {
 
-    console.log(`Server running on port ${PORT}`);
-        
+    console.log(
+        `Server running on port ${PORT}`
+    );
+
 });

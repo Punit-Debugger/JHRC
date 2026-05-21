@@ -2,39 +2,38 @@ const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
 
-    firstName:String,
+    fullName: String,
 
-    lastName:String,
+    phoneNumber: String,
 
-    email:String,
+    email: String,
 
-    phone:String,
+    dob: String,
 
-    dob:String,
+    gender: String,
 
-    gender:String,
+    address: String,
 
-    address:String,
+    membershipType: String,
 
-    studentId:String,
+    membershipStartDate: String,
 
-    course:String,
+    course: String,
 
-    department:String,
+    guardianName: String,
 
-    semester:String,
+    emergencyContact: String,
 
-    membershipType:String,
+    selfiePhoto: String,
 
-    startDate:String,
+    aadhaarFront: String,
 
-    guardian:String,
-
-    emergencyPhone:String
+    aadhaarBack: String
 
 });
 
-module.exports = mongoose.model(
+module.exports =
+mongoose.model(
     "Student",
     studentSchema
 );
