@@ -22,7 +22,7 @@
 
         .container {
 
-            max-width: 1300px;
+            max-width: 1500px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -157,6 +157,21 @@
 
         }
 
+        img {
+
+            border-radius: 50%;
+            object-fit: cover;
+
+        }
+
+        a {
+
+            color: #002b5b;
+            font-weight: bold;
+            text-decoration: none;
+
+        }
+
         @media(max-width:768px){
 
             table {
@@ -243,6 +258,12 @@
                     <th>Course</th>
 
                     <th>Membership</th>
+
+                    <th>Selfie</th>
+
+                    <th>Aadhaar Front</th>
+
+                    <th>Aadhaar Back</th>
 
                     <th>Action</th>
 
@@ -339,6 +360,15 @@
 
             students.forEach(student => {
 
+                const selfieUrl =
+                `https://jhrc.onrender.com/uploads/${student.selfiePhoto}`;
+
+                const aadhaarFrontUrl =
+                `https://jhrc.onrender.com/uploads/${student.aadhaarFront}`;
+
+                const aadhaarBackUrl =
+                `https://jhrc.onrender.com/uploads/${student.aadhaarBack}`;
+
                 const row = `
 
                     <tr>
@@ -352,6 +382,42 @@
                         <td>${student.course || ""}</td>
 
                         <td>${student.membershipType || ""}</td>
+
+                        <td>
+
+                            <img
+                            src="${selfieUrl}"
+                            width="60"
+                            height="60"
+                            >
+
+                        </td>
+
+                        <td>
+
+                            <a 
+                            href="${aadhaarFrontUrl}"
+                            target="_blank"
+                            >
+
+                                View Front
+
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            <a 
+                            href="${aadhaarBackUrl}"
+                            target="_blank"
+                            >
+
+                                View Back
+
+                            </a>
+
+                        </td>
 
                         <td>
 
