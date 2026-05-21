@@ -318,23 +318,29 @@
 
     <script>
 
-        const form = document.getElementById("admissionForm");
+    const form = document.getElementById("admissionForm");
 
-        const submitButton = document.getElementById("submitButton");
+    const submitButton =
+    document.getElementById("submitButton");
 
-        form.addEventListener("submit", async function(event) {
+    form.addEventListener("submit", async function(event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            submitButton.disabled = true;
+        submitButton.disabled = true;
 
-            submitButton.innerText = "Saving Admission...";
+        submitButton.innerText = "Saving Admission...";
 
-            const formData = Object.fromEntries(new FormData(form));
+        const formData =
+        Object.fromEntries(new FormData(form));
 
-            try {
+        try {
 
-                const response = await fetch("https://jhrc.onrender.com/admission", {
+            const response = await fetch(
+
+                "https://jhrc.onrender.com/admission",
+
+                {
 
                     method: "POST",
 
@@ -346,33 +352,41 @@
 
                     body: JSON.stringify(formData)
 
-                });
+                }
 
-                const result = await response.text();
+            );
 
-                alert(result);
+            const result = await response.json();
 
-                form.reset();
+            alert(result.message);
 
-            }
+            if(result.pdfUrl){
 
-            catch (error) {
-
-                alert("Error Saving Admission");
+                window.open(result.pdfUrl, "_blank");
 
             }
 
-            finally {
+            form.reset();
 
-                submitButton.disabled = false;
+        }
 
-                submitButton.innerText = "Submit Application";
+        catch (error) {
 
-            }
+            alert("Error Saving Admission");
 
-        });
+        }
 
-    </script>
+        finally {
+
+            submitButton.disabled = false;
+
+            submitButton.innerText = "Submit Application";
+
+        }
+
+    });
+
+</script>
 
 </body>
 
