@@ -1,7 +1,7 @@
+require("dotenv").config();
+
 const express = require("express");
-
 const cors = require("cors");
-
 const mongoose = require("mongoose");
 
 const Student = require("./models/Student");
@@ -12,9 +12,7 @@ app.use(cors());
 
 app.use(express.json());
 
-mongoose.connect(
-    "mongodb://jhrc:jhrc123@ac-6lklyss-shard-00-00.wxbi70v.mongodb.net:27017,ac-6lklyss-shard-00-01.wxbi70v.mongodb.net:27017,ac-6lklyss-shard-00-02.wxbi70v.mongodb.net:27017/?ssl=true&replicaSet=atlas-f66n7y-shard-0&authSource=admin&appName=Cluster0"
-)
+mongoose.connect(process.env.MONGO_URI)
 
 .then(() => {
 
@@ -36,19 +34,17 @@ app.get("/", (req, res) => {
 
 app.post("/admission", async (req, res) => {
 
-    try{
+    try {
 
-        const student = new Student(req.body);
+        const newStudent = new Student(req.body);
 
-        await student.save();
-
-        console.log(req.body);
+        await newStudent.save();
 
         res.send("Admission Saved Successfully");
 
-    }
-
-    catch(error){
+    } 
+    
+    catch (error) {
 
         console.log(error);
 
@@ -58,8 +54,10 @@ app.post("/admission", async (req, res) => {
 
 });
 
-app.listen(5000, () => {
+const PORT = process.env.PORT || 5000;
 
-    console.log("Server running on port 5000");
+app.listen(PORT, () => {
+
+    console.log(`Server running on port ${PORT}`);
 
 });
