@@ -1,7 +1,9 @@
 require("dotenv").config();
 
 const express = require("express");
+
 const cors = require("cors");
+
 const mongoose = require("mongoose");
 
 const Student = require("./models/Student");
@@ -42,13 +44,33 @@ app.post("/admission", async (req, res) => {
 
         res.send("Admission Saved Successfully");
 
-    } 
-    
+    }
+
     catch (error) {
 
         console.log(error);
 
         res.status(500).send("Error Saving Admission");
+
+    }
+
+});
+
+app.get("/students", async (req, res) => {
+
+    try {
+
+        const students = await Student.find();
+
+        res.json(students);
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        res.status(500).send("Error Fetching Students");
 
     }
 
