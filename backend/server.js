@@ -6,7 +6,11 @@ const cors = require("cors");
 
 const mongoose = require("mongoose");
 
+const path = require("path");
+
 const Student = require("./models/Student");
+
+const generatePDF = require("./generatePDF");
 
 const app = express();
 
@@ -42,6 +46,14 @@ app.post("/admission", async (req, res) => {
 
         await newStudent.save();
 
+        const fileName =
+        `${Date.now()}.pdf`;
+
+        const filePath =
+        path.join(__dirname, "pdfs", fileName);
+
+        generatePDF(req.body, filePath);
+
         res.send("Admission Saved Successfully");
 
     }
@@ -71,6 +83,26 @@ app.get("/students", async (req, res) => {
         console.log(error);
 
         res.status(500).send("Error Fetching Students");
+
+    }
+
+});
+
+app.delete("/student/:id", async (req, res) => {
+
+    try {
+
+        await Student.findByIdAndDelete(req.params.id);
+
+        res.send("Student Deleted Successfully");
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).send("Error Deleting Student");
 
     }
 
