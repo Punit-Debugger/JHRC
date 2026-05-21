@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Library Admission Form</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            color:#333;
+        }
+
+        .header{
+            background:#0c4a7d;
+            color:white;
+            padding:40px;
+        }
+
+        .header h1{
+            font-size:50px;
+            margin-bottom:10px;
+        }
+
+        .header p{
+            color:#ffc04d;
+        }
+
+        .banner{
+            height:120px;
+            background:url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop');
+            background-size:cover;
+            background-position:center;
+            border-bottom:5px solid orange;
+        }
+
+        .container{
+            width:80%;
+            margin:40px auto;
+            background:white;
+            padding:40px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .title{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .title h2{
+            font-size:42px;
+            margin-bottom:10px;
+        }
+
+        .section-title{
+            color:#0c4a7d;
+            margin-top:40px;
+            margin-bottom:20px;
+            font-size:28px;
+            border-left:5px solid orange;
+            padding-left:10px;
+        }
+
+        .form-row{
+            display:flex;
+            gap:20px;
+            margin-bottom:20px;
+        }
+
+        .form-group{
+            flex:1;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        input,
+        select,
+        textarea{
+            width:100%;
+            padding:14px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:16px;
+        }
+
+        textarea{
+            height:100px;
+        }
+
+        .date-input{
+            cursor:pointer;
+            background:white;
+        }
+
+        .radio-group{
+            margin-top:10px;
+        }
+
+        .radio-group label{
+            font-weight:normal;
+            margin-bottom:10px;
+        }
+
+        .checkbox{
+            margin-top:30px;
+            background:#eef2f7;
+            padding:20px;
+            border-radius:8px;
+        }
+
+        .submit-btn{
+            margin-top:30px;
+            text-align:center;
+        }
+
+        button{
+            background:#0047cc;
+            color:white;
+            border:none;
+            padding:15px;
+            width:100%;
+            font-size:18px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#003399;
+        }
+
+        @media(max-width:768px){
+
+            .form-row{
+                flex-direction:column;
+            }
+
+            .container{
+                width:95%;
+            }
+
+            .header h1{
+                font-size:32px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>LIBRARY ADMISSION FORM</h1>
+
+        <p>
+            library@email.com |
+            Library Address |
+            +91 9876543210 |
+            www.library.com
+        </p>
+
+    </div>
+
+    <div class="banner"></div>
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>Student Admission Form</h2>
+
+            <p>
+                Complete this form to apply for library membership.
+            </p>
+
+        </div>
+
+        <h3 class="section-title">Personal Information</h3>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>First Name *</label>
+
+                <input 
+                type="text"
+                id="firstName"
+                placeholder="Enter first name"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Last Name *</label>
+
+                <input 
+                type="text"
+                id="lastName"
+                placeholder="Enter last name"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Email Address *</label>
+
+                <input 
+                type="email"
+                id="email"
+                placeholder="Enter email"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Contact Number *</label>
+
+                <input 
+                type="text"
+                id="phone"
+                placeholder="Enter contact number"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Date of Birth *</label>
+
+                <input 
+                type="date"
+                id="dob"
+                class="date-input"
+                onclick="this.showPicker()"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Gender *</label>
+
+                <select id="gender">
+
+                    <option>Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Address *</label>
+
+            <textarea 
+            id="address"
+            placeholder="Enter address"
+            ></textarea>
+
+        </div>
+
+        <h3 class="section-title">Academic Information</h3>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Student ID / Roll Number *</label>
+
+                <input 
+                type="text"
+                id="studentId"
+                placeholder="Enter student ID"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Course / Class *</label>
+
+                <input 
+                type="text"
+                id="course"
+                placeholder="Enter course or class"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Department / Stream</label>
+
+                <input 
+                type="text"
+                id="department"
+                placeholder="Science / Commerce / Arts"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Year / Semester *</label>
+
+                <input 
+                type="text"
+                id="semester"
+                placeholder="Enter year or semester"
+                >
+
+            </div>
+
+        </div>
+
+        <h3 class="section-title">Membership Details</h3>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Membership Type *</label>
+
+                <div class="radio-group">
+
+                    <label>
+                        <input type="radio" name="membership" value="Student">
+                        Student
+                    </label>
+
+                    <label>
+                        <input type="radio" name="membership" value="Faculty">
+                        Faculty
+                    </label>
+
+                    <label>
+                        <input type="radio" name="membership" value="Research Scholar">
+                        Research Scholar
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Membership Start Date *</label>
+
+                <input 
+                type="date"
+                id="startDate"
+                class="date-input"
+                onclick="this.showPicker()"
+                >
+
+            </div>
+
+        </div>
+
+        <h3 class="section-title">Emergency Contact</h3>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Guardian Name *</label>
+
+                <input 
+                type="text"
+                id="guardian"
+                placeholder="Enter guardian name"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Emergency Contact Number *</label>
+
+                <input 
+                type="text"
+                id="emergencyPhone"
+                placeholder="Enter emergency number"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="checkbox">
+
+            <label>
+
+                <input type="checkbox" id="agree">
+
+                I agree to abide by the library rules and regulations.
+
+            </label>
+
+        </div>
+
+        <div class="submit-btn">
+
+            <button onclick="submitForm()">
+                Submit Application
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        async function submitForm(){
+
+            let firstName =
+            document.getElementById("firstName").value;
+
+            let phone =
+            document.getElementById("phone").value;
+
+            if(firstName == ""){
+                alert("Please enter first name");
+                return;
+            }
+
+            if(phone == ""){
+                alert("Please enter contact number");
+                return;
+            }
+
+            let membershipType = "";
+
+            let membershipOptions =
+            document.getElementsByName("membership");
+
+            for(let option of membershipOptions){
+
+                if(option.checked){
+
+                    membershipType = option.value;
+
+                }
+
+            }
+
+            let studentData = {
+
+                firstName:
+                document.getElementById("firstName").value,
+
+                lastName:
+                document.getElementById("lastName").value,
+
+                email:
+                document.getElementById("email").value,
+
+                phone:
+                document.getElementById("phone").value,
+
+                dob:
+                document.getElementById("dob").value,
+
+                gender:
+                document.getElementById("gender").value,
+
+                address:
+                document.getElementById("address").value,
+
+                studentId:
+                document.getElementById("studentId").value,
+
+                course:
+                document.getElementById("course").value,
+
+                department:
+                document.getElementById("department").value,
+
+                semester:
+                document.getElementById("semester").value,
+
+                membershipType:
+                membershipType,
+
+                startDate:
+                document.getElementById("startDate").value,
+
+                guardian:
+                document.getElementById("guardian").value,
+
+                emergencyPhone:
+                document.getElementById("emergencyPhone").value
+
+            };
+
+            let response = await fetch(
+                "http://127.0.0.1:5000/admission",
+                {
+
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+
+                    body:JSON.stringify(studentData)
+
+                }
+            );
+
+            let result =
+            await response.text();
+
+            alert(result);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
