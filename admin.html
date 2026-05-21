@@ -58,6 +58,17 @@
 
         }
 
+        .logout-btn {
+
+            background: red;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+
         .stats {
 
             display: flex;
@@ -166,6 +177,23 @@
 
         <h1>Library Admin Dashboard</h1>
 
+        <div class="top-bar">
+
+            <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by name, phone or course..."
+            onkeyup="searchStudents()"
+            >
+
+            <button class="logout-btn" onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
         <div class="stats">
 
             <div class="card">
@@ -191,17 +219,6 @@
                 <p>Faculty Memberships</p>
 
             </div>
-
-        </div>
-
-        <div class="top-bar">
-
-            <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by name, phone or course..."
-            onkeyup="searchStudents()"
-            >
 
         </div>
 
@@ -242,6 +259,15 @@
     </div>
 
     <script>
+
+        const isLoggedIn =
+        localStorage.getItem("adminLoggedIn");
+
+        if(isLoggedIn !== "true"){
+
+            window.location.replace("login.html");
+
+        }
 
         let allStudents = [];
 
@@ -420,6 +446,14 @@
                 alert("Error Deleting Student");
 
             }
+
+        }
+
+        function logout(){
+
+            localStorage.removeItem("adminLoggedIn");
+
+            window.location.replace("login.html");
 
         }
 
