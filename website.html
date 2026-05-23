@@ -78,14 +78,41 @@
 
         }
 
-        .logo img{
+        .logo{
 
-            width:55px;
-            height:55px;
-            border-radius:50%;
-            object-fit:cover;
+    display:flex;
+    align-items:center;
+    gap:22px;
 
-        }
+}
+
+.logo img{
+
+    width:150px;
+    height:150px;
+
+    object-fit:contain;
+
+    transform:scale(1.18);
+
+    filter:
+    drop-shadow(
+        0 0 22px rgba(255,204,0,0.4)
+    );
+
+}
+.logo{
+
+    overflow:visible;
+
+}
+.logo img:hover{
+
+    transform:scale(1.05);
+
+}
+
+
 
         .logo h1{
 
@@ -123,7 +150,7 @@
             display:flex;
             align-items:center;
             justify-content:center;
-            padding:120px 8% 80px;
+            padding:180px 8% 80px;
             position:relative;
             overflow:hidden;
 
@@ -171,6 +198,7 @@
             border:1px solid rgba(255,255,255,0.1);
             padding:12px 24px;
             border-radius:50px;
+            margin-top:40px;
             margin-bottom:30px;
             color:#ffcc00;
             font-weight:600;
@@ -553,9 +581,26 @@
 
             .navbar{
 
-                padding:20px 5%;
+    width:100%;
+    padding:14px 7%;
 
-            }
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    position:fixed;
+    top:0;
+    z-index:1000;
+
+    background:
+    rgba(5,8,22,0.82);
+
+    backdrop-filter:blur(16px);
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.05);
+
+}
 
             .nav-links{
 
@@ -614,11 +659,21 @@
         <div class="logo">
 
             <img
-                src="https://i.ibb.co/kM1K5d8/jhrc-logo.png"
+                src="backend/assets/logo.png"
                 alt="logo"
             >
 
-            <h1>JHRC</h1>
+            <h1>
+
+    <span class="gold-text">
+        JHRC
+    </span>
+
+    <span class="white-text">
+        LIBRARY
+    </span>
+
+</h1>
 
         </div>
 
