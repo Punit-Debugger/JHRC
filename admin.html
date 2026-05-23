@@ -157,13 +157,6 @@
 
         }
 
-        img {
-
-            border-radius: 50%;
-            object-fit: cover;
-
-        }
-
         a {
 
             color: #002b5b;
@@ -258,8 +251,6 @@
                     <th>Course</th>
 
                     <th>Membership</th>
-
-                    <th>Selfie</th>
 
                     <th>Aadhaar Front</th>
 
@@ -360,9 +351,6 @@
 
             students.forEach(student => {
 
-                const selfieUrl =
-                `https://jhrc.onrender.com/uploads/${student.selfiePhoto}`;
-
                 const aadhaarFrontUrl =
                 `https://jhrc.onrender.com/uploads/${student.aadhaarFront}`;
 
@@ -382,16 +370,6 @@
                         <td>${student.course || ""}</td>
 
                         <td>${student.membershipType || ""}</td>
-
-                        <td>
-
-                            <img
-                            src="${selfieUrl}"
-                            width="60"
-                            height="60"
-                            >
-
-                        </td>
 
                         <td>
 

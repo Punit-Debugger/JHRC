@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
 const path = require("path");
-
+const __dirname = path.resolve();
 function generatePDF(studentData, filePath){
 
     const doc = new PDFDocument({
@@ -16,12 +16,11 @@ function generatePDF(studentData, filePath){
     doc.pipe(fs.createWriteStream(filePath));
 
     const logoPath =
-    path.join(
-        process.cwd(),
-        "assets",
-        "logo.png"
-    );
-
+path.join(
+    __dirname,
+    "assets",
+    "logo.png"
+);
     doc.rect(0, 0, 595, 100)
     .fill("#002b5b");
 

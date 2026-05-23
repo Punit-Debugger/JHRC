@@ -23,18 +23,20 @@ app.use(express.json());
 app.use(
     "/pdfs",
     express.static(
-        path.join(process.cwd(), "pdfs")
+        path.join(__dirname, "pdfs")
     )
 );
 
 app.use(
     "/uploads",
     express.static(
-        path.join(process.cwd(), "uploads")
+        path.join(__dirname, "uploads")
     )
 );
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(
+    "mongodb://127.0.0.1:27017/libraryDB"
+)
 
 .then(() => {
 
@@ -54,13 +56,13 @@ const storage = multer.diskStorage({
 
         cb(
             null,
-            path.join(process.cwd(), "uploads")
+            path.join(__dirname, "uploads")
         );
 
     },
 
     filename: function(req, file, cb){
-
+__dirname
         const uniqueName =
         Date.now() + "-" + file.originalname;
 
@@ -90,13 +92,6 @@ app.post(
 
         {
 
-            name: "selfiePhoto",
-            maxCount: 1
-
-        },
-
-        {
-
             name: "aadhaarFront",
             maxCount: 1
 
@@ -118,11 +113,6 @@ app.post(
             const studentData = {
 
                 ...req.body,
-
-                selfiePhoto:
-                req.files.selfiePhoto
-                ? req.files.selfiePhoto[0].filename
-                : "",
 
                 aadhaarFront:
                 req.files.aadhaarFront
@@ -146,22 +136,37 @@ app.post(
 
             const filePath =
             path.join(
-                process.cwd(),
+                __dirname,
                 "pdfs",
                 fileName
             );
 
-            generatePDF(studentData, filePath);
+          try {
+
+    generatePDF(studentData, filePath);
+await new Promise(resolve =>
+    setTimeout(resolve, 2000)
+);
+    console.log("PDF Generated");
+
+}
+
+catch(error){
+
+    console.log("PDF ERROR:");
+    console.log(error);
+
+}
 
             res.json({
 
-                message:
-                "Admission Saved Successfully",
+    message:
+    "Admission Saved Successfully",
 
-                pdfUrl:
-                `https://jhrc.onrender.com/pdfs/${fileName}`
+    pdfUrl:
+    `http://localhost:5000/pdfs/${fileName}`
 
-            });
+});
 
         }
 

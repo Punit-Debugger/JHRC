@@ -317,61 +317,41 @@
 
             </div>
 
-            <h2>Document Upload</h2>
+          <h2>Document Upload</h2>
 
-            <div class="row">
+<div class="row">
 
-                <div class="field">
+    <div class="field">
 
-                    <label>Selfie Photo *</label>
+        <label>Aadhaar Front *</label>
 
-                    <input 
-                    type="file"
-                    name="selfiePhoto"
-                    accept="image/*"
-                    capture="user"
-                    required
-                    >
+        <input 
+        type="file"
+        name="aadhaarFront"
+        accept="image/*"
+        required
+        >
 
-                </div>
+    </div>
 
-                <div class="field">
+    <div class="field">
 
-                    <label>Aadhaar Front *</label>
+        <label>Aadhaar Back *</label>
 
-                    <input 
-                    type="file"
-                    name="aadhaarFront"
-                    id="aadhaarFront"
-                    accept="image/*"
-                    required
-                    >
+        <input 
+        type="file"
+        name="aadhaarBack"
+        accept="image/*"
+        required
+        >
 
-                    <div class="ocr-status" id="ocrStatus">
+    </div>
 
-                    </div>
-
-                </div>
+</div>
 
             </div>
 
-            <div class="row">
-
-                <div class="field">
-
-                    <label>Aadhaar Back *</label>
-
-                    <input 
-                    type="file"
-                    name="aadhaarBack"
-                    accept="image/*"
-                    required
-                    >
-
-                </div>
-
-            </div>
-
+            
             <h2>Emergency Contact</h2>
 
             <div class="row">
@@ -416,147 +396,11 @@
 
     </div>
 
-    <script src="https://unpkg.com/tesseract.js@v5/dist/tesseract.min.js"></script>
+  
 
     <script>
 
-        const aadhaarInput =
-        document.getElementById("aadhaarFront");
-
-        aadhaarInput.addEventListener("change", async function(){
-
-            const file =
-            aadhaarInput.files[0];
-
-            if(!file){
-
-                return;
-
-            }
-
-            document.getElementById("ocrStatus")
-            .innerText =
-            "Reading Aadhaar...";
-
-            const result =
-            await Tesseract.recognize(
-
-                file,
-
-                "eng"
-
-            );
-
-            const text =
-            result.data.text;
-
-            console.log(text);
-
-            const lines =
-            text.split("\n");
-
-            let detectedName = "";
-
-            let detectedDOB = "";
-
-            let detectedGender = "";
-
-            lines.forEach(line => {
-
-                const cleanLine =
-                line.trim();
-
-                if(
-
-                    cleanLine.includes("MALE")
-
-                ){
-
-                    detectedGender = "Male";
-
-                }
-
-                if(
-
-                    cleanLine.includes("FEMALE")
-
-                ){
-
-                    detectedGender = "Female";
-
-                }
-
-                const dobMatch =
-                cleanLine.match(
-                    /\d{2}\/\d{2}\/\d{4}/
-                );
-
-                if(dobMatch){
-
-                    detectedDOB =
-                    dobMatch[0];
-
-                }
-
-                if(
-
-                    cleanLine.length > 3
-
-                    &&
-
-                    isNaN(cleanLine)
-
-                    &&
-
-                    !cleanLine.includes("Government")
-
-                    &&
-
-                    !cleanLine.includes("India")
-
-                ){
-
-                    if(!detectedName){
-
-                        detectedName =
-                        cleanLine;
-
-                    }
-
-                }
-
-            });
-
-            if(detectedName){
-
-                document.getElementById("fullName")
-                .value =
-                detectedName;
-
-            }
-
-            if(detectedDOB){
-
-                document.getElementById("dob")
-                .value =
-                detectedDOB;
-
-            }
-
-            if(detectedGender){
-
-                document.getElementById("gender")
-                .value =
-                detectedGender;
-
-            }
-
-            document.getElementById("ocrStatus")
-            .innerText =
-            "Aadhaar Data Detected Successfully";
-
-        });
-
+        
         const form =
         document.getElementById("admissionForm");
 
