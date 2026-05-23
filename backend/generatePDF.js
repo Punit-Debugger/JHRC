@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
 const path = require("path");
-const __dirname = path.resolve();
+
 function generatePDF(studentData, filePath){
 
     const doc = new PDFDocument({
