@@ -34,9 +34,8 @@ app.use(
     )
 );
 
-mongoose.connect(
-    "mongodb://127.0.0.1:27017/libraryDB"
-)
+mongoose.connect(process.env.MONGO_URI)
+
 
 .then(() => {
 
@@ -163,8 +162,8 @@ catch(error){
     message:
     "Admission Saved Successfully",
 
-    pdfUrl:
-    `http://localhost:5000/pdfs/${fileName}`
+   pdfUrl:
+`https://jhrc.onrender.com/pdfs/${fileName}`
 
 });
 
