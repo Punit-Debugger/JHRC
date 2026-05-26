@@ -1,3 +1,11 @@
+<!-- IMPORTANT -->
+
+<!-- KEEP YOUR OLD JAVASCRIPT SUBMIT SCRIPT -->
+<!-- FROM THE PREVIOUS WORKING admission.html -->
+<!-- PASTE THAT SCRIPT BEFORE </body> -->
+
+<!-- THIS CODE FIXES THE UI + FORM NAMES -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,75 +103,7 @@
             1px solid rgba(255,255,255,0.06);
 
         }
-.dark-select{
 
-    background:#111827 !important;
-
-    color:white;
-
-    border:1px solid rgba(255,255,255,0.08);
-
-    appearance:none;
-
-}
-.required{
-
-    color:#ff4d4d;
-
-    margin-left:3px;
-
-    font-weight:600;
-
-}
-.premium-divider{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:18px;
-
-    margin-top:22px;
-
-}
-
-.divider-line{
-
-    width:110px;
-
-    height:2px;
-
-    background:
-    linear-gradient(
-        90deg,
-        transparent,
-        #d4a128,
-        transparent
-    );
-
-    border-radius:20px;
-
-}
-
-.divider-star{
-
-    color:#f4c542;
-
-    font-size:22px;
-
-    text-shadow:
-    0 0 10px rgba(244,197,66,0.6);
-
-}
-.dark-select option{
-
-    background:#111827;
-
-    color:white;
-
-}
         .brand{
 
             display:flex;
@@ -285,35 +225,56 @@
 
         }
 
-        .line{
+        .premium-divider{
 
-            width:130px;
-            height:2px;
+            display:flex;
 
-            background:#ffcc00;
+            justify-content:center;
 
-            margin:20px auto;
+            align-items:center;
 
-            position:relative;
+            gap:18px;
+
+            margin-top:22px;
 
         }
 
-        .line::after{
+        .divider-line{
 
-            content:'★';
+            width:110px;
 
-            position:absolute;
+            height:2px;
 
-            top:-12px;
-            left:50%;
+            background:
+            linear-gradient(
+                90deg,
+                transparent,
+                #d4a128,
+                transparent
+            );
 
-            transform:translateX(-50%);
+            border-radius:20px;
 
-            color:#ffcc00;
+        }
 
-            background:#0a1020;
+        .divider-star{
 
-            padding:0 10px;
+            color:#f4c542;
+
+            font-size:22px;
+
+            text-shadow:
+            0 0 10px rgba(244,197,66,0.6);
+
+        }
+
+        .required{
+
+            color:#ff4d4d;
+
+            margin-left:3px;
+
+            font-weight:600;
 
         }
 
@@ -384,6 +345,24 @@
             outline:none;
 
             transition:0.3s;
+
+        }
+
+        .dark-select{
+
+            background:#111827 !important;
+
+            color:white;
+
+            appearance:none;
+
+        }
+
+        .dark-select option{
+
+            background:#111827;
+
+            color:white;
 
         }
 
@@ -680,15 +659,15 @@
 
                 <div class="premium-divider">
 
-    <span class="divider-line"></span>
+                    <span class="divider-line"></span>
 
-    <span class="divider-star">
-        ★
-    </span>
+                    <span class="divider-star">
+                        ★
+                    </span>
 
-    <span class="divider-line"></span>
+                    <span class="divider-line"></span>
 
-</div>
+                </div>
 
             </div>
 
@@ -709,13 +688,14 @@
 
                     <div class="input-group">
 
-                       <label>
-    Full Name
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Full Name
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="fullName"
                             placeholder="Enter your full name"
                             required
                         >
@@ -724,13 +704,14 @@
 
                     <div class="input-group">
 
-                       <label>
-    Father's Name
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Father's Name
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="fatherName"
                             placeholder="Enter father's name"
                             required
                         >
@@ -739,13 +720,14 @@
 
                     <div class="input-group">
 
-                       <label>
-    Date of Birth
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Date of Birth
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="date"
+                            name="dob"
                             required
                         >
 
@@ -753,13 +735,14 @@
 
                     <div class="input-group">
 
-                      <label>
-    Mobile Number
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Mobile Number
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="mobileNumber"
                             placeholder="Enter mobile number"
                             required
                         >
@@ -774,6 +757,7 @@
 
                         <input
                             type="email"
+                            name="email"
                             placeholder="Enter your email"
                         >
 
@@ -781,12 +765,16 @@
 
                     <div class="input-group">
 
-                       <label>
-    Course / Class
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Course / Class
+                            <span class="required">*</span>
+                        </label>
 
-                        <select required class="dark-select">
+                        <select
+                            required
+                            class="dark-select"
+                            name="course"
+                        >
 
                             <option>
                                 Select your course / class
@@ -822,12 +810,13 @@
 
                     <div class="input-group" style="grid-column:1/-1;">
 
-                       <label>
-    Full Address
-    <span class="required">*</span>
-</label>
+                        <label>
+                            Full Address
+                            <span class="required">*</span>
+                        </label>
 
                         <textarea
+                            name="address"
                             placeholder="Enter your full address"
                             required
                         ></textarea>
@@ -836,13 +825,14 @@
 
                     <div class="input-group">
 
-                       <label>
-    City
-    <span class="required">*</span>
-</label>
+                        <label>
+                            City
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="city"
                             placeholder="Enter city"
                             required
                         >
@@ -852,12 +842,13 @@
                     <div class="input-group">
 
                         <label>
-    State
-    <span class="required">*</span>
-</label>
+                            State
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="state"
                             placeholder="Enter state"
                             required
                         >
@@ -867,12 +858,13 @@
                     <div class="input-group">
 
                         <label>
-    Pincode
-    <span class="required">*</span>
-</label>
+                            Pincode
+                            <span class="required">*</span>
+                        </label>
 
                         <input
                             type="text"
+                            name="pincode"
                             placeholder="Enter pincode"
                             required
                         >
@@ -895,13 +887,13 @@
 
                         <i class="fa-solid fa-cloud-arrow-up"></i>
 
-                       <h4>
+                        <h4>
 
-    Aadhaar Card Front
+                            Aadhaar Card Front
 
-    <span class="required">*</span>
+                            <span class="required">*</span>
 
-</h4>
+                        </h4>
 
                         <p>
 
@@ -911,6 +903,7 @@
 
                         <input
                             type="file"
+                            name="aadhaarFront"
                             required
                         >
 
@@ -922,11 +915,11 @@
 
                         <h4>
 
-    Aadhaar Card Back
+                            Aadhaar Card Back
 
-    <span class="required">*</span>
+                            <span class="required">*</span>
 
-</h4>
+                        </h4>
 
                         <p>
 
@@ -936,6 +929,7 @@
 
                         <input
                             type="file"
+                            name="aadhaarBack"
                             required
                         >
 
