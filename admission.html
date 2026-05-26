@@ -995,7 +995,63 @@
         </div>
 
     </footer>
+<script>
 
+document
+.getElementById("admissionForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const form = e.target;
+
+    const formData = new FormData(form);
+
+    try{
+
+        const response = await fetch(
+
+            "https://jhrc-library-backend.onrender.com/api/admission",
+
+            {
+
+                method:"POST",
+
+                body:formData
+
+            }
+
+        );
+
+        const result = await response.json();
+
+        if(response.ok){
+
+            alert("Admission Form Submitted Successfully!");
+
+            form.reset();
+
+        }
+
+        else{
+
+            alert(result.message || "Submission Failed");
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Server Error");
+
+    }
+
+});
+
+</script>
 </body>
 
 </html>
