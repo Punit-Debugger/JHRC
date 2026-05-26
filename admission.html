@@ -5,163 +5,547 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Library Admission Form</title>
+    <title>
+        JHRC Library | Admission Form
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
     <style>
 
-        body {
+        *{
 
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-
-        }
-
-        .container {
-
-            max-width: 900px;
-            background: white;
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
 
         }
 
-        .logo {
+        body{
 
-            text-align: center;
-            margin-bottom: 20px;
+            background:
+            radial-gradient(circle at top left,#18233d,#050816 55%);
 
-        }
+            color:white;
 
-        .logo img {
+            min-height:100vh;
 
-            width: 120px;
-
-        }
-
-        h1 {
-
-            text-align: center;
-            color: #002b5b;
+            overflow-x:hidden;
 
         }
 
-        h2 {
+        body::before{
 
-            color: #002b5b;
-            border-left: 5px solid goldenrod;
-            padding-left: 10px;
-            margin-top: 30px;
+            content:'';
 
-        }
+            position:fixed;
 
-        .row {
+            width:350px;
+            height:350px;
 
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
+            background:#ffcc00;
 
-        }
+            filter:blur(170px);
 
-        .field {
+            opacity:0.08;
 
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            top:-120px;
+            left:-100px;
+
+            z-index:-1;
 
         }
 
-        label {
+        .navbar{
 
-            margin-bottom: 8px;
-            font-weight: bold;
+            width:100%;
 
-        }
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
 
-        input,
-        select,
-        textarea {
+            padding:22px 50px;
 
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            border-bottom:
+            1px solid rgba(255,255,255,0.06);
 
         }
 
-        textarea {
+        .brand{
 
-            resize: vertical;
-
-        }
-
-        .membership {
-
-            margin-bottom: 20px;
+            display:flex;
+            align-items:center;
+            gap:15px;
 
         }
 
-        .membership label {
+        .brand img{
 
-            font-weight: normal;
-            margin-left: 8px;
+            width:75px;
 
-        }
-
-        .checkbox {
-
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            filter:
+            drop-shadow(
+                0 0 14px rgba(255,204,0,0.35)
+            );
 
         }
 
-        button {
+        .brand-text h1{
 
-            width: 100%;
-            background: #002b5b;
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 30px;
+            font-size:38px;
+            color:#ffcc00;
+            line-height:1;
 
         }
 
-        button:hover {
+        .brand-text p{
 
-            background: #001f40;
-
-        }
-
-        button:disabled {
-
-            background: gray;
-            cursor: not-allowed;
+            font-size:14px;
+            color:#e2e8f0;
+            letter-spacing:3px;
 
         }
 
-        .ocr-status {
+        .home-btn{
 
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
+            color:white;
+
+            text-decoration:none;
+
+            font-size:16px;
+
+            display:flex;
+            align-items:center;
+            gap:8px;
+
+            transition:0.3s;
 
         }
 
-        @media(max-width: 768px) {
+        .home-btn:hover{
 
-            .row {
+            color:#ffcc00;
 
-                flex-direction: column;
+        }
+
+        .main{
+
+            width:100%;
+
+            display:flex;
+            justify-content:center;
+
+            padding:60px 20px;
+
+        }
+
+        .form-container{
+
+            width:100%;
+            max-width:980px;
+
+            background:
+            rgba(255,255,255,0.04);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:30px;
+
+            padding:45px;
+
+            backdrop-filter:blur(16px);
+
+            box-shadow:
+            0 0 50px rgba(0,0,0,0.4);
+
+        }
+
+        .heading{
+
+            text-align:center;
+
+            margin-bottom:45px;
+
+        }
+
+        .heading h2{
+
+            font-size:48px;
+            font-weight:700;
+
+        }
+
+        .heading span{
+
+            color:#ffcc00;
+
+        }
+
+        .heading p{
+
+            color:#d1d5db;
+
+            margin-top:8px;
+
+            font-size:18px;
+
+        }
+
+        .line{
+
+            width:130px;
+            height:2px;
+
+            background:#ffcc00;
+
+            margin:20px auto;
+
+            position:relative;
+
+        }
+
+        .line::after{
+
+            content:'★';
+
+            position:absolute;
+
+            top:-12px;
+            left:50%;
+
+            transform:translateX(-50%);
+
+            color:#ffcc00;
+
+            background:#0a1020;
+
+            padding:0 10px;
+
+        }
+
+        .section-title{
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+
+            color:#ffcc00;
+
+            font-size:25px;
+
+            margin-bottom:28px;
+
+            font-weight:600;
+
+        }
+
+        .form-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(300px,1fr));
+
+            gap:24px;
+
+            margin-bottom:45px;
+
+        }
+
+        .input-group{
+
+            display:flex;
+            flex-direction:column;
+
+        }
+
+        .input-group label{
+
+            margin-bottom:10px;
+
+            color:#f8fafc;
+
+            font-size:15px;
+
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea{
+
+            background:
+            rgba(255,255,255,0.03);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:14px;
+
+            padding:16px 18px;
+
+            color:white;
+
+            font-size:15px;
+
+            outline:none;
+
+            transition:0.3s;
+
+        }
+
+        .input-group textarea{
+
+            resize:none;
+            min-height:120px;
+
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus{
+
+            border-color:#ffcc00;
+
+            box-shadow:
+            0 0 18px rgba(255,204,0,0.15);
+
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder{
+
+            color:#94a3b8;
+
+        }
+
+        .upload-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(300px,1fr));
+
+            gap:25px;
+
+            margin-top:25px;
+
+        }
+
+        .upload-box{
+
+            border:
+            2px dashed rgba(255,255,255,0.12);
+
+            border-radius:20px;
+
+            padding:35px 20px;
+
+            text-align:center;
+
+            background:
+            rgba(255,255,255,0.02);
+
+            transition:0.3s;
+
+        }
+
+        .upload-box:hover{
+
+            border-color:#ffcc00;
+
+        }
+
+        .upload-box i{
+
+            font-size:40px;
+
+            color:white;
+
+            margin-bottom:20px;
+
+        }
+
+        .upload-box h4{
+
+            margin-bottom:15px;
+
+            font-size:18px;
+
+        }
+
+        .upload-box p{
+
+            color:#cbd5e1;
+
+            font-size:14px;
+
+            margin-bottom:15px;
+
+        }
+
+        .upload-box input{
+
+            color:white;
+
+        }
+
+        .checkbox{
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+
+            margin-top:35px;
+
+            color:#e2e8f0;
+
+        }
+
+        .submit-btn{
+
+            width:100%;
+
+            margin-top:30px;
+
+            background:
+            linear-gradient(
+                90deg,
+                #d4a128,
+                #f4c542
+            );
+
+            border:none;
+
+            padding:20px;
+
+            border-radius:18px;
+
+            color:white;
+
+            font-size:22px;
+
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.4s;
+
+            box-shadow:
+            0 0 25px rgba(255,204,0,0.25);
+
+        }
+
+        .submit-btn:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 0 40px rgba(255,204,0,0.4);
+
+        }
+
+        .secure{
+
+            text-align:center;
+
+            margin-top:20px;
+
+            color:#94a3b8;
+
+            font-size:14px;
+
+        }
+
+        footer{
+
+            width:100%;
+
+            padding:25px 40px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            color:#cbd5e1;
+
+            border-top:
+            1px solid rgba(255,255,255,0.06);
+
+            margin-top:50px;
+
+        }
+
+        footer span{
+
+            color:#ffcc00;
+
+        }
+
+        @media(max-width:768px){
+
+            .navbar{
+
+                padding:20px;
+
+            }
+
+            .brand img{
+
+                width:60px;
+
+            }
+
+            .brand-text h1{
+
+                font-size:28px;
+
+            }
+
+            .form-container{
+
+                padding:28px 20px;
+
+                border-radius:24px;
+
+            }
+
+            .heading h2{
+
+                font-size:34px;
+
+            }
+
+            footer{
+
+                flex-direction:column;
+                gap:10px;
+                text-align:center;
 
             }
 
@@ -173,300 +557,359 @@
 
 <body>
 
-    <div class="container">
+    <nav class="navbar">
 
-        <div class="logo">
+        <div class="brand">
 
-           <img
-    src="backend/assets/logo.png"
-    alt="JHRC Logo"
->
+            <img
+                src="backend/assets/logo.png"
+                alt="JHRC Logo"
+            >
+
+            <div class="brand-text">
+
+                <h1>JHRC</h1>
+
+                <p>LIBRARY</p>
+
+            </div>
+
         </div>
 
-        <h1>JHRC Library Admission Form</h1>
-
-        <form id="admissionForm">
-
-            <h2>Personal Details</h2>
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>Full Name *</label>
-
-                    <input 
-                    type="text"
-                    name="fullName"
-                    id="fullName"
-                    required
-                    >
-
-                </div>
-
-                <div class="field">
-
-                    <label>Phone Number *</label>
-
-                    <input type="text" name="phoneNumber" required>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>Email *</label>
-
-                    <input type="email" name="email" required>
-
-                </div>
-
-                <div class="field">
-
-                    <label>Date of Birth *</label>
-
-                    <input 
-                    type="text"
-                    name="dob"
-                    id="dob"
-                    required
-                    >
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>Gender *</label>
-
-                    <select 
-                    name="gender"
-                    id="gender"
-                    required
-                    >
-
-                        <option value="">Select</option>
-
-                        <option>Male</option>
-
-                        <option>Female</option>
-
-                        <option>Other</option>
-
-                    </select>
-
-                </div>
-
-                <div class="field">
-
-                    <label>Address *</label>
-
-                    <textarea name="address" required></textarea>
-
-                </div>
-
-            </div>
-
-            <h2>Membership Details</h2>
-
-            <div class="membership">
-
-                <label>Membership Type *</label>
-
-                <br><br>
-
-                <input type="radio" name="membershipType" value="Student" required>
-
-                <label>Student</label>
-
-                <br><br>
-
-                <input type="radio" name="membershipType" value="Faculty">
-
-                <label>Faculty</label>
-
-                <br><br>
-
-                <input type="radio" name="membershipType" value="Research Scholar">
-
-                <label>Research Scholar</label>
-
-            </div>
-
-            <div class="row">
-
-                <div class="field">
-
-                    <label>Membership Start Date *</label>
-
-                    <input type="date" name="membershipStartDate" required>
-
-                </div>
-
-                <div class="field">
-
-                    <label>Course / Department *</label>
-
-                    <input type="text" name="course" required>
-
-                </div>
-
-            </div>
-
-          <h2>Document Upload</h2>
-
-<div class="row">
-
-    <div class="field">
-
-        <label>Aadhaar Front *</label>
-
-        <input 
-        type="file"
-        name="aadhaarFront"
-        accept="image/*"
-        required
+        <a
+            href="index.html"
+            class="home-btn"
         >
 
-    </div>
+            <i class="fa-solid fa-house"></i>
 
-    <div class="field">
+            Home
 
-        <label>Aadhaar Back *</label>
+        </a>
 
-        <input 
-        type="file"
-        name="aadhaarBack"
-        accept="image/*"
-        required
-        >
+    </nav>
 
-    </div>
+    <section class="main">
 
-</div>
+        <div class="form-container">
+
+            <div class="heading">
+
+                <h2>
+
+                    JHRC
+                    <span>
+                        LIBRARY
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Admission Form
+
+                </p>
+
+                <div class="line"></div>
 
             </div>
 
-            
-            <h2>Emergency Contact</h2>
+            <form
+                id="admissionForm"
+                enctype="multipart/form-data"
+            >
 
-            <div class="row">
+                <div class="section-title">
 
-                <div class="field">
+                    <i class="fa-regular fa-user"></i>
 
-                    <label>Guardian Name *</label>
-
-                    <input type="text" name="guardianName" required>
+                    Personal Information
 
                 </div>
 
-                <div class="field">
+                <div class="form-grid">
 
-                    <label>Emergency Contact Number *</label>
+                    <div class="input-group">
 
-                    <input type="text" name="emergencyContact" required>
+                        <label>
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Father's Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter father's name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Date of Birth *
+                        </label>
+
+                        <input
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Mobile Number *
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter mobile number"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Course / Class *
+                        </label>
+
+                        <select required>
+
+                            <option>
+                                Select your course / class
+                            </option>
+
+                            <option>
+                                Student
+                            </option>
+
+                            <option>
+                                Faculty
+                            </option>
+
+                            <option>
+                                Research Scholar
+                            </option>
+
+                        </select>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="section-title">
 
-            <div class="checkbox">
+                    <i class="fa-regular fa-file-lines"></i>
 
-                <input type="checkbox" required>
+                    Address Information
 
-                <label>
+                </div>
 
-                    I agree to abide by the library rules and regulations.
+                <div class="form-grid">
 
-                </label>
+                    <div class="input-group" style="grid-column:1/-1;">
 
-            </div>
+                        <label>
+                            Full Address *
+                        </label>
 
-            <button type="submit" id="submitButton">
+                        <textarea
+                            placeholder="Enter your full address"
+                            required
+                        ></textarea>
 
-                Submit Application
+                    </div>
 
-            </button>
+                    <div class="input-group">
 
-        </form>
+                        <label>
+                            City *
+                        </label>
 
-    </div>
+                        <input
+                            type="text"
+                            placeholder="Enter city"
+                            required
+                        >
 
-  
+                    </div>
 
-    <script>
+                    <div class="input-group">
 
-        
-        const form =
-        document.getElementById("admissionForm");
+                        <label>
+                            State *
+                        </label>
 
-        const submitButton =
-        document.getElementById("submitButton");
+                        <input
+                            type="text"
+                            placeholder="Enter state"
+                            required
+                        >
 
-        form.addEventListener("submit", async function(event) {
+                    </div>
 
-            event.preventDefault();
+                    <div class="input-group">
 
-            submitButton.disabled = true;
+                        <label>
+                            Pincode *
+                        </label>
 
-            submitButton.innerText = "Saving Admission...";
+                        <input
+                            type="text"
+                            placeholder="Enter pincode"
+                            required
+                        >
 
-            try {
+                    </div>
 
-                const formData =
-                new FormData(form);
+                </div>
 
-                const response = await fetch(
+                <div class="section-title">
 
-                    "https://jhrc.onrender.com/admission",
+                    <i class="fa-solid fa-upload"></i>
 
-                    {
+                    Document Upload
 
-                        method: "POST",
+                </div>
 
-                        body: formData
+                <div class="upload-grid">
 
-                    }
+                    <div class="upload-box">
 
-                );
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
 
-                const result = await response.json();
+                        <h4>
 
-                alert(result.message);
+                            Aadhaar Card Front *
 
-                if(result.pdfUrl){
+                        </h4>
 
-                    window.open(result.pdfUrl, "_blank");
+                        <p>
 
-                }
+                            JPG, PNG or PDF (Max 5MB)
 
-                form.reset();
+                        </p>
 
-            }
+                        <input
+                            type="file"
+                            required
+                        >
 
-            catch (error) {
+                    </div>
 
-                alert("Error Saving Admission");
+                    <div class="upload-box">
 
-            }
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
 
-            finally {
+                        <h4>
 
-                submitButton.disabled = false;
+                            Aadhaar Card Back *
 
-                submitButton.innerText = "Submit Application";
+                        </h4>
 
-            }
+                        <p>
 
-        });
+                            JPG, PNG or PDF (Max 5MB)
 
-    </script>
+                        </p>
+
+                        <input
+                            type="file"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        required
+                    >
+
+                    <label>
+
+                        I confirm that all the information provided by me is correct.
+
+                    </label>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+
+                    <i class="fa-regular fa-paper-plane"></i>
+
+                    Submit & Get PDF Receipt
+
+                </button>
+
+                <div class="secure">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Your information is secure and will not be shared.
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div>
+
+            © 2026 JHRC Library. All Rights Reserved.
+
+        </div>
+
+        <div>
+
+            Empowering Future,
+            <span>
+                Enriching Knowledge.
+            </span>
+
+        </div>
+
+    </footer>
 
 </body>
 
