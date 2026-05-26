@@ -14,7 +14,6 @@ const Student = require("./models/Student");
 const app = express();
 const generatePDF = require("./generatePDF");
 
-const app = express();
 
 
 app.use(cors());
