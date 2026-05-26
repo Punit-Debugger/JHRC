@@ -11,13 +11,11 @@ const path = require("path");
 const multer = require("multer");
 
 const Student = require("./models/Student");
-const cors = require("cors");
 const app = express();
 const generatePDF = require("./generatePDF");
 
 const app = express();
 
-const cors = require("cors");
 
 app.use(cors());
 
