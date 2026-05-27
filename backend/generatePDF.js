@@ -107,37 +107,37 @@ function generatePDF(studentData, filePath) {
 
 doc
 .fillColor("#111111")
-.fontSize(12)
+.fontSize(11)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 240, 420)
+.text(studentData.fullName || "-", 250, 415)
 
-.text(studentData.fatherName || "-", 240, 458)
+.text(studentData.fatherName || "-", 250, 452)
 
-.text(studentData.dob || "-", 240, 495)
+.text(studentData.dob || "-", 250, 489)
 
-.text(studentData.mobileNumber || "-", 240, 533)
+.text(studentData.mobileNumber || "-", 250, 526)
 
-.text(studentData.email || "-", 240, 570)
+.text(studentData.email || "-", 250, 563)
 
-.text(studentData.gender || "-", 240, 607);
+.text(studentData.gender || "-", 250, 600);
 
 // ACADEMIC INFORMATION
 
 doc
 .fillColor("#111111")
-.fontSize(12)
+.fontSize(11)
 .font("Helvetica-Bold")
 
-.text(studentData.course || "-", 455, 420)
+.text(studentData.course || "-", 455, 415)
 
-.text(studentData.address || "-", 455, 458)
+.text(studentData.address || "-", 455, 452)
 
-.text(studentData.city || "-", 455, 495)
+.text(studentData.city || "-", 455, 489)
 
-.text(studentData.state || "-", 455, 533)
+.text(studentData.state || "-", 455, 526)
 
-.text(studentData.pincode || "-", 455, 570);
+.text(studentData.pincode || "-", 455, 563);
 
 // TOP INFORMATION
 
@@ -186,28 +186,8 @@ doc
 );
     // FOOTER
 
-    doc
-    .fillColor("#0b1c48")
-    .fontSize(12)
-    .font("Helvetica-Bold")
-    .text(
 
-        "THANK YOU FOR CHOOSING JHRC LIBRARY",
 
-        110,
-
-        790,
-
-        {
-
-            width: 380,
-            align: "center"
-
-        }
-
-    );
-
-    doc.end();
 
 }
 
