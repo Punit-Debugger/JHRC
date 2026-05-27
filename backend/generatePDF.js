@@ -110,50 +110,59 @@ doc
 .fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 185, 398)
-
-.text(studentData.fatherName || "-", 185, 436)
-
-.text(studentData.dob || "-", 185, 474)
-
-.text(studentData.mobileNumber || "-", 185, 512)
-
-.text(studentData.email || "-", 185, 550)
-
-.text(studentData.gender || "-", 185, 588);
-
-// ACADEMIC INFORMATION
+const leftX = 175;
+const startY = 345;
+const rowGap = 34;
 
 doc
 .fillColor("#111111")
 .fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.course || "-", 470, 398, {
+.text(studentData.fullName || "-", leftX, startY)
+
+.text(studentData.fatherName || "-", leftX, startY + rowGap)
+
+.text(studentData.dob || "-", leftX, startY + rowGap * 2)
+
+.text(studentData.mobileNumber || "-", leftX, startY + rowGap * 3)
+
+.text(studentData.email || "-", leftX, startY + rowGap * 4)
+
+.text(studentData.gender || "-", leftX, startY + rowGap * 5);
+
+// ACADEMIC INFORMATION
+
+const rightX = 470;
+const rightStartY = 345;
+const rightRowGap = 47;
+
+doc
+.fillColor("#111111")
+.fontSize(10)
+.font("Helvetica-Bold")
+
+.text(studentData.course || "-", rightX, rightStartY, {
 
     width: 120
 
 })
 
-.text(studentData.address || "-", 470, 436, {
+.text(studentData.address || "-", rightX, rightStartY + rightRowGap, {
 
     width: 120
 
 })
 
-.text(studentData.city || "-", 470, 474, {
+.text(studentData.city || "-", rightX, 432)
 
-    width: 120
+// STATE slightly upward
 
-})
+.text(studentData.state || "-", rightX, 478)
 
-.text(studentData.state || "-", 470, 512, {
+// PINCODE slightly upward
 
-    width: 120
-
-})
-
-.text(studentData.pincode || "-", 470, 550);
+.text(studentData.pincode || "-", rightX, 525);
 
 // TOP INFORMATION
 
@@ -168,11 +177,11 @@ doc
 .fontSize(14)
 .font("Helvetica-Bold")
 
-.text(receiptId, 70, 250)
+.text(receiptId, 50, 250)
 
 .text(
     studentData.admissionDate || "-",
-    220,
+    190,
     250
 )
 
@@ -182,26 +191,7 @@ doc
 
     // FOOTER
 
-    doc
-    .fillColor("#0b1c48")
-    .fontSize(12)
-    .font("Helvetica-Bold")
-    .text(
-
-        "THANK YOU FOR CHOOSING JHRC LIBRARY",
-
-        110,
-
-        760,
-
-        {
-
-            width: 380,
-            align: "center"
-
-        }
-
-    );
+    
 
     doc.end();
 
