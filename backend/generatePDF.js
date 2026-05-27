@@ -14,7 +14,12 @@ function generatePDF(studentData, filePath) {
     });
 
     doc.pipe(fs.createWriteStream(filePath));
-
+const fontPath =
+path.join(
+    __dirname,
+    "assets",
+    "Poppins-Regular.ttf"
+);
     const logoPath =
     path.join(
         __dirname,
@@ -108,7 +113,7 @@ function generatePDF(studentData, filePath) {
 doc
 .fillColor("#111111")
 .fontSize(10)
-.font("Helvetica-Bold")
+.font(fontPath)
 
 const leftX = 175;
 const startY = 345;
@@ -117,7 +122,7 @@ const rowGap = 34;
 doc
 .fillColor("#111111")
 .fontSize(10)
-.font("Helvetica-Bold")
+.font(fontPath)
 
 .text(studentData.fullName || "-", leftX, startY)
 
@@ -140,7 +145,7 @@ const rightRowGap = 47;
 doc
 .fillColor("#111111")
 .fontSize(10)
-.font("Helvetica-Bold")
+.font(fontPath)
 
 .text(studentData.course || "-", rightX, rightStartY, {
 
@@ -175,7 +180,7 @@ const referenceCode =
 doc
 .fillColor("#b8860b")
 .fontSize(14)
-.font("Helvetica-Bold")
+.font(fontPath)
 
 .text(receiptId, 50, 250)
 
