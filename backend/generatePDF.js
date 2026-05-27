@@ -14,12 +14,34 @@ function generatePDF(studentData, filePath){
     });
 
     doc.pipe(fs.createWriteStream(filePath));
+    doc.image(
+
+    receiptBg,
+
+    0,
+
+    0,
+
+    {
+
+        width: 595,
+        height: 842
+
+    }
+
+);
 
     const logoPath =
 path.join(
     __dirname,
     "assets",
     "logo.png"
+);
+const receiptBg =
+path.join(
+    __dirname,
+    "assets",
+    "receipt-bg.png"
 );
     doc.rect(0, 0, 595, 100)
     .fill("#002b5b");
