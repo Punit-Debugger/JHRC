@@ -104,94 +104,87 @@ function generatePDF(studentData, filePath) {
 
 
     // VALUES
+// STUDENT INFORMATION
 
-   doc
+doc
 .fillColor("#111111")
 .fontSize(13)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 250, 355)
+.text(studentData.fullName || "-", 285, 430)
 
-.text(studentData.phoneNumber || "-", 250, 470)
+.text(studentData.fatherName || "-", 285, 475)
 
-.text(studentData.email || "-", 250, 530)
+.text(studentData.dob || "-", 285, 520)
 
-.text(studentData.gender || "-", 250, 590)
+.text(studentData.mobileNumber || "-", 285, 565)
 
-.text(studentData.dob || "-", 250, 415);
+.text(studentData.email || "-", 285, 610)
 
-    // MEMBERSHIP SECTION
+.text(studentData.gender || "-", 285, 655);
 
-    
+// ACADEMIC INFORMATION
 
-    // MEMBERSHIP VALUES
+doc
+.fillColor("#111111")
+.fontSize(13)
+.font("Helvetica-Bold")
 
-    doc
-    .fillColor("#222222")
-    .fontSize(13)
-    .font("Helvetica")
+.text(studentData.course || "-", 470, 430)
 
-    .text(
+.text(studentData.address || "-", 470, 475)
 
-        studentData.membershipType || "-",
+.text(studentData.city || "-", 470, 520)
 
-        250,
+.text(studentData.state || "-", 470, 565)
 
-        545
+.text(studentData.pincode || "-", 470, 610);
 
-    )
+// TOP INFO
 
-    .text(
+const receiptId =
+"JHRC-" + Date.now().toString().slice(-6);
 
-        studentData.course || "-",
+const referenceCode =
+"JHRC" + Math.floor(Math.random() * 99999);
 
-        250,
+doc
+.fillColor("#b8860b")
+.fontSize(15)
+.font("Helvetica-Bold")
 
-        585
+.text(receiptId, 90, 285)
 
-    )
+.text(
+    studentData.admissionDate || "-",
+    235,
+    285
+)
 
-    .text(
+.text(referenceCode, 470, 285);
 
-        studentData.membershipStartDate || "-",
+// FOOTER
 
-        250,
+doc
+.fillColor("#0b1c48")
+.fontSize(12)
+.font("Helvetica-Bold")
+.text(
 
-        625
+    "THANK YOU FOR CHOOSING JHRC LIBRARY",
 
-    );
+    110,
 
-    // EMERGENCY CONTACT
+    790,
 
-  
+    {
 
-    // EMERGENCY VALUES
+        width: 380,
+        align: "center"
 
-    doc
-    .fillColor("#222222")
-    .fontSize(13)
-    .font("Helvetica")
+    }
 
-    .text(
-
-        studentData.guardianName || "-",
-
-        250,
-
-        705
-
-    )
-
-    .text(
-
-        studentData.emergencyContact || "-",
-
-        250,
-
-        735
-
-    );
-
+);
     // FOOTER
 
     doc
