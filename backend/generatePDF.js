@@ -164,31 +164,31 @@ doc
 
 // FOOTER
 
-doc
-.fillColor("#0b1c48")
-.fontSize(12)
-.font("Helvetica-Bold")
-.text(
-
-    "THANK YOU FOR CHOOSING JHRC LIBRARY",
-
-    110,
-
-    790,
-
-    {
-
-        width: 380,
-        align: "center"
-
-    }
-
-);
     // FOOTER
 
+    doc
+    .fillColor("#0b1c48")
+    .fontSize(12)
+    .font("Helvetica-Bold")
+    .text(
 
+        "THANK YOU FOR CHOOSING JHRC LIBRARY",
 
+        110,
+
+        790,
+
+        {
+
+            width: 380,
+            align: "center"
+
+        }
+
+    );
+
+    doc.end();
 
 }
-doc.end();
+
 module.exports = generatePDF;
