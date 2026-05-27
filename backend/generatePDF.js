@@ -107,37 +107,37 @@ function generatePDF(studentData, filePath) {
 
 doc
 .fillColor("#111111")
-.fontSize(11)
+.fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 285, 415)
+.text(studentData.fullName || "-", 285, 392)
 
-.text(studentData.fatherName || "-", 285, 458)
+.text(studentData.fatherName || "-", 285, 430)
 
-.text(studentData.dob || "-", 285, 501)
+.text(studentData.dob || "-", 285, 468)
 
-.text(studentData.mobileNumber || "-", 285, 544)
+.text(studentData.mobileNumber || "-", 285, 506)
 
-.text(studentData.email || "-", 285, 587)
+.text(studentData.email || "-", 285, 544)
 
-.text(studentData.gender || "-", 285, 630);
+.text(studentData.gender || "-", 285, 582);
 
 // ACADEMIC INFORMATION
 
 doc
 .fillColor("#111111")
-.fontSize(11)
+.fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.course || "-", 500, 415)
+.text(studentData.course || "-", 505, 392)
 
-.text(studentData.address || "-", 500, 458)
+.text(studentData.address || "-", 505, 430)
 
-.text(studentData.city || "-", 500, 501)
+.text(studentData.city || "-", 505, 468)
 
-.text(studentData.state || "-", 500, 544)
+.text(studentData.state || "-", 505, 506)
 
-.text(studentData.pincode || "-", 500, 587);
+.text(studentData.pincode || "-", 505, 544);
 
 // TOP INFORMATION
 
@@ -152,15 +152,15 @@ doc
 .fontSize(14)
 .font("Helvetica-Bold")
 
-.text(receiptId, 70, 285)
+.text(receiptId, 70, 250)
 
 .text(
     studentData.admissionDate || "-",
     220,
-    285
+    250
 )
 
-.text(referenceCode, 470, 285);
+.text(referenceCode, 470, 250);
 
 // FOOTER
 
