@@ -94,117 +94,31 @@ function generatePDF(studentData, filePath) {
 
     // HEADER TEXT
 
-    doc
-    .fillColor("#0b1c48")
-    .fontSize(36)
-    .font("Helvetica-Bold")
-    .text(
-
-        "JHRC LIBRARY",
-
-        170,
-
-        45
-
-    );
-
-    doc
-    .fillColor("#b8860b")
-    .fontSize(18)
-    .font("Helvetica")
-    .text(
-
-        "A Perfect Place For Study & Success",
-
-        175,
-
-        92
-
-    );
+   
 
     // RECEIPT TITLE
 
-    doc
-    .fillColor("white")
-    .fontSize(20)
-    .font("Helvetica-Bold")
-    .text(
-
-        "ADMISSION CONFIRMATION RECEIPT",
-
-        135,
-
-        145,
-
-        {
-
-            width: 330,
-            align: "center"
-
-        }
-
-    );
-
+   
     // STUDENT INFORMATION
 
 
 
     // VALUES
 
-    doc
-    .fillColor("#222222")
-    .fontSize(13)
-    .font("Helvetica")
+   doc
+.fillColor("#111111")
+.fontSize(13)
+.font("Helvetica-Bold")
 
-    .text(
+.text(studentData.fullName || "-", 250, 355)
 
-        studentData.fullName || "-",
+.text(studentData.phoneNumber || "-", 250, 470)
 
-        250,
+.text(studentData.email || "-", 250, 530)
 
-        285
+.text(studentData.gender || "-", 250, 590)
 
-    )
-
-    .text(
-
-        studentData.phoneNumber || "-",
-
-        250,
-
-        325
-
-    )
-
-    .text(
-
-        studentData.email || "-",
-
-        250,
-
-        365
-
-    )
-
-    .text(
-
-        studentData.gender || "-",
-
-        250,
-
-        405
-
-    )
-
-    .text(
-
-        studentData.dob || "-",
-
-        250,
-
-        445
-
-    );
+.text(studentData.dob || "-", 250, 415);
 
     // MEMBERSHIP SECTION
 
