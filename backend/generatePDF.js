@@ -110,17 +110,17 @@ doc
 .fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 285, 392)
+.text(studentData.fullName || "-", 325, 398)
 
-.text(studentData.fatherName || "-", 285, 430)
+.text(studentData.fatherName || "-", 325, 436)
 
-.text(studentData.dob || "-", 285, 468)
+.text(studentData.dob || "-", 325, 474)
 
-.text(studentData.mobileNumber || "-", 285, 506)
+.text(studentData.mobileNumber || "-", 325, 512)
 
-.text(studentData.email || "-", 285, 544)
+.text(studentData.email || "-", 325, 550)
 
-.text(studentData.gender || "-", 285, 582);
+.text(studentData.gender || "-", 325, 588);
 
 // ACADEMIC INFORMATION
 
@@ -129,15 +129,15 @@ doc
 .fontSize(10)
 .font("Helvetica-Bold")
 
-.text(studentData.course || "-", 505, 392)
+.text(studentData.course || "-", 520, 398)
 
-.text(studentData.address || "-", 505, 430)
+.text(studentData.address || "-", 520, 436)
 
-.text(studentData.city || "-", 505, 468)
+.text(studentData.city || "-", 520, 474)
 
-.text(studentData.state || "-", 505, 506)
+.text(studentData.state || "-", 520, 512)
 
-.text(studentData.pincode || "-", 505, 544);
+.text(studentData.pincode || "-", 520, 550);
 
 // TOP INFORMATION
 
