@@ -103,44 +103,43 @@ function generatePDF(studentData, filePath) {
 
 
 
-    // VALUES
-// STUDENT INFORMATION
+   // STUDENT INFORMATION
 
 doc
 .fillColor("#111111")
-.fontSize(13)
+.fontSize(12)
 .font("Helvetica-Bold")
 
-.text(studentData.fullName || "-", 285, 430)
+.text(studentData.fullName || "-", 240, 420)
 
-.text(studentData.fatherName || "-", 285, 475)
+.text(studentData.fatherName || "-", 240, 458)
 
-.text(studentData.dob || "-", 285, 520)
+.text(studentData.dob || "-", 240, 495)
 
-.text(studentData.mobileNumber || "-", 285, 565)
+.text(studentData.mobileNumber || "-", 240, 533)
 
-.text(studentData.email || "-", 285, 610)
+.text(studentData.email || "-", 240, 570)
 
-.text(studentData.gender || "-", 285, 655);
+.text(studentData.gender || "-", 240, 607);
 
 // ACADEMIC INFORMATION
 
 doc
 .fillColor("#111111")
-.fontSize(13)
+.fontSize(12)
 .font("Helvetica-Bold")
 
-.text(studentData.course || "-", 470, 430)
+.text(studentData.course || "-", 455, 420)
 
-.text(studentData.address || "-", 470, 475)
+.text(studentData.address || "-", 455, 458)
 
-.text(studentData.city || "-", 470, 520)
+.text(studentData.city || "-", 455, 495)
 
-.text(studentData.state || "-", 470, 565)
+.text(studentData.state || "-", 455, 533)
 
-.text(studentData.pincode || "-", 470, 610);
+.text(studentData.pincode || "-", 455, 570);
 
-// TOP INFO
+// TOP INFORMATION
 
 const receiptId =
 "JHRC-" + Date.now().toString().slice(-6);
@@ -150,14 +149,14 @@ const referenceCode =
 
 doc
 .fillColor("#b8860b")
-.fontSize(15)
+.fontSize(14)
 .font("Helvetica-Bold")
 
-.text(receiptId, 90, 285)
+.text(receiptId, 70, 285)
 
 .text(
     studentData.admissionDate || "-",
-    235,
+    220,
     285
 )
 
