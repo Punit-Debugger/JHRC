@@ -41,27 +41,41 @@ const receiptBg =
 path.join(
     __dirname,
     "assets",
-    "receipt-bg.png"
+    "receipt-bg.jpg"
 );
     doc.rect(0, 0, 595, 100)
     .fill("#002b5b");
 
+    try {
+
     doc.image(
 
-        logoPath,
+        receiptBg,
 
-        40,
+        0,
 
-        15,
+        0,
 
         {
 
-            width: 70
+            width: 595,
+            height: 842
 
         }
 
     );
 
+    console.log("Background image loaded");
+
+}
+
+catch(error){
+
+    console.log("IMAGE ERROR:");
+
+    console.log(error);
+
+}
     doc
     .fillColor("white")
     .fontSize(28)
