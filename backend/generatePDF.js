@@ -147,60 +147,7 @@ function generatePDF(studentData, filePath) {
 
     // STUDENT INFORMATION
 
-    doc
-    .fillColor("#111111")
-    .fontSize(14)
-    .font("Helvetica-Bold")
 
-    .text(
-
-        "Full Name",
-
-        70,
-
-        285
-
-    )
-
-    .text(
-
-        "Phone Number",
-
-        70,
-
-        325
-
-    )
-
-    .text(
-
-        "Email Address",
-
-        70,
-
-        365
-
-    )
-
-    .text(
-
-        "Gender",
-
-        70,
-
-        405
-
-    )
-
-    .text(
-
-        "Date of Birth",
-
-        70,
-
-        445
-
-    );
 
     // VALUES
 
@@ -261,40 +208,7 @@ function generatePDF(studentData, filePath) {
 
     // MEMBERSHIP SECTION
 
-    doc
-    .fillColor("#111111")
-    .fontSize(14)
-    .font("Helvetica-Bold")
-
-    .text(
-
-        "Membership Type",
-
-        70,
-
-        545
-
-    )
-
-    .text(
-
-        "Course / Department",
-
-        70,
-
-        585
-
-    )
-
-    .text(
-
-        "Start Date",
-
-        70,
-
-        625
-
-    );
+    
 
     // MEMBERSHIP VALUES
 
@@ -335,30 +249,7 @@ function generatePDF(studentData, filePath) {
 
     // EMERGENCY CONTACT
 
-    doc
-    .fillColor("#111111")
-    .fontSize(14)
-    .font("Helvetica-Bold")
-
-    .text(
-
-        "Guardian Name",
-
-        70,
-
-        705
-
-    )
-
-    .text(
-
-        "Emergency Contact",
-
-        70,
-
-        735
-
-    );
+  
 
     // EMERGENCY VALUES
 
