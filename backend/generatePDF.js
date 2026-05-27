@@ -190,5 +190,5 @@ doc
 
 
 }
-
+doc.end();
 module.exports = generatePDF;
