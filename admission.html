@@ -953,15 +953,31 @@
                 </div>
 
                 <button
-                    type="submit"
-                    class="submit-btn"
-                >
+    type="submit"
+    class="submit-btn"
+    id="submitBtn"
+>
 
-                    <i class="fa-regular fa-paper-plane"></i>
+    <span id="btnText">
 
-                    Submit & Get PDF Receipt
+        <i class="fa-regular fa-paper-plane"></i>
 
-                </button>
+        Submit & Get PDF Receipt
+
+    </span>
+
+    <span
+        id="loader"
+        style="display:none;"
+    >
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Submitting...
+
+    </span>
+
+</button>
 
                 <div class="secure">
 
@@ -1007,6 +1023,21 @@ document
 
     const formData = new FormData(form);
 
+    const submitBtn =
+    document.getElementById("submitBtn");
+
+    const btnText =
+    document.getElementById("btnText");
+
+    const loader =
+    document.getElementById("loader");
+
+    submitBtn.disabled = true;
+
+    btnText.style.display = "none";
+
+    loader.style.display = "inline-block";
+
     try{
 
         const response = await fetch(
@@ -1046,6 +1077,16 @@ document
         console.error(error);
 
         alert("Server Error");
+
+    }
+
+    finally{
+
+        submitBtn.disabled = false;
+
+        btnText.style.display = "inline-block";
+
+        loader.style.display = "none";
 
     }
 
