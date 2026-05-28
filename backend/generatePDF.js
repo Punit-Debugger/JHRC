@@ -166,7 +166,7 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-const leftX = 210;
+const leftX = 155;
 const startY = 345;
 const rowGap = 34;
 
@@ -180,7 +180,7 @@ drawFittedText(
     studentData.fullName || "-",
     leftX,
     startY + 5,
-    120
+    170
 );
 
 drawFittedText(
@@ -188,7 +188,7 @@ drawFittedText(
     (studentData.fatherName || "-").trim(),
     leftX,
     395,
-        120
+        170
 
 );
 
@@ -197,7 +197,7 @@ drawFittedText(
     studentData.dob || "-",
     leftX,
     startY + 70,
-        120
+        170
 
 );
 
@@ -206,7 +206,7 @@ drawFittedText(
     studentData.mobileNumber || "-",
     leftX,
     startY + 115,
-        120
+        170
 
 );
 
@@ -215,7 +215,7 @@ drawFittedText(
     studentData.email || "-",
     leftX,
     495,
-        120
+        170
 
 );
 
@@ -224,7 +224,7 @@ drawFittedText(
     studentData.gender || "-",
     leftX,
     533,
-    120
+    170
 );
 
 // ACADEMIC INFORMATION
