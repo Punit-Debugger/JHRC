@@ -124,17 +124,45 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-.text(studentData.fullName || "-", leftX, startY)
+.text(studentData.fullName || "-", leftX, startY + 5, 
+    {
+    width: 160,
+    ellipsis: true
+}
+)
 
-.text(studentData.fatherName || "-", leftX, startY + rowGap)
+.text(studentData.fatherName || "-", leftX, startY + 40,
+    {
+    width: 160,
+    ellipsis: true
+}
+)
 
-.text(studentData.dob || "-", leftX, startY + rowGap * 2)
+.text(studentData.dob || "-", leftX, startY + 70,
+    {
+    width: 160,
+    ellipsis: true
+}
+)
 
-.text(studentData.mobileNumber || "-", leftX, startY + rowGap * 3)
+.text(studentData.mobileNumber || "-", leftX, startY + 115,
+    {
+    width: 160,
+    ellipsis: true
+}
+)
 
-.text(studentData.email || "-", leftX, 505)
+.text(
+    studentData.email || "-",
+    leftX,
+    495,
+    {
+        width: 160,
+        ellipsis: true
+    }
+)
 
-.text(studentData.gender || "-", leftX, 545);
+.text(studentData.gender || "-", leftX, 533);
 
 // ACADEMIC INFORMATION
 
@@ -149,25 +177,43 @@ doc
 
 .text(studentData.course || "-", rightX, rightStartY, {
 
-    width: 120
+
+    width: 110,
+    ellipsis: true
 
 })
 
 .text(studentData.address || "-", rightX, rightStartY + rightRowGap, {
 
-    width: 120
+  width: 110,
+    ellipsis: true
 
 })
 
-.text(studentData.city || "-", rightX, 432)
+.text(studentData.city || "-", rightX, 432,
+    {
+        width: 110,
+    ellipsis: true
+    }
+)
 
 // STATE slightly upward
 
-.text(studentData.state || "-", rightX, 478)
+.text(studentData.state || "-", rightX, 478,
+    {
+        width: 110,
+    ellipsis: true
+    }
+)
 
 // PINCODE slightly upward
 
-.text(studentData.pincode || "-", rightX, 515);
+.text(studentData.pincode || "-", rightX, 515,
+    {
+        width: 110,
+    ellipsis: true
+    }
+);
 
 // TOP INFORMATION
 
