@@ -10,7 +10,7 @@ function drawFittedText(
     y,
     maxWidth,
     maxFontSize = 11,
-    minFontSize = 7
+    minFontSize = 6
 ) {
 
     text = String(text || "-").trim();
@@ -19,6 +19,7 @@ function drawFittedText(
 
     doc.fontSize(fontSize);
 
+    // SHRINK FONT
     while (
         doc.widthOfString(text) > maxWidth &&
         fontSize > minFontSize
@@ -27,6 +28,15 @@ function drawFittedText(
         fontSize--;
 
         doc.fontSize(fontSize);
+
+    }
+
+    // IF STILL TOO LONG → CUT TEXT
+    while (
+        doc.widthOfString(text) > maxWidth
+    ) {
+
+        text = text.slice(0, -1);
 
     }
 
