@@ -166,7 +166,7 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-const leftX = 155;
+const leftX = 115;
 const startY = 345;
 const rowGap = 34;
 
