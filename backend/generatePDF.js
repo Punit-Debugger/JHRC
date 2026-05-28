@@ -133,9 +133,10 @@ doc
 .text(
     (studentData.fatherName || "-").trim(),
     leftX,
-    startY + 40,
+    395,
     {
         width: 160,
+        height: 15,
         ellipsis: true,
         lineBreak: false
     }
