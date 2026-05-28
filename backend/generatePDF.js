@@ -166,7 +166,7 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-const leftX = 175;
+const leftX = 210;
 const startY = 345;
 const rowGap = 34;
 
@@ -180,7 +180,7 @@ drawFittedText(
     studentData.fullName || "-",
     leftX,
     startY + 5,
-    160
+    120
 );
 
 drawFittedText(
@@ -188,7 +188,8 @@ drawFittedText(
     (studentData.fatherName || "-").trim(),
     leftX,
     395,
-    160
+        120
+
 );
 
 drawFittedText(
@@ -196,7 +197,8 @@ drawFittedText(
     studentData.dob || "-",
     leftX,
     startY + 70,
-    160
+        120
+
 );
 
 drawFittedText(
@@ -204,7 +206,8 @@ drawFittedText(
     studentData.mobileNumber || "-",
     leftX,
     startY + 115,
-    160
+        120
+
 );
 
 drawFittedText(
@@ -212,7 +215,8 @@ drawFittedText(
     studentData.email || "-",
     leftX,
     495,
-    160
+        120
+
 );
 
 drawFittedText(
@@ -220,12 +224,12 @@ drawFittedText(
     studentData.gender || "-",
     leftX,
     533,
-    160
+    120
 );
 
 // ACADEMIC INFORMATION
 
-const rightX = 470;
+const rightX = 500;
 const rightStartY = 345;
 const rightRowGap = 47;
 
@@ -239,7 +243,7 @@ drawFittedText(
     studentData.course || "-",
     rightX,
     rightStartY,
-    110
+    90
 );
 
 drawFittedText(
@@ -247,7 +251,7 @@ drawFittedText(
     studentData.address || "-",
     rightX,
     rightStartY + rightRowGap,
-    110
+    90
 );
 
 drawFittedText(
@@ -255,7 +259,7 @@ drawFittedText(
     studentData.city || "-",
     rightX,
     432,
-    110
+    90
 );
 
 drawFittedText(
@@ -263,7 +267,7 @@ drawFittedText(
     studentData.state || "-",
     rightX,
     478,
-    110
+    90
 );
 
 drawFittedText(
@@ -271,7 +275,7 @@ drawFittedText(
     studentData.pincode || "-",
     rightX,
     515,
-    110
+    90
 );
 
 // TOP INFORMATION
