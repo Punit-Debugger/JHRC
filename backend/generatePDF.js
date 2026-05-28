@@ -8,15 +8,19 @@ function drawFittedText(
     text,
     x,
     y,
-    width,
+    maxWidth,
     maxFontSize = 11,
     minFontSize = 7
 ) {
 
+    text = String(text || "-").trim();
+
     let fontSize = maxFontSize;
 
+    doc.fontSize(fontSize);
+
     while (
-        doc.widthOfString(text) > width &&
+        doc.widthOfString(text) > maxWidth &&
         fontSize > minFontSize
     ) {
 
@@ -26,20 +30,18 @@ function drawFittedText(
 
     }
 
-    doc.fontSize(fontSize);
-
-    doc.text(
+    doc
+    .fontSize(fontSize)
+    .text(
         text,
         x,
         y,
         {
-            width: width,
-            align: "center",
             lineBreak: false
         }
     );
 
-    // RESET FONT SIZE
+    // RESET
     doc.fontSize(maxFontSize);
 
 }
