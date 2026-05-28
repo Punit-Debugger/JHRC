@@ -15,8 +15,6 @@ function drawFittedText(
 
     let fontSize = maxFontSize;
 
-    doc.fontSize(fontSize);
-
     while (
         doc.widthOfString(text) > width &&
         fontSize > minFontSize
@@ -28,6 +26,8 @@ function drawFittedText(
 
     }
 
+    doc.fontSize(fontSize);
+
     doc.text(
         text,
         x,
@@ -38,6 +38,9 @@ function drawFittedText(
             lineBreak: false
         }
     );
+
+    // RESET FONT SIZE
+    doc.fontSize(maxFontSize);
 
 }
 function generatePDF(studentData, filePath) {
