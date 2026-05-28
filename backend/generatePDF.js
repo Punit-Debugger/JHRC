@@ -40,7 +40,7 @@ function generatePDF(studentData, filePath) {
 const doc = new PDFDocument({
 
     size: "A4",
-    margin: 0
+    margin: 40
 
 });
 
