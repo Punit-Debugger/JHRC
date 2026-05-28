@@ -130,13 +130,17 @@ doc
     ellipsis: true
 }
 )
-
-.text(studentData.fatherName || "-", leftX, startY + 40,
+.text(
+    (studentData.fatherName || "-").trim(),
+    leftX,
+    startY + 40,
     {
-    width: 160,
-    ellipsis: true
-}
+        width: 160,
+        ellipsis: true,
+        lineBreak: false
+    }
 )
+
 
 .text(studentData.dob || "-", leftX, startY + 70,
     {
