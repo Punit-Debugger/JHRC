@@ -3,7 +3,43 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
 const path = require("path");
+function drawFittedText(
+    doc,
+    text,
+    x,
+    y,
+    width,
+    maxFontSize = 11,
+    minFontSize = 7
+) {
 
+    let fontSize = maxFontSize;
+
+    doc.fontSize(fontSize);
+
+    while (
+        doc.widthOfString(text) > width &&
+        fontSize > minFontSize
+    ) {
+
+        fontSize--;
+
+        doc.fontSize(fontSize);
+
+    }
+
+    doc.text(
+        text,
+        x,
+        y,
+        {
+            width: width,
+            align: "center",
+            lineBreak: false
+        }
+    );
+
+}
 function generatePDF(studentData, filePath) {
 
     const doc = new PDFDocument({
@@ -124,50 +160,53 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-.text(studentData.fullName || "-", leftX, startY + 5, 
-    {
-    width: 160,
-    ellipsis: true
-}
-)
-.text(
+drawFittedText(
+    doc,
+    studentData.fullName || "-",
+    leftX,
+    startY + 5,
+    160
+);
+
+drawFittedText(
+    doc,
     (studentData.fatherName || "-").trim(),
     leftX,
     395,
-    {
-        width: 160,
-        height: 15,
-        ellipsis: true,
-        lineBreak: false
-    }
-)
+    160
+);
 
+drawFittedText(
+    doc,
+    studentData.dob || "-",
+    leftX,
+    startY + 70,
+    160
+);
 
-.text(studentData.dob || "-", leftX, startY + 70,
-    {
-    width: 160,
-    ellipsis: true
-}
-)
+drawFittedText(
+    doc,
+    studentData.mobileNumber || "-",
+    leftX,
+    startY + 115,
+    160
+);
 
-.text(studentData.mobileNumber || "-", leftX, startY + 115,
-    {
-    width: 160,
-    ellipsis: true
-}
-)
-
-.text(
+drawFittedText(
+    doc,
     studentData.email || "-",
     leftX,
     495,
-    {
-        width: 160,
-        ellipsis: true
-    }
-)
+    160
+);
 
-.text(studentData.gender || "-", leftX, 533);
+drawFittedText(
+    doc,
+    studentData.gender || "-",
+    leftX,
+    533,
+    160
+);
 
 // ACADEMIC INFORMATION
 
@@ -180,44 +219,44 @@ doc
 .fontSize(10)
 .font(fontPath)
 
-.text(studentData.course || "-", rightX, rightStartY, {
+drawFittedText(
+    doc,
+    studentData.course || "-",
+    rightX,
+    rightStartY,
+    110
+);
 
+drawFittedText(
+    doc,
+    studentData.address || "-",
+    rightX,
+    rightStartY + rightRowGap,
+    110
+);
 
-    width: 110,
-    ellipsis: true
+drawFittedText(
+    doc,
+    studentData.city || "-",
+    rightX,
+    432,
+    110
+);
 
-})
+drawFittedText(
+    doc,
+    studentData.state || "-",
+    rightX,
+    478,
+    110
+);
 
-.text(studentData.address || "-", rightX, rightStartY + rightRowGap, {
-
-  width: 110,
-    ellipsis: true
-
-})
-
-.text(studentData.city || "-", rightX, 432,
-    {
-        width: 110,
-    ellipsis: true
-    }
-)
-
-// STATE slightly upward
-
-.text(studentData.state || "-", rightX, 478,
-    {
-        width: 110,
-    ellipsis: true
-    }
-)
-
-// PINCODE slightly upward
-
-.text(studentData.pincode || "-", rightX, 515,
-    {
-        width: 110,
-    ellipsis: true
-    }
+drawFittedText(
+    doc,
+    studentData.pincode || "-",
+    rightX,
+    515,
+    110
 );
 
 // TOP INFORMATION
