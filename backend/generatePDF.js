@@ -132,9 +132,9 @@ doc
 
 .text(studentData.mobileNumber || "-", leftX, startY + rowGap * 3)
 
-.text(studentData.email || "-", leftX, startY + rowGap * 4)
+.text(studentData.email || "-", leftX, 505)
 
-.text(studentData.gender || "-", leftX, startY + rowGap * 5);
+.text(studentData.gender || "-", leftX, 545);
 
 // ACADEMIC INFORMATION
 
@@ -167,7 +167,7 @@ doc
 
 // PINCODE slightly upward
 
-.text(studentData.pincode || "-", rightX, 525);
+.text(studentData.pincode || "-", rightX, 515);
 
 // TOP INFORMATION
 
