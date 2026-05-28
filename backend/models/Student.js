@@ -28,8 +28,12 @@ const studentSchema = new mongoose.Schema({
 
     aadhaarFront: String,
 
-    aadhaarBack: String
+    aadhaarBack: String,
 
+    status: {
+    type: String,
+    default: "Pending"
+}
 });
 
 module.exports =
