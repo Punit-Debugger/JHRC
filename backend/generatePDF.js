@@ -3,42 +3,18 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
 const path = require("path");
-function drawFittedText(
+
+function drawParagraphText(
     doc,
     text,
     x,
     y,
-    maxWidth,
-    maxFontSize = 11,
-    minFontSize = 6
+    width,
+    height,
+    fontSize = 10
 ) {
 
     text = String(text || "-").trim();
-
-    let fontSize = maxFontSize;
-
-    doc.fontSize(fontSize);
-
-    // SHRINK FONT
-    while (
-        doc.widthOfString(text) > maxWidth &&
-        fontSize > minFontSize
-    ) {
-
-        fontSize--;
-
-        doc.fontSize(fontSize);
-
-    }
-
-    // IF STILL TOO LONG → CUT TEXT
-    while (
-        doc.widthOfString(text) > maxWidth
-    ) {
-
-        text = text.slice(0, -1);
-
-    }
 
     doc
     .fontSize(fontSize)
@@ -47,30 +23,33 @@ function drawFittedText(
         x,
         y,
         {
-            lineBreak: false
+            width: width,
+            height: height,
+            align: "left",
+            lineGap: 2
         }
     );
 
-    // RESET
-    doc.fontSize(maxFontSize);
-
 }
+
 function generatePDF(studentData, filePath) {
 
     const doc = new PDFDocument({
 
         size: "A4",
-        margin: 40
+        margin: 0
 
     });
 
     doc.pipe(fs.createWriteStream(filePath));
-const fontPath =
-path.join(
-    __dirname,
-    "assets",
-    "Poppins-Regular.ttf"
-);
+
+    const fontPath =
+    path.join(
+        __dirname,
+        "assets",
+        "Poppins-Regular.ttf"
+    );
+
     const logoPath =
     path.join(
         __dirname,
@@ -85,7 +64,7 @@ path.join(
         "receipt-bg.jpg"
     );
 
-    // PREMIUM BACKGROUND
+    // BACKGROUND
 
     try {
 
@@ -106,13 +85,9 @@ path.join(
 
         );
 
-        console.log("Background loaded");
-
     }
 
     catch(error){
-
-        console.log("BACKGROUND IMAGE ERROR:");
 
         console.log(error);
 
@@ -142,170 +117,156 @@ path.join(
 
     catch(error){
 
-        console.log("LOGO ERROR:");
-
         console.log(error);
 
     }
 
-    // HEADER TEXT
+    doc
+    .fillColor("#111111")
+    .font(fontPath);
 
-   
+    // =========================
+    // TOP SECTION
+    // =========================
 
-    // RECEIPT TITLE
+    const receiptId =
+    "JHRC-" + Date.now().toString().slice(-6);
 
-   
-    // STUDENT INFORMATION
+    const referenceCode =
+    "JHRC" + Math.floor(Math.random() * 99999);
 
+    doc
+    .fillColor("#b8860b")
+    .fontSize(12)
 
+    .text(receiptId, 55, 252)
 
-   // STUDENT INFORMATION
+    .text(
+        studentData.admissionDate || "-",
+        195,
+        252
+    )
 
-doc
-.fillColor("#111111")
-.fontSize(10)
-.font(fontPath)
+    .text(
+        referenceCode,
+        470,
+        252
+    );
 
-const leftX = 115;
-const startY = 345;
-const rowGap = 34;
+    // =========================
+    // LEFT SECTION
+    // =========================
 
-doc
-.fillColor("#111111")
-.fontSize(10)
-.font(fontPath)
+    doc.fillColor("#111111");
 
-drawFittedText(
-    doc,
-    studentData.fullName || "-",
-    leftX,
-    startY + 5,
-    170
-);
+    drawParagraphText(
+        doc,
+        studentData.fullName,
+        125,
+        345,
+        180,
+        38
+    );
 
-drawFittedText(
-    doc,
-    (studentData.fatherName || "-").trim(),
-    leftX,
-    395,
-        170
+    drawParagraphText(
+        doc,
+        studentData.fatherName,
+        125,
+        390,
+        180,
+        38
+    );
 
-);
+    drawParagraphText(
+        doc,
+        studentData.dob,
+        125,
+        435,
+        180,
+        38
+    );
 
-drawFittedText(
-    doc,
-    studentData.dob || "-",
-    leftX,
-    startY + 70,
-        170
+    drawParagraphText(
+        doc,
+        studentData.mobileNumber,
+        125,
+        480,
+        180,
+        38
+    );
 
-);
+    drawParagraphText(
+        doc,
+        studentData.email,
+        125,
+        525,
+        180,
+        55,
+        9
+    );
 
-drawFittedText(
-    doc,
-    studentData.mobileNumber || "-",
-    leftX,
-    startY + 115,
-        170
+    drawParagraphText(
+        doc,
+        studentData.gender,
+        125,
+        585,
+        180,
+        38
+    );
 
-);
+    // =========================
+    // RIGHT SECTION
+    // =========================
 
-drawFittedText(
-    doc,
-    studentData.email || "-",
-    leftX,
-    495,
-        170
+    drawParagraphText(
+        doc,
+        studentData.course,
+        420,
+        345,
+        120,
+        38
+    );
 
-);
+    drawParagraphText(
+        doc,
+        studentData.address,
+        420,
+        390,
+        120,
+        70,
+        9
+    );
 
-drawFittedText(
-    doc,
-    studentData.gender || "-",
-    leftX,
-    533,
-    170
-);
+    drawParagraphText(
+        doc,
+        studentData.city,
+        420,
+        465,
+        120,
+        38
+    );
 
-// ACADEMIC INFORMATION
+    drawParagraphText(
+        doc,
+        studentData.state,
+        420,
+        510,
+        120,
+        38
+    );
 
-const rightX = 500;
-const rightStartY = 345;
-const rightRowGap = 47;
+    drawParagraphText(
+        doc,
+        studentData.pincode,
+        420,
+        555,
+        120,
+        38
+    );
 
-doc
-.fillColor("#111111")
-.fontSize(10)
-.font(fontPath)
-
-drawFittedText(
-    doc,
-    studentData.course || "-",
-    rightX,
-    rightStartY,
-    90
-);
-
-drawFittedText(
-    doc,
-    studentData.address || "-",
-    rightX,
-    rightStartY + rightRowGap,
-    90
-);
-
-drawFittedText(
-    doc,
-    studentData.city || "-",
-    rightX,
-    432,
-    90
-);
-
-drawFittedText(
-    doc,
-    studentData.state || "-",
-    rightX,
-    478,
-    90
-);
-
-drawFittedText(
-    doc,
-    studentData.pincode || "-",
-    rightX,
-    515,
-    90
-);
-
-// TOP INFORMATION
-
-const receiptId =
-"JHRC-" + Date.now().toString().slice(-6);
-
-const referenceCode =
-"JHRC" + Math.floor(Math.random() * 99999);
-
-doc
-.fillColor("#b8860b")
-.fontSize(14)
-.font(fontPath)
-
-.text(receiptId, 50, 250)
-
-.text(
-    studentData.admissionDate || "-",
-    190,
-    250
-)
-
-.text(referenceCode, 470, 250);
-
-// FOOTER
-
-    // FOOTER
-
-    
+    // =========================
+    // END PDF
+    // =========================
 
     doc.end();
 
