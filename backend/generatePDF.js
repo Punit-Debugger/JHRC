@@ -17,21 +17,19 @@ function drawParagraphText(
     text = String(text || "-").trim();
 
     doc
-    .fontSize(fontSize)
-    .text(
-        text,
-        x,
-        y,
-        {
-            width: width,
-            height: height,
-            align: "left",
-            lineGap: 2
-        }
-    );
-
+        .fontSize(fontSize)
+        .text(
+            text,
+            x,
+            y,
+            {
+                width: width,
+                height: height,
+                align: "left",
+                lineGap: 1
+            }
+        );
 }
-
 function generatePDF(studentData, filePath) {
 
     const doc = new PDFDocument({
@@ -154,115 +152,119 @@ function generatePDF(studentData, filePath) {
     );
 
     // =========================
-    // LEFT SECTION
-    // =========================
+// LEFT SECTION
+// =========================
 
-    doc.fillColor("#111111");
+doc.fillColor("#111111");
 
-    drawParagraphText(
-        doc,
-        studentData.fullName,
-        125,
-        345,
-        180,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.fullName,
+    125,
+    352,
+    220,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.fatherName,
-        125,
-        390,
-        180,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.fatherName,
+    125,
+    397,
+    220,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.dob,
-        125,
-        435,
-        180,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.dob,
+    125,
+    442,
+    180,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.mobileNumber,
-        125,
-        480,
-        180,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.mobileNumber,
+    125,
+    487,
+    180,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.email,
-        125,
-        525,
-        180,
-        55,
-        9
-    );
+drawParagraphText(
+    doc,
+    studentData.email,
+    125,
+    532,
+    220,
+    55,
+    9
+);
 
-    drawParagraphText(
-        doc,
-        studentData.gender,
-        125,
-        585,
-        180,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.gender,
+    125,
+    592,
+    180,
+    38
+);
 
     // =========================
     // RIGHT SECTION
     // =========================
 
-    drawParagraphText(
-        doc,
-        studentData.course,
-        420,
-        345,
-        120,
-        38
-    );
+   // =========================
+// RIGHT SECTION
+// =========================
 
-    drawParagraphText(
-        doc,
-        studentData.address,
-        420,
-        390,
-        120,
-        70,
-        9
-    );
+drawParagraphText(
+    doc,
+    studentData.course,
+    420,
+    352,
+    120,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.city,
-        420,
-        465,
-        120,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.address,
+    420,
+    397,
+    120,
+    75,
+    9
+);
 
-    drawParagraphText(
-        doc,
-        studentData.state,
-        420,
-        510,
-        120,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.city,
+    420,
+    472,
+    120,
+    38
+);
 
-    drawParagraphText(
-        doc,
-        studentData.pincode,
-        420,
-        555,
-        120,
-        38
-    );
+drawParagraphText(
+    doc,
+    studentData.state,
+    420,
+    517,
+    120,
+    38
+);
+
+drawParagraphText(
+    doc,
+    studentData.pincode,
+    420,
+    562,
+    120,
+    38
+);
 
     // =========================
     // END PDF
