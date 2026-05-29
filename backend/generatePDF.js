@@ -13,7 +13,6 @@ function drawParagraphText(
     height,
     fontSize = 10
 ) {
-
     text = String(text || "-").trim();
 
     doc
@@ -23,8 +22,8 @@ function drawParagraphText(
             x,
             y,
             {
-                width: width,
-                height: height,
+                width,
+                height,
                 align: "left",
                 lineGap: 1
             }
@@ -160,26 +159,28 @@ doc.fillColor("#111111");
 drawParagraphText(
     doc,
     studentData.fullName,
-    125,
-    352,
-    220,
-    38
+    135,
+    365,
+    250,
+    42,
+    9
 );
 
 drawParagraphText(
     doc,
     studentData.fatherName,
-    125,
-    397,
-    220,
-    38
+    135,
+    403,
+    250,
+    42,
+    9
 );
 
 drawParagraphText(
     doc,
     studentData.dob,
-    125,
-    442,
+    135,
+    445,
     180,
     38
 );
@@ -187,7 +188,7 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.mobileNumber,
-    125,
+    135,
     487,
     180,
     38
@@ -196,8 +197,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.email,
-    125,
-    532,
+    135,
+    528,
     220,
     55,
     9
@@ -206,8 +207,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.gender,
-    125,
-    592,
+    135,
+    565,
     180,
     38
 );

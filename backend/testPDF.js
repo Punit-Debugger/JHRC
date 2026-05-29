@@ -4,9 +4,9 @@ const generatePDF = require("./generatePDF");
 
 const sampleData = {
 
-    fullName: "Punit Kumar Agrawal",
+    fullName: "Punit Kumar Agrawal Singhal",
 
-    fatherName: "Rajesh Agrawal",
+    fatherName: "Rajesh Kumar Agrawal Singhal",
 
     dob: "2001-05-14",
 
