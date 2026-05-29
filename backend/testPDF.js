@@ -18,11 +18,7 @@ const sampleData = {
 
     course: "Student",
 
-    address: "Ward No. 8",
-
-    city: "Forbesganj",
-
-    state: "Bihar",
+    address: "Ward No 12, Near Hanuman Mandir, Mithapur Bazar, Mithapur,Jamnagar, Gujarat", city: "Forbesganj",state: "Bihar",
 
     pincode: "854318",
 

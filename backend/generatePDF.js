@@ -3,7 +3,28 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 
 const path = require("path");
-
+function drawAddressText(
+    doc,
+    text,
+    x,
+    y,
+    width,
+    height
+) {
+    doc
+        .fontSize(9)
+        .text(
+            String(text || "-").trim(),
+            x,
+            y,
+            {
+                width,
+                height,
+                align: "left",
+                lineGap: 5
+            }
+        );
+}
 function drawParagraphText(
     doc,
     text,
@@ -98,7 +119,7 @@ function generatePDF(studentData, filePath) {
 
             logoPath,
 
-            55,
+            60,
 
             35,
 
@@ -224,27 +245,27 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.course,
-    420,
-    352,
+    400,
+    370,
     120,
     38
 );
-
-drawParagraphText(
+drawAddressText(
     doc,
     studentData.address,
-    420,
-    397,
-    120,
+     400,
+    410,
+    180,
     75,
     9
 );
 
+
 drawParagraphText(
     doc,
     studentData.city,
-    420,
-    472,
+    400,
+    488,
     120,
     38
 );
@@ -252,8 +273,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.state,
-    420,
-    517,
+    400,
+    530,
     120,
     38
 );
@@ -261,8 +282,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.pincode,
-    420,
-    562,
+    400,
+    570,
     120,
     38
 );
