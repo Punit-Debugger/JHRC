@@ -59,7 +59,10 @@ function generatePDF(studentData, filePath) {
 
     });
 
-    doc.pipe(fs.createWriteStream(filePath));
+    const stream =
+fs.createWriteStream(filePath);
+
+doc.pipe(stream);
 
     const fontPath =
     path.join(
@@ -297,7 +300,19 @@ drawParagraphText(
     // END PDF
     // =========================
 
+    return new Promise((resolve, reject) => {
+
+    stream.on("finish", () => {
+
+        resolve();
+
+    });
+
+    stream.on("error", reject);
+
     doc.end();
+
+});
 
 }
 

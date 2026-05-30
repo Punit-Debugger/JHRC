@@ -356,10 +356,12 @@ path.join(
     fileName
 );
 
-generatePDF(
+await generatePDF(
     student.toObject(),
     filePath
 );
+
+res.download(filePath);
 
 setTimeout(() => {
 
