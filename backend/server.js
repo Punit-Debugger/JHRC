@@ -203,64 +203,48 @@ app.get("/students", async (req, res) => {
 });
 
 app.delete("/student/:id", async (req, res) => {
-const fileName =
-`${Date.now()}.pdf`;
 
-const filePath =
-path.join(
-    __dirname,
-    "pdfs",
-    fileName
-);
+    try {
 
-generatePDF(
-    student,
-    filePath
-);
-   try {
+        await Student.findByIdAndDelete(
+            req.params.id
+        );
 
-    const student = await Student.findById(
-        req.params.id
-    );
+        res.send(
+            "Student Deleted Successfully"
+        );
 
-    const fileName =
-    `${Date.now()}.pdf`;
+    }
 
-    const filePath =
-    path.join(
-        __dirname,
-        "pdfs",
-        fileName
-    );
+    catch(error){
 
-    generatePDF(
-        student.toObject(),
-        filePath
-    );
-student.status = "Approved";
+        console.log(error);
 
-await student.save();
-    res.send(
-        "PDF Generation Started"
-    );
+        res
+        .status(500)
+        .send("Error Deleting Student");
 
-}
+    }
 
-const PORT =
-process.env.PORT || 5000;
+});
+
 app.put("/student/approve/:id", async (req, res) => {
 
-    try {const student = await Student.findById(
-    req.params.id
-);
+    try {
 
-student.status = "Approved";
+        const student = await Student.findById(
+            req.params.id
+        );
 
-await student.save();
+        student.status = "Approved";
 
-res.send(
-    "Student Approved Successfully"
-);}
+        await student.save();
+
+        res.send(
+            "Student Approved Successfully"
+        );
+
+    }
 
     catch(error){
 
@@ -273,6 +257,10 @@ res.send(
     }
 
 });
+
+const PORT =
+process.env.PORT || 5000;
+
 app.listen(PORT, () => {
 
     console.log(
