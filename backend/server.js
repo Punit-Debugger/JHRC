@@ -319,7 +319,7 @@ app.get("/status/:receiptId", async (req, res) => {
 
         console.log(error);
 
-        
+
         res
         .status(500)
         .send("Server Error");
@@ -346,7 +346,26 @@ app.get("/download/:receiptId", async (req, res) => {
 
         }
 
-        res.send("Download Route Working");
+        const fileName =
+`${Date.now()}.pdf`;
+
+const filePath =
+path.join(
+    __dirname,
+    "pdfs",
+    fileName
+);
+
+generatePDF(
+    student.toObject(),
+    filePath
+);
+
+setTimeout(() => {
+
+    res.download(filePath);
+
+}, 2000);
 
     }
 
