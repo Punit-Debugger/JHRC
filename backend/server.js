@@ -15,7 +15,8 @@ const app = express();
 const generatePDF = require("./generatePDF");
 
 
-
+const PORT =
+process.env.PORT || 5000;
 app.use(cors());
 
 app.use(express.json());
@@ -177,6 +178,44 @@ res.json({
     }
 
 );
+app.get("/status/:receiptId", async (req, res) => {
+
+    try {
+
+        const student =
+        await Student.findOne({
+
+            receiptId:
+            req.params.receiptId
+
+        });
+
+        if(!student){
+
+            return res
+            .status(404)
+            .json({
+                message:
+                "Invalid Receipt ID"
+            });
+
+        }
+
+        res.json(student);
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res
+        .status(500)
+        .send("Server Error");
+
+    }
+
+});
 
 app.get("/students", async (req, res) => {
 
