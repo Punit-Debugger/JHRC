@@ -217,29 +217,32 @@ generatePDF(
     student,
     filePath
 );
-    try {
+   try {
 
-        await Student.findByIdAndDelete(
-            req.params.id
-        );
+    const student = await Student.findById(
+        req.params.id
+    );
 
-        res.send(
-            "Student Deleted Successfully"
-        );
+    const fileName =
+    `${Date.now()}.pdf`;
 
-    }
+    const filePath =
+    path.join(
+        __dirname,
+        "pdfs",
+        fileName
+    );
 
-    catch(error){
+    generatePDF(
+        student.toObject(),
+        filePath
+    );
 
-        console.log(error);
+    res.send(
+        "PDF Generation Started"
+    );
 
-        res
-        .status(500)
-        .send("Error Deleting Student");
-
-    }
-
-});
+}
 
 const PORT =
 process.env.PORT || 5000;
