@@ -230,7 +230,37 @@ app.delete("/student/:id", async (req, res) => {
 
 const PORT =
 process.env.PORT || 5000;
+app.put("/student/approve/:id", async (req, res) => {
 
+    try {
+
+        await Student.findByIdAndUpdate(
+
+            req.params.id,
+
+            {
+                status: "Approved"
+            }
+
+        );
+
+        res.send(
+            "Student Approved Successfully"
+        );
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res
+        .status(500)
+        .send("Error Approving Student");
+
+    }
+
+});
 app.listen(PORT, () => {
 
     console.log(
