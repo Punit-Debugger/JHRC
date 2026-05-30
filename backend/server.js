@@ -326,6 +326,40 @@ app.get("/status/:receiptId", async (req, res) => {
     }
 
 });
+app.get("/download/:receiptId", async (req, res) => {
+
+    try {
+
+        const student = await Student.findOne({
+
+            receiptId:
+            req.params.receiptId
+
+        });
+
+        if(!student){
+
+            return res
+            .status(404)
+            .send("Student Not Found");
+
+        }
+
+        res.send("Download Route Working");
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res
+        .status(500)
+        .send("Server Error");
+
+    }
+
+});
 const PORT =
 process.env.PORT || 5000;
 
