@@ -402,13 +402,18 @@
                             <td>${student.status || "Pending"}</td>
                        <td>
 
-    <button
-    onclick="approveStudent('${student._id}')"
-    >
+   ${student.status !== "Approved"
+? `
+<button
+onclick="approveStudent('${student._id}')"
+>
 
-        Approve
+    Approve
 
-    </button>
+</button>
+`
+: ""
+}
 
     <button
     class="delete-btn"
