@@ -234,15 +234,9 @@ app.put("/student/approve/:id", async (req, res) => {
 
     try {
 
-        await Student.findByIdAndUpdate(
-
-            req.params.id,
-
-            {
-                status: "Approved"
-            }
-
-        );
+     const student = await Student.findById(
+    req.params.id
+);
 
         res.send(
             "Student Approved Successfully"

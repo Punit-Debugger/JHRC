@@ -402,9 +402,25 @@
 
                         </td>
                             <td>${student.status || "Pending"}</td>
-                            <td>
-                                Not Available
-                            </td>
+                           <td>
+
+    ${
+        student.pdfUrl
+        ?
+
+        `<a
+            href="${student.pdfUrl}"
+            target="_blank"
+        >
+            Download PDF
+        </a>`
+
+        :
+
+        "Not Available"
+    }
+
+</td>
                        <td>
 
    ${student.status !== "Approved"
