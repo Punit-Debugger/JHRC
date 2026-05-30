@@ -400,18 +400,26 @@
 
                         </td>
                             <td>${student.status || "Pending"}</td>
-                        <td>
+                       <td>
 
-                            <button 
-                            class="delete-btn"
-                            onclick="deleteStudent('${student._id}')"
-                            >
+    <button
+    onclick="approveStudent('${student._id}')"
+    >
 
-                                Delete
+        Approve
 
-                            </button>
+    </button>
 
-                        </td>
+    <button
+    class="delete-btn"
+    onclick="deleteStudent('${student._id}')"
+    >
+
+        Delete
+
+    </button>
+
+</td>
 
                     </tr>
 
@@ -422,7 +430,13 @@
             });
 
         }
+async function approveStudent(id){
 
+    alert(
+        "Approve button clicked: " + id
+    );
+
+}
         function searchStudents(){
 
             const searchValue =
