@@ -405,19 +405,22 @@
                            <td>
 
     ${
-        student.pdfUrl
-        ?
+       student.status === "Approved"
 
-        `<a
-            href="https://jhrc.onrender.com/download/${student.receiptId}"
-            target="_blank"
-        >
-            Download PDF
-        </a>`
+?
 
-        :
+`<a
+href="https://jhrc.onrender.com/download/${student.receiptId}"
+target="_blank"
+>
 
-        "Not Available"
+Download PDF
+
+</a>`
+
+:
+
+"Not Available"
     }
 
 </td>
