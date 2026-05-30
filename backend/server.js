@@ -132,7 +132,8 @@ app.post(
 res.json({
 
     message:
-    "Admission Submitted Successfully. Pending Verification."
+    "Admission Submitted Successfully. Pending Verification.",
+    receiptId
 
 });
         }

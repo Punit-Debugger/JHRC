@@ -1175,7 +1175,15 @@ document
         const result = await response.json();
 if(response.ok){
 
-    alert(result.message);
+   alert(
+
+`${result.message}
+
+Receipt ID: ${result.receiptId}
+
+Please save this Receipt ID for future status checks.`
+
+);
 
     if(result.pdfUrl){
 
