@@ -119,9 +119,9 @@ function generatePDF(studentData, filePath) {
 
             logoPath,
 
-            60,
+            57,
 
-            35,
+            40,
 
             {
 

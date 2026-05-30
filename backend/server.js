@@ -130,7 +130,7 @@ app.post(
 
             await newStudent.save();
 
-            const fileName =
+            /* const fileName =
             `${Date.now()}.pdf`;
 
             const filePath =
@@ -156,17 +156,13 @@ catch(error){
     console.log(error);
 
 }
-
-            res.json({
+*/
+res.json({
 
     message:
-    "Admission Saved Successfully",
-
-   pdfUrl:
-`https://jhrc.onrender.com/pdfs/${fileName}`
+    "Admission Submitted Successfully. Pending Verification."
 
 });
-
         }
 
         catch (error) {
