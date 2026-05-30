@@ -159,11 +159,11 @@ doc.pipe(stream);
     .fillColor("#b8860b")
     .fontSize(12)
 
-    .text(receiptId, 55, 252)
+    .text(receiptId, 50, 252)
 
     .text(
         studentData.admissionDate || "-",
-        195,
+        190,
         252
     )
 
