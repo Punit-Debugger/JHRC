@@ -203,7 +203,20 @@ app.get("/students", async (req, res) => {
 });
 
 app.delete("/student/:id", async (req, res) => {
+const fileName =
+`${Date.now()}.pdf`;
 
+const filePath =
+path.join(
+    __dirname,
+    "pdfs",
+    fileName
+);
+
+generatePDF(
+    student,
+    filePath
+);
     try {
 
         await Student.findByIdAndDelete(
