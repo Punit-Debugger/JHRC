@@ -432,9 +432,35 @@
         }
 async function approveStudent(id){
 
-    alert(
-        "Approve button clicked: " + id
-    );
+    try{
+
+        const response = await fetch(
+
+            `https://jhrc.onrender.com/student/approve/${id}`,
+
+            {
+
+                method: "PUT"
+
+            }
+
+        );
+
+        const result = await response.text();
+
+        alert(result);
+
+        location.reload();
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert("Error Approving Student");
+
+    }
 
 }
         function searchStudents(){
