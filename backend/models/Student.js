@@ -34,6 +34,7 @@ const studentSchema = new mongoose.Schema({
     type: String,
     default: "Pending"
 }
+
 });
 
 module.exports =
