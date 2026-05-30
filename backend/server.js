@@ -248,10 +248,16 @@ app.put("/student/approve/:id", async (req, res) => {
     );
     console.log(student);
     console.log(Object.keys(student.toObject()));
-   
+   console.log("Saving status:", student.status);
 
     await student.save();
+const updatedStudent =
+await Student.findById(req.params.id);
 
+console.log(
+    "Database status:",
+    updatedStudent.status
+);
     res.send(
         "Student Approved Successfully"
     );
