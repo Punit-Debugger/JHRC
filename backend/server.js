@@ -124,7 +124,7 @@ app.post(
                 : ""
 
             };
-
+            console.log(req.body);
             const newStudent =
             new Student(studentData);
 
