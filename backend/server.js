@@ -13,7 +13,7 @@ const multer = require("multer");
 const Student = require("./models/Student");
 const app = express();
 const generatePDF = require("./generatePDF");
-
+app.use(cors());
 
 
 
