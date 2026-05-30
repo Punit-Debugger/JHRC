@@ -232,19 +232,37 @@ app.put("/student/approve/:id", async (req, res) => {
 
     try {
 
-        const student = await Student.findById(
-            req.params.id
-        );
+    const student = await Student.findById(
+        req.params.id
+    );
 
-        student.status = "Approved";
+    const fileName =
+    `${Date.now()}.pdf`;
 
-        await student.save();
+    const filePath =
+    path.join(
+        __dirname,
+        "pdfs",
+        fileName
+    );
 
-        res.send(
-            "Student Approved Successfully"
-        );
+    generatePDF(
+        student.toObject(),
+        filePath
+    );
 
-    }
+    student.status = "Approved";
+
+    student.pdfUrl =
+    `https://jhrc.onrender.com/pdfs/${fileName}`;
+
+    await student.save();
+
+    res.send(
+        "Student Approved Successfully"
+    );
+
+}
 
     catch(error){
 
