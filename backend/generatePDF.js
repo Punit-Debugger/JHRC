@@ -179,7 +179,7 @@ doc.fillColor("#111111");
 
 drawParagraphText(
     doc,
-    studentData.fullName,
+    `${studentData.firstName || ""} ${studentData.lastName || ""}`,
     135,
     365,
     250,
@@ -189,7 +189,7 @@ drawParagraphText(
 
 drawParagraphText(
     doc,
-    studentData.fatherName,
+    studentData.guardian,
     135,
     403,
     250,
@@ -208,7 +208,7 @@ drawParagraphText(
 
 drawParagraphText(
     doc,
-    studentData.mobileNumber,
+    studentData.phone,
     135,
     487,
     180,
