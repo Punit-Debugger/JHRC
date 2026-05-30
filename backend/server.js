@@ -248,25 +248,7 @@ app.put("/student/approve/:id", async (req, res) => {
     );
     console.log(student);
     console.log(Object.keys(student.toObject()));
-    const fileName =
-    `${Date.now()}.pdf`;
-
-    const filePath =
-    path.join(
-        __dirname,
-        "pdfs",
-        fileName
-    );
-
-    generatePDF(
-        student.toObject(),
-        filePath
-    );
-
-    student.status = "Approved";
-
-    student.pdfUrl =
-    `https://jhrc.onrender.com/pdfs/${fileName}`;
+   
 
     await student.save();
 
