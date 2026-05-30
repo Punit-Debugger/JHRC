@@ -112,7 +112,7 @@ app.post(
             const studentData = {
 
                 ...req.body,
-
+                receiptId,
                 aadhaarFront:
                 req.files.aadhaarFront
                 ? req.files.aadhaarFront[0].filename
@@ -127,7 +127,7 @@ app.post(
             console.log(req.body);
             const newStudent =
             new Student(studentData);
-
+            const receiptId = "JHRC-" + Date.now().toString().slice(-6);
             await newStudent.save();
 
             /* const fileName =

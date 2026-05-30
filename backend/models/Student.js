@@ -43,7 +43,8 @@ const studentSchema = new mongoose.Schema({
     type: String,
     default: "Pending",
     },
-    pdfUrl: String
+    pdfUrl: String,
+    receiptId: String,
 
 
 
