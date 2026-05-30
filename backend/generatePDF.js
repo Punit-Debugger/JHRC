@@ -252,16 +252,16 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.course,
-    390,
-    370,
+    393,
+    376,
     120,
     38
 );
 drawAddressText(
     doc,
     studentData.address,
-     390,
-    410,
+     393,
+    418,
     180,
     75,
     9
@@ -271,8 +271,8 @@ drawAddressText(
 drawParagraphText(
     doc,
     studentData.city,
-    390,
-    488,
+    393,
+    498,
     120,
     38
 );
@@ -280,8 +280,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.state,
-    390,
-    530,
+    393,
+    538,
     120,
     38
 );
@@ -289,8 +289,8 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.pincode,
-    390,
-    570,
+    393,
+    580,
     120,
     38
 );
