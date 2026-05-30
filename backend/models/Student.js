@@ -45,7 +45,7 @@ const studentSchema = new mongoose.Schema({
     },
     pdfUrl: String,
     receiptId: String,
-
+    admissionDate: String,
 
 
 });
