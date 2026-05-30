@@ -30,6 +30,15 @@ const studentSchema = new mongoose.Schema({
 
     aadhaarBack: String,
 
+    fatherName: String,
+
+    mobileNumber: String,
+
+    city: String,
+
+    state: String,
+
+    pincode: String,
     status: {
     type: String,
     default: "Pending",
