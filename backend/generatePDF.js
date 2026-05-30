@@ -122,7 +122,7 @@ doc.pipe(stream);
 
             logoPath,
 
-            57,
+            55,
 
             40,
 
