@@ -150,11 +150,10 @@ doc.pipe(stream);
     // TOP SECTION
     // =========================
 
-    const receiptId =
+    const receiptId = studentData.receiptId || "-";
     "JHRC-" + Date.now().toString().slice(-6);
 
-    const referenceCode =
-    "JHRC" + Math.floor(Math.random() * 99999);
+    const referenceCode = ""; 
 
     doc
     .fillColor("#b8860b")
