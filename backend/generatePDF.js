@@ -184,7 +184,7 @@ drawParagraphText(
     studentData.fullName ||
     `${studentData.firstName || ""} ${studentData.lastName || ""}`,
     135,
-    365,
+    370,
     250,
     42,
     9
@@ -196,7 +196,7 @@ drawParagraphText(
     studentData.guardian ||
     "-",
     135,
-    403,
+    407,
     250,
     42,
     9
