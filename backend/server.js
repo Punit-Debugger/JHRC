@@ -237,7 +237,9 @@ generatePDF(
         student.toObject(),
         filePath
     );
+student.status = "Approved";
 
+await student.save();
     res.send(
         "PDF Generation Started"
     );
@@ -248,17 +250,17 @@ const PORT =
 process.env.PORT || 5000;
 app.put("/student/approve/:id", async (req, res) => {
 
-    try {
-
-     const student = await Student.findById(
+    try {const student = await Student.findById(
     req.params.id
 );
-        console.log(student);
-        res.send(
-            "Student Found Successfully"
-        );
 
-    }
+student.status = "Approved";
+
+await student.save();
+
+res.send(
+    "Student Approved Successfully"
+);}
 
     catch(error){
 
