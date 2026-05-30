@@ -184,7 +184,7 @@ drawParagraphText(
     studentData.fullName ||
     `${studentData.firstName || ""} ${studentData.lastName || ""}`,
     135,
-    370,
+    378,
     250,
     42,
     9
@@ -196,7 +196,7 @@ drawParagraphText(
     studentData.guardian ||
     "-",
     135,
-    407,
+    415,
     250,
     42,
     9
@@ -206,7 +206,7 @@ drawParagraphText(
     doc,
     studentData.dob,
     135,
-    445,
+    455,
     180,
     38
 );
@@ -217,7 +217,7 @@ drawParagraphText(
     studentData.phone ||
     "-",
     135,
-    487,
+    497,
     180,
     38
 );
@@ -226,7 +226,7 @@ drawParagraphText(
     doc,
     studentData.email,
     135,
-    528,
+    538,
     220,
     55,
     9
@@ -236,7 +236,7 @@ drawParagraphText(
     doc,
     studentData.gender,
     135,
-    565,
+    580,
     180,
     38
 );
