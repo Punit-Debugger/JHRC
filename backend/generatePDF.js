@@ -164,7 +164,7 @@ doc.pipe(stream);
     .text(
         studentData.admissionDate || "-",
         180,
-        252
+        260
     )
 
     .text(
