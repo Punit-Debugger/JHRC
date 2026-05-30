@@ -33,10 +33,10 @@ const studentSchema = new mongoose.Schema({
     status: {
     type: String,
     default: "Pending",
-
+    },
     pdfUrl: String
-    
-}
+
+
 
 });
 
