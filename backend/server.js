@@ -236,6 +236,7 @@ app.put("/student/approve/:id", async (req, res) => {
         req.params.id
     );
     console.log(student);
+    console.log(Object.keys(student.toObject()));
     const fileName =
     `${Date.now()}.pdf`;
 
