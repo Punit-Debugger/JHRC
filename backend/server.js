@@ -237,9 +237,9 @@ app.put("/student/approve/:id", async (req, res) => {
      const student = await Student.findById(
     req.params.id
 );
-
+        console.log(student);
         res.send(
-            "Student Approved Successfully"
+            "Student Found Successfully"
         );
 
     }
