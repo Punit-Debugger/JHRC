@@ -108,7 +108,7 @@ app.post(
     async (req, res) => {
 
         try {
-
+            const receiptId = "JHRC-" + Date.now().toString().slice(-6);
             const studentData = {
 
                 ...req.body,
