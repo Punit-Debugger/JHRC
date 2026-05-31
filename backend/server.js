@@ -14,10 +14,14 @@ const Student = require("./models/Student");
 const app = express();
 const generatePDF = require("./generatePDF");
 const cloudinary = require("./cloudinary");
-
+console.log(
+    "Cloudinary uploader:",
+    cloudinary.uploader
+);
 const {
     CloudinaryStorage
 } = require("multer-storage-cloudinary");
+
 app.use(cors());
 
 
@@ -118,12 +122,12 @@ app.post(
                 receiptId,
                 aadhaarFront:
                 req.files.aadhaarFront
-                ? req.files.aadhaarFront[0].filename
+                ? req.files.aadhaarFront[0].path
                 : "",
 
                 aadhaarBack:
                 req.files.aadhaarBack
-                ? req.files.aadhaarBack[0].filename
+                ? req.files.aadhaarBack[0].path
                 : ""
 
             };
