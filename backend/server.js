@@ -13,6 +13,11 @@ const multer = require("multer");
 const Student = require("./models/Student");
 const app = express();
 const generatePDF = require("./generatePDF");
+const cloudinary = require("./cloudinary");
+
+const {
+    CloudinaryStorage
+} = require("multer-storage-cloudinary");
 app.use(cors());
 
 
@@ -48,23 +53,22 @@ mongoose.connect(process.env.MONGO_URI)
 
 });
 
-const storage = multer.diskStorage({
+const storage =
+new CloudinaryStorage({
 
-    destination: function(req, file, cb){
+    cloudinary: cloudinary,
 
-        cb(
-            null,
-            path.join(__dirname, "uploads")
-        );
+    params: {
 
-    },
+        folder: "jhrc-aadhaar",
 
-    filename: function(req, file, cb){
-__dirname
-        const uniqueName =
-        Date.now() + "-" + file.originalname;
+        allowed_formats: [
 
-        cb(null, uniqueName);
+            "jpg",
+            "jpeg",
+            "png"
+
+        ]
 
     }
 
@@ -72,7 +76,7 @@ __dirname
 
 const upload = multer({
 
-    storage: storage
+    storage
 
 });
 
