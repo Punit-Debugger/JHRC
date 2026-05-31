@@ -1,8 +1,6 @@
-const cloudinaryLib = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-console.log("Cloudinary version loaded");
-
-cloudinaryLib.v2.config({
+cloudinary.config({
 
     cloud_name:
     process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,14 +13,4 @@ cloudinaryLib.v2.config({
 
 });
 
-console.log(
-    "Cloud name:",
-    process.env.CLOUDINARY_CLOUD_NAME
-);
-
-console.log(
-    "Uploader exists:",
-    !!cloudinaryLib.v2.uploader
-);
-
-module.exports = cloudinaryLib.v2;
+module.exports = cloudinary;
