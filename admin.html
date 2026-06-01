@@ -355,11 +355,11 @@
 
             students.forEach(student => {
 
-                const aadhaarFrontUrl =
-                href="${student.aadhaarFront}";
+               const aadhaarFrontUrl =
+student.aadhaarFront || "#";
 
-                const aadhaarBackUrl =
-                href="${student.aadhaarBack}";
+const aadhaarBackUrl =
+student.aadhaarBack || "#";
 
                 const row = `
 
