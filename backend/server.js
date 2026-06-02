@@ -381,7 +381,22 @@ setTimeout(() => {
 });
 const PORT =
 process.env.PORT || 5000;
+app.get('/export-students', async (req, res) => {
+  try {
+    const students = await Student.find().lean();
 
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=students.json'
+    );
+
+    res.setHeader('Content-Type', 'application/json');
+
+    res.send(JSON.stringify(students, null, 2));
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 app.listen(PORT, () => {
 
     console.log(
