@@ -148,7 +148,7 @@ res.json({
 });
         }
 
-        catch (error) { console.error("ADMISSION ERROR");
+        catch (error) {  console.error("========== ADMISSION ERROR ==========");
   console.error(error);
   console.error(error.stack);
 
