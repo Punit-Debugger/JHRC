@@ -70,7 +70,8 @@ new CloudinaryStorage({
 
             "jpg",
             "jpeg",
-            "png"
+            "png",
+            "pdf"
 
         ]
 
