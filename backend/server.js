@@ -209,15 +209,14 @@ app.get("/students", async (req, res) => {
 
     }
 
-    catch (error) {
+    catch (error) { console.error("ADMISSION ERROR:");
+  console.error(error);
+  console.error(error.stack);
 
-        console.log(error);
-
-        res
-        .status(500)
-        .send("Error Fetching Students");
-
-    }
+  res.status(500).json({
+    message: error.message,
+    stack: error.stack
+  });}
 
 });
 
@@ -379,8 +378,8 @@ setTimeout(() => {
     }
 
 });
-const PORT =
-process.env.PORT || 5000;
+const PORT = 
+process.env.PORT || 5000; 
 app.get('/export-students', async (req, res) => {
   try {
     const students = await Student.find().lean();

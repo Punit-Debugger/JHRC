@@ -13,6 +13,17 @@ const studentSchema = new mongoose.Schema({
     gender: String,
 
     address: String,
+    
+    seatNumber: {
+  type: Number,
+  default: null
+},
+
+shifts: {
+  type: [String],
+  default: []
+},
+
 
     membershipType: String,
 
