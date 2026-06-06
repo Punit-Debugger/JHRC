@@ -120,20 +120,22 @@ app.post(
 
                 ...req.body,
                 receiptId,
-                aadhaarFront:
-                req.files.aadhaarFront
-                ? req.files.aadhaarFront[0].path
-                : "",
+               aadhaarFront:
+req.files?.aadhaarFront?.[0]?.path || "",
 
-                aadhaarBack:
-                req.files.aadhaarBack
-                ? req.files.aadhaarBack[0].path
-                : ""
+aadhaarBack:
+req.files?.aadhaarBack?.[0]?.path || "",
 
             };
             console.log(req.body);
+            console.log("FILES:", req.files);
+console.log("BODY:", req.body);
+console.log("STUDENT DATA:", studentData);
             const newStudent =
             new Student(studentData);
+            console.log("REQ.FILES =", req.files);
+console.log("AADHAAR FRONT =", req.files?.aadhaarFront);
+console.log("AADHAAR BACK =", req.files?.aadhaarBack);
             await newStudent.save();
 
            
@@ -146,15 +148,13 @@ res.json({
 });
         }
 
-        catch (error) {
+        catch (error) { console.error("ADMISSION ERROR");
+  console.error(error);
+  console.error(error.stack);
 
-            console.log(error);
-
-            res
-            .status(500)
-            .send("Error Saving Admission");
-
-        }
+  res.status(500).json({
+    error: error.message
+  });}
 
     }
 
