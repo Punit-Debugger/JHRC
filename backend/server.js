@@ -90,7 +90,74 @@ app.get("/", (req, res) => {
     res.send("Library Backend Running Successfully");
 
 });
+app.get("/available-seats", async (req, res) => {
 
+    try {
+
+        let requestedShifts = req.query.shifts;
+
+        if (!requestedShifts) {
+            return res.json({
+                availableSeats: Array.from(
+                    { length: 65 },
+                    (_, i) => i + 1
+                )
+            });
+        }
+
+        requestedShifts = requestedShifts.split(",");
+
+        if (requestedShifts.includes("FULL")) {
+            requestedShifts = ["S1","S2","S3","S4"];
+        }
+
+        const students = await Student.find();
+
+        const occupiedSeats = [];
+
+        students.forEach(student => {
+
+            let studentShifts = student.shifts || [];
+
+            if (studentShifts.includes("FULL")) {
+                studentShifts = ["S1","S2","S3","S4"];
+            }
+
+            const conflict = requestedShifts.some(
+                shift => studentShifts.includes(shift)
+            );
+
+            if (conflict) {
+                occupiedSeats.push(student.seatNumber);
+            }
+
+        });
+
+        const availableSeats = [];
+
+        for (let i = 1; i <= 65; i++) {
+
+            if (!occupiedSeats.includes(i)) {
+                availableSeats.push(i);
+            }
+
+        }
+
+        res.json({ availableSeats });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+
+    }
+
+});
 app.post(
 
     "/admission",
@@ -132,6 +199,58 @@ req.files?.aadhaarBack?.[0]?.path || "",
             console.log("FILES:", req.files);
 console.log("BODY:", req.body);
 console.log("STUDENT DATA:", studentData);
+const requestedSeat =
+Number(studentData.seatNumber);
+
+let requestedShifts =
+studentData.shifts || [];
+
+if (!Array.isArray(requestedShifts)) {
+    requestedShifts = [requestedShifts];
+}
+
+if (requestedShifts.includes("FULL")) {
+    requestedShifts =
+    ["S1","S2","S3","S4"];
+}
+
+const existingStudents =
+await Student.find({
+    seatNumber: requestedSeat
+});
+
+for (const student of existingStudents) {
+
+    let occupiedShifts =
+    student.shifts || [];
+
+    if (
+        occupiedShifts.includes("FULL")
+    ) {
+
+        occupiedShifts =
+        ["S1","S2","S3","S4"];
+
+    }
+
+    const conflict =
+    requestedShifts.some(
+        shift =>
+        occupiedShifts.includes(shift)
+    );
+
+    if (conflict) {
+
+        return res.status(400).json({
+
+            message:
+            `Seat ${requestedSeat} is already occupied for selected shift(s).`
+
+        });
+
+    }
+
+}
             const newStudent =
             new Student(studentData);
             console.log("REQ.FILES =", req.files);
