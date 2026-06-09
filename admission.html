@@ -914,7 +914,82 @@ select option {
     </div>
 
 </div>
-                       
+                 <div class="section-title">
+
+    <i class="fa-solid fa-chair"></i>
+
+    Seat & Shift Selection
+
+</div>
+
+<div class="form-grid">
+
+    <div class="input-group">
+
+        <label>
+            Select Shift(s)
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="shifts"
+                value="S1"
+            >
+            S1
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="shifts"
+                value="S2"
+            >
+            S2
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="shifts"
+                value="S3"
+            >
+            S3
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                name="shifts"
+                value="S4"
+            >
+            S4
+        </label>
+
+    </div>
+
+    <div class="input-group">
+
+        <label>
+            Seat Number
+        </label>
+
+        <select
+            id="seatNumber"
+            name="seatNumber"
+            class="dark-select"
+        >
+
+            <option value="">
+                Select Seat
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+  
 
                 <div class="section-title">
 
@@ -1130,7 +1205,85 @@ select option {
 
     </footer>
 <script>
+const seatDropdown =
+document.getElementById("seatNumber");
 
+async function loadSeats() {
+
+    try {
+
+       const selectedShifts = [];
+
+document
+.querySelectorAll(
+'input[name="shifts"]:checked'
+)
+.forEach(cb => {
+
+    selectedShifts.push(
+        cb.value
+    );
+
+});
+
+if(selectedShifts.length === 0){
+
+    seatDropdown.innerHTML =
+    '<option value="">Select Shift First</option>';
+
+    return;
+
+}
+
+const response =
+await fetch(
+
+`https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
+
+);
+
+        const data =
+        await response.json();
+
+        seatDropdown.innerHTML =
+        '<option value="">Select Seat</option>';
+
+        data.availableSeats.forEach(
+        seat => {
+
+            seatDropdown.innerHTML +=
+            `<option value="${seat}">
+                Seat ${seat}
+            </option>`;
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(
+            "Seat loading error:",
+            error
+        );
+
+    }
+
+}
+
+loadSeats();
+document
+.querySelectorAll(
+'input[name="shifts"]'
+)
+.forEach(cb => {
+
+    cb.addEventListener(
+        "change",
+        loadSeats
+    );
+
+});
 document
 .getElementById("admissionForm")
 .addEventListener("submit", async function(e){
