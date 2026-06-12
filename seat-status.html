@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>JHRC Library Seat Status</title>
+
+    <style>
+
+        body{
+            background:#111;
+            color:white;
+            font-family:Arial,sans-serif;
+            padding:20px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            border:1px solid #444;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#222;
+        }
+
+        tr:nth-child(even){
+            background:#1a1a1a;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>JHRC Library Seat Status</h1>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Seat Number</th>
+
+                <th>Student Name</th>
+
+                <th>Shift(s)</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="seatTable">
+
+        </tbody>
+
+    </table>
+
+<script>
+
+async function loadSeats(){
+
+    try{
+
+        const response =
+        await fetch(
+        "/api/seat-status"
+        );
+
+        const students =
+        await response.json();
+
+        const table =
+        document.getElementById(
+        "seatTable"
+        );
+        console.log("TABLE =", table);
+console.log("STUDENTS =", students);
+        table.innerHTML = "";
+
+        students.forEach(student => {
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${student.seatNumber || "-"}
+                </td>
+
+                <td>
+                    ${student.fullName || "-"}
+                </td>
+
+                <td>
+                    ${
+                        Array.isArray(student.shifts)
+                        ? student.shifts.join(", ")
+                        : student.shifts || "-"
+                    }
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+        "Unable to load seat status"
+        );
+
+    }
+
+}
+
+loadSeats();
+
+</script>
+
+</body>
+</html>
