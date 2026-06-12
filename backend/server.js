@@ -251,6 +251,9 @@ for (const student of existingStudents) {
     }
 
 }
+console.log("BODY =", req.body);
+console.log("SEAT =", req.body.seatNumber);
+console.log("SHIFTS =", req.body.shifts);
             const newStudent =
             new Student(studentData);
             console.log("REQ.FILES =", req.files);
