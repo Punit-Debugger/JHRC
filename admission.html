@@ -965,6 +965,14 @@ select option {
             >
             S4
         </label>
+        <label>
+    <input
+        type="checkbox"
+        name="shifts"
+        value="FULL"
+    >
+    Full Shift
+</label>
 
     </div>
 
@@ -1216,13 +1224,46 @@ async function loadSeats() {
 
 document
 .querySelectorAll(
-'input[name="shifts"]:checked'
+'input[name="shifts"]'
 )
 .forEach(cb => {
 
-    selectedShifts.push(
-        cb.value
-    );
+    cb.addEventListener("change", () => {
+
+        const fullShift =
+        document.querySelector(
+        'input[value="FULL"]'
+        );
+
+        const normalShifts =
+        document.querySelectorAll(
+        'input[name="shifts"]:not([value="FULL"])'
+        );
+
+        if(fullShift.checked){
+
+            normalShifts.forEach(
+            shift => {
+
+                shift.checked = false;
+                shift.disabled = true;
+
+            });
+
+        } else {
+
+            normalShifts.forEach(
+            shift => {
+
+                shift.disabled = false;
+
+            });
+
+        }
+
+        loadSeats();
+
+    });
 
 });
 
