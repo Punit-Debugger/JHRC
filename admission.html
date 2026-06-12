@@ -1291,7 +1291,10 @@ document
     e.preventDefault();
 
     const form = e.target;
-
+    console.log(
+    "SEAT VALUE =",
+    document.getElementById("seatNumber").value
+);
     const formData = new FormData(form);
 
     const submitBtn =
