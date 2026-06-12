@@ -90,6 +90,27 @@ app.get("/", (req, res) => {
     res.send("Library Backend Running Successfully");
 
 });
+app.get("/seat-status", async (req, res) => {
+
+    try {
+
+        const students =
+        await Student.find()
+        .sort({ seatNumber: 1 });
+
+        res.json(students);
+
+    }
+
+    catch(error){
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+
+    }
+
+});
 app.get("/available-seats", async (req, res) => {
 
     try {
