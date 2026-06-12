@@ -121,13 +121,11 @@ console.log("STUDENTS =", students);
 
     catch(error){
 
-        console.log(error);
+    console.error("SEAT STATUS ERROR:", error);
 
-        alert(
-        "Unable to load seat status"
-        );
+    alert(error.message);
 
-    }
+}
 
 }
 
