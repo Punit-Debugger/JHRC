@@ -90,6 +90,7 @@ app.get("/", (req, res) => {
     res.send("Library Backend Running Successfully");
 
 });
+const path = require("path");
 app.get("/seat-status", async (req, res) => {
 
     try {
