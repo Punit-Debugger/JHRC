@@ -84,7 +84,9 @@ const upload = multer({
     storage
 
 });
-
+app.get("/test-route", (req, res) => {
+    res.send("TEST ROUTE WORKING");
+});
 app.get("/", (req, res) => {
 
     res.send("Library Backend Running Successfully");
@@ -93,10 +95,7 @@ app.get("/", (req, res) => {
  app.get("/seat-status", (req, res) => {
 
     res.sendFile(
-        path.join(
-            __dirname,
-            "seat-status.html"
-        )
+       path.join(__dirname, "..", "seat-status.html")
     );
 
 });
