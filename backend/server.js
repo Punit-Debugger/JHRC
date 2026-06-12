@@ -91,7 +91,18 @@ app.get("/", (req, res) => {
 
 });
 const path = require("path");
-app.get("/seat-status", async (req, res) => {
+ app.get("/seat-status", (req, res) => {
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "seat-status.html"
+        )
+    );
+
+});
+app.get("/api/seat-status", async (req, res) => {
+   
 
     try {
 
