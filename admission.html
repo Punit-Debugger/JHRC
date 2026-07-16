@@ -1220,111 +1220,79 @@ async function loadSeats() {
 
     try {
 
-       const selectedShifts = [];
+        // Collect currently checked shifts
+        const selectedShifts = [];
+        document.querySelectorAll('input[name="shifts"]:checked').forEach(cb => {
+            selectedShifts.push(cb.value);
+        });
 
-document
-.querySelectorAll(
-'input[name="shifts"]'
-)
-.forEach(cb => {
+        if(selectedShifts.length === 0){
 
-    cb.addEventListener("change", () => {
+            seatDropdown.innerHTML =
+            '<option value="">Select Shift First</option>';
 
-        const fullShift =
-        document.querySelector(
-        'input[value="FULL"]'
-        );
-
-        const normalShifts =
-        document.querySelectorAll(
-        'input[name="shifts"]:not([value="FULL"])'
-        );
-
-        if(fullShift.checked){
-
-            normalShifts.forEach(
-            shift => {
-
-                shift.checked = false;
-                shift.disabled = true;
-
-            });
-
-        } else {
-
-            normalShifts.forEach(
-            shift => {
-
-                shift.disabled = false;
-
-            });
+            return;
 
         }
 
-        loadSeats();
+        const response =
+        await fetch(
 
-    });
+        `https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
 
-});
-
-if(selectedShifts.length === 0){
-
-    seatDropdown.innerHTML =
-    '<option value="">Select Shift First</option>';
-
-    return;
-
-}
-
-const response =
-await fetch(
-
-`https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
-
-);
-
-        const data =
-        await response.json();
-
-        seatDropdown.innerHTML =
-        '<option value="">Select Seat</option>';
-
-        data.availableSeats.forEach(
-        seat => {
-
-            seatDropdown.innerHTML +=
-            `<option value="${seat}">
-                Seat ${seat}
-            </option>`;
-
-        });
-
-    }
-
-    catch(error){
-
-        console.log(
-            "Seat loading error:",
-            error
         );
 
-    }
+                const data =
+                await response.json();
+
+                seatDropdown.innerHTML =
+                '<option value="">Select Seat</option>';
+
+                data.availableSeats.forEach(
+                seat => {
+
+                    seatDropdown.innerHTML +=
+                    `<option value="${seat}">
+                        Seat ${seat}
+                    </option>`;
+
+                });
+
+            }
+
+            catch(error){
+
+                console.log(
+                    "Seat loading error:",
+                    error
+                );
+
+            }
 
 }
 
-loadSeats();
-document
-.querySelectorAll(
-'input[name="shifts"]'
-)
-.forEach(cb => {
+// Register event listeners ONCE, outside loadSeats()
+document.querySelectorAll('input[name="shifts"]').forEach(cb => {
+    cb.addEventListener("change", () => {
+        const fullShift = document.querySelector('input[value="FULL"]');
+        const normalShifts = document.querySelectorAll('input[name="shifts"]:not([value="FULL"])');
 
-    cb.addEventListener(
-        "change",
-        loadSeats
-    );
+        if(fullShift.checked){
+            normalShifts.forEach(shift => {
+                shift.checked = false;
+                shift.disabled = true;
+            });
+        } else {
+            normalShifts.forEach(shift => {
+                shift.disabled = false;
+            });
+        }
 
+        loadSeats();
+    });
 });
+
+loadSeats();
 document
 .getElementById("admissionForm")
 .addEventListener("submit", async function(e){
