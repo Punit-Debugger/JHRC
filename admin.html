@@ -439,6 +439,11 @@ onclick="approveStudent('${student._id}')"
 : ""
 }
 
+    ${student.seatNumber 
+    ? `<button onclick="openSeatModal(${JSON.stringify(student).replace(/"/g, '&quot;')})" style="background: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-right: 5px;">Edit Seat (${student.seatNumber})</button>`
+    : `<button onclick="openSeatModal(${JSON.stringify(student).replace(/"/g, '&quot;')})" style="background: #2196F3; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-right: 5px;">Assign Seat</button>`
+    }
+
     <button
     class="delete-btn"
     onclick="deleteStudent('${student._id}')"
@@ -459,6 +464,13 @@ onclick="approveStudent('${student._id}')"
             });
 
         }
+
+        function openSeatModal(student) {
+            console.log('Opening seat assignment for student:', student.fullName, 'Current seat:', student.seatNumber || 'None');
+            // Navigate to admin-seat.html with student ID
+            window.location.href = `admin-seat.html?student=${student._id}`;
+        }
+
 async function approveStudent(id){
 
     try{
