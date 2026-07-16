@@ -22,6 +22,16 @@ const {
     CloudinaryStorage
 } = require("multer-storage-cloudinary");
 
+// Import seat allocation utilities for conflict detection
+const {
+    normalizeShifts,
+    checkConflict,
+    calculateAvailableSeats,
+    validateSeatNumber,
+    validateShifts,
+    checkConflicts,
+} = require("./utils/seatAllocation");
+
 app.use(cors());
 
 
@@ -121,73 +131,65 @@ app.get("/api/seat-status", async (req, res) => {
     }
 
 });
+/**
+ * GET /available-seats
+ * 
+ * Returns list of available seats for the requested shifts.
+ * Implements algorithm from AGENTS.md Seat Allocation System.
+ * 
+ * ALGORITHM:
+ * 1. Parse requested shifts from query parameter
+ * 2. If no shifts specified, all 65 seats are available
+ * 3. Normalize shifts (expand FULL → [S1, S2, S3, S4])
+ * 4. Get all students from database
+ * 5. Calculate which seats conflict with requested shifts
+ * 6. Return seats that don't have conflicts
+ * 
+ * QUERY PARAMETERS:
+ * - shifts: comma-separated shift codes (S1,S2,S3,S4,FULL)
+ *   Example: ?shifts=S1,S2  returns seats available for S1 or S2
+ *   If omitted, all 65 seats returned
+ * 
+ * RESPONSE:
+ * { availableSeats: [1, 2, 3, ...] }
+ */
 app.get("/available-seats", async (req, res) => {
-
     try {
-
         let requestedShifts = req.query.shifts;
 
+        // If no shifts specified, all 65 seats are available
         if (!requestedShifts) {
             return res.json({
                 availableSeats: Array.from(
                     { length: 65 },
                     (_, i) => i + 1
-                )
+                ),
             });
         }
 
+        // Parse comma-separated shifts from query string
         requestedShifts = requestedShifts.split(",");
 
-        if (requestedShifts.includes("FULL")) {
-            requestedShifts = ["S1","S2","S3","S4"];
-        }
+        // Normalize shifts (expand FULL to [S1, S2, S3, S4])
+        requestedShifts = normalizeShifts(requestedShifts);
 
+        // Get all students from database
         const students = await Student.find();
 
-        const occupiedSeats = [];
-
-        students.forEach(student => {
-
-            let studentShifts = student.shifts || [];
-
-            if (studentShifts.includes("FULL")) {
-                studentShifts = ["S1","S2","S3","S4"];
-            }
-
-            const conflict = requestedShifts.some(
-                shift => studentShifts.includes(shift)
-            );
-
-            if (conflict) {
-                occupiedSeats.push(student.seatNumber);
-            }
-
-        });
-
-        const availableSeats = [];
-
-        for (let i = 1; i <= 65; i++) {
-
-            if (!occupiedSeats.includes(i)) {
-                availableSeats.push(i);
-            }
-
-        }
+        // Calculate available seats using shared utility function
+        const { availableSeats } = calculateAvailableSeats(
+            students,
+            requestedShifts
+        );
 
         res.json({ availableSeats });
-
-    }
-
-    catch(error){
-
+    } catch (error) {
         console.log(error);
 
         res.status(500).json({
-            message: "Server Error"
+            message: "Server Error",
         });
-
     }
-
 });
 app.post(
 
@@ -212,104 +214,94 @@ app.post(
     ]),
 
     async (req, res) => {
-
         try {
-            const receiptId = "JHRC-" + Date.now().toString().slice(-6);
-            const studentData = {
+            // ==========================================
+            // PHASE 1: VALIDATE INPUT
+            // ==========================================
 
+            // Validate seat number is in range 1-65
+            const seatValidation = validateSeatNumber(
+                req.body.seatNumber
+            );
+            if (!seatValidation.isValid) {
+                return res.status(400).json({
+                    message: seatValidation.error,
+                });
+            }
+            const requestedSeat = Number(req.body.seatNumber);
+
+            // Validate shifts are valid and non-empty
+            const shiftsValidation = validateShifts(req.body.shifts);
+            if (!shiftsValidation.isValid) {
+                return res.status(400).json({
+                    message: shiftsValidation.error,
+                });
+            }
+            const requestedShifts = shiftsValidation.shifts;
+
+            // ==========================================
+            // PHASE 2: CHECK FOR SEAT/SHIFT CONFLICTS
+            // ==========================================
+
+            // Find all existing students in requested seat
+            const existingStudents = await Student.find({
+                seatNumber: requestedSeat,
+            });
+
+            // Check if any existing student has conflicting shifts
+            const conflictResult = checkConflicts(
+                existingStudents,
+                requestedShifts
+            );
+
+            if (conflictResult.hasConflict) {
+                return res.status(400).json({
+                    message: `Seat ${requestedSeat} is already occupied for selected shift(s).`,
+                });
+            }
+
+            // ==========================================
+            // PHASE 3: PREPARE AND SAVE STUDENT DATA
+            // ==========================================
+
+            // Generate receipt ID
+            const receiptId =
+                "JHRC-" + Date.now().toString().slice(-6);
+
+            // Build student document with file uploads
+            const studentData = {
                 ...req.body,
                 receiptId,
-               aadhaarFront:
-req.files?.aadhaarFront?.[0]?.path || "",
-
-aadhaarBack:
-req.files?.aadhaarBack?.[0]?.path || "",
-
+                shifts: requestedShifts, // Use validated/normalized shifts
+                aadhaarFront:
+                    req.files?.aadhaarFront?.[0]?.path || "",
+                aadhaarBack: req.files?.aadhaarBack?.[0]?.path || "",
             };
-            console.log(req.body);
-            console.log("FILES:", req.files);
-console.log("BODY:", req.body);
-console.log("STUDENT DATA:", studentData);
-const requestedSeat =
-Number(studentData.seatNumber);
 
-let requestedShifts =
-studentData.shifts || [];
-
-if (!Array.isArray(requestedShifts)) {
-    requestedShifts = [requestedShifts];
-}
-
-if (requestedShifts.includes("FULL")) {
-    requestedShifts =
-    ["S1","S2","S3","S4"];
-}
-
-const existingStudents =
-await Student.find({
-    seatNumber: requestedSeat
-});
-
-for (const student of existingStudents) {
-
-    let occupiedShifts =
-    student.shifts || [];
-
-    if (
-        occupiedShifts.includes("FULL")
-    ) {
-
-        occupiedShifts =
-        ["S1","S2","S3","S4"];
-
-    }
-
-    const conflict =
-    requestedShifts.some(
-        shift =>
-        occupiedShifts.includes(shift)
-    );
-
-    if (conflict) {
-
-        return res.status(400).json({
-
-            message:
-            `Seat ${requestedSeat} is already occupied for selected shift(s).`
-
-        });
-
-    }
-
-}
-console.log("BODY =", req.body);
-console.log("SEAT =", req.body.seatNumber);
-console.log("SHIFTS =", req.body.shifts);
-            const newStudent =
-            new Student(studentData);
-            console.log("REQ.FILES =", req.files);
-console.log("AADHAAR FRONT =", req.files?.aadhaarFront);
-console.log("AADHAAR BACK =", req.files?.aadhaarBack);
+            // Create and save new student record
+            const newStudent = new Student(studentData);
             await newStudent.save();
 
-           
-res.json({
+            // ==========================================
+            // PHASE 4: RETURN SUCCESS RESPONSE
+            // ==========================================
 
-    message:
-    "Admission Submitted Successfully. Pending Verification.",
-    receiptId
+            res.json({
+                message:
+                    "Admission Submitted Successfully. Pending Verification.",
+                receiptId,
+            });
+        } catch (error) {
+            console.error(
+                "========== ADMISSION ERROR =========="
+            );
+            console.error(error);
+            console.error(error.stack);
 
-});
+            res.status(500).json({
+                error: error.message,
+            });
         }
-
-        catch (error) {  console.error("========== ADMISSION ERROR ==========");
-  console.error(error);
-  console.error(error.stack);
-
-  res.status(500).json({
-    error: error.message
-  });}
-
     }
 
 );
