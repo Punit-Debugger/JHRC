@@ -156,6 +156,7 @@ app.get("/api/seat-status", async (req, res) => {
 app.get("/available-seats", async (req, res) => {
     try {
         let requestedShifts = req.query.shifts;
+        const excludeStudentId = req.query.excludeStudentId;
 
         // If no shifts specified, all 65 seats are available
         if (!requestedShifts) {
@@ -174,7 +175,13 @@ app.get("/available-seats", async (req, res) => {
         requestedShifts = normalizeShifts(requestedShifts);
 
         // Get all students from database
-        const students = await Student.find();
+        let students = await Student.find();
+
+        if (excludeStudentId) {
+            students = students.filter(
+                (student) => String(student._id) !== excludeStudentId
+            );
+        }
 
         // Calculate available seats using shared utility function
         const { availableSeats } = calculateAvailableSeats(
@@ -387,6 +394,107 @@ app.delete("/student/:id", async (req, res) => {
         res
         .status(500)
         .send("Error Deleting Student");
+
+    }
+
+});
+
+app.put("/student/:id/seat", async (req, res) => {
+
+    try {
+
+        const student = await Student.findById(
+            req.params.id
+        );
+
+        if(!student){
+
+            return res
+            .status(404)
+            .json({
+                message: "Student not found"
+            });
+
+        }
+
+        const seatValidation = validateSeatNumber(
+            req.body.seatNumber
+        );
+
+        if (!seatValidation.isValid) {
+
+            return res
+            .status(400)
+            .json({
+                message: seatValidation.error
+            });
+
+        }
+
+        const shiftsValidation = validateShifts(
+            req.body.shifts
+        );
+
+        if (!shiftsValidation.isValid) {
+
+            return res
+            .status(400)
+            .json({
+                message: shiftsValidation.error
+            });
+
+        }
+
+        const requestedSeat = Number(
+            req.body.seatNumber
+        );
+
+        const requestedShifts =
+        shiftsValidation.shifts;
+
+        const existingStudents = await Student.find({
+            seatNumber: requestedSeat,
+            _id: {
+                $ne: req.params.id
+            }
+        });
+
+        const conflictResult = checkConflicts(
+            existingStudents,
+            requestedShifts
+        );
+
+        if (conflictResult.hasConflict) {
+
+            return res
+            .status(400)
+            .json({
+                message: `Seat ${requestedSeat} is already occupied for selected shift(s).`
+            });
+
+        }
+
+        student.seatNumber = requestedSeat;
+        student.shifts = requestedShifts;
+
+        await student.save();
+
+        res.json({
+            message: "Seat assignment updated successfully",
+            student
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res
+        .status(500)
+        .json({
+            message: "Error updating seat assignment"
+        });
 
     }
 

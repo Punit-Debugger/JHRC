@@ -546,6 +546,7 @@
 
             <!-- Buttons -->
             <div class="button-group">
+                <button class="btn" id="saveBtn" style="background: #ffcc00; color: #1f2937;" onclick="saveSeatAssignment()">Save Seat Assignment</button>
                 <button class="btn btn-back" onclick="goBackToAdmin()">Back to Admin</button>
             </div>
         </div>
@@ -647,6 +648,11 @@
                 displayStudentInfo(student);
                 initializeShiftSelection(student);
                 initSeatPicker();
+
+                if (student.seatNumber) {
+                    selectedSeat = Number(student.seatNumber);
+                    updateSeatPickerDisplay();
+                }
                 
                 document.getElementById('loadingMessage').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
@@ -728,8 +734,16 @@
                     return;
                 }
 
+                const query = new URLSearchParams({
+                    shifts: selectedShifts.join(','),
+                });
+
+                if (currentStudent && currentStudent._id) {
+                    query.set('excludeStudentId', currentStudent._id);
+                }
+
                 const response = await fetch(
-                    `https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
+                    `https://jhrc.onrender.com/available-seats?${query.toString()}`
                 );
 
                 if (!response.ok) throw new Error('Failed to load available seats');
@@ -740,6 +754,61 @@
             } catch (error) {
                 console.error('Error loading available seats:', error);
                 document.getElementById('statusText').textContent = 'Error loading seat availability';
+            }
+        }
+
+        async function saveSeatAssignment() {
+            try {
+                const selectedShifts = [];
+                document.querySelectorAll('input[name="shifts"]:checked').forEach(cb => {
+                    selectedShifts.push(cb.value);
+                });
+
+                if (!selectedSeat) {
+                    alert('Please select a seat before saving.');
+                    return;
+                }
+
+                if (selectedShifts.length === 0) {
+                    alert('Please select at least one shift before saving.');
+                    return;
+                }
+
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = true;
+                saveBtn.textContent = 'Saving...';
+
+                const response = await fetch(
+                    `https://jhrc.onrender.com/student/${currentStudent._id}/seat`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            seatNumber: selectedSeat,
+                            shifts: selectedShifts,
+                        }),
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Failed to update seat assignment');
+                }
+
+                currentStudent = result.student;
+                displayStudentInfo(currentStudent);
+                alert(result.message || 'Seat assignment updated successfully.');
+                await loadAvailableSeats();
+            } catch (error) {
+                console.error('Error saving seat assignment:', error);
+                alert(error.message || 'Error updating seat assignment.');
+            } finally {
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Seat Assignment';
             }
         }
 
