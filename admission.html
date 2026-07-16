@@ -1217,7 +1217,7 @@ const seatDropdown =
 document.getElementById("seatNumber");
 
 async function loadSeats() {
-
+    console.log("loadSeats() called");
     try {
 
         // Collect currently checked shifts
@@ -1234,14 +1234,14 @@ async function loadSeats() {
             return;
 
         }
-
+console.log("Selected shifts:", selectedShifts);
         const response =
         await fetch(
 
         `https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
 
         );
-
+        console.log("Response status:", response.status);
                 const data =
                 await response.json();
 
