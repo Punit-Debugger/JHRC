@@ -11,6 +11,7 @@ const path = require("path");
 const multer = require("multer");
 
 const Student = require("./models/Student");
+const SeatManager = require("./services/SeatManager");
 const app = express();
 const generatePDF = require("./generatePDF");
 const cloudinary = require("./cloudinary");
@@ -55,9 +56,13 @@ app.use(
 mongoose.connect(process.env.MONGO_URI)
 
 
-.then(() => {
+.then(async () => {
 
     console.log("MongoDB Connected");
+
+    await SeatManager.loadFromDatabase();
+
+    console.log("Seat occupancy cache initialized");
 
 })
 
@@ -174,20 +179,62 @@ app.get("/available-seats", async (req, res) => {
         // Normalize shifts (expand FULL to [S1, S2, S3, S4])
         requestedShifts = normalizeShifts(requestedShifts);
 
-        // Get all students from database
-        let students = await Student.find();
+        // Read current occupancy from in-memory cache
+        const occupancyMap = new Map(
+            SeatManager.getOccupancyMap()
+        );
 
+        // Preserve exclude-student behavior for admin seat editing
         if (excludeStudentId) {
-            students = students.filter(
-                (student) => String(student._id) !== excludeStudentId
-            );
+            const excludedStudent = await Student.findById(
+                excludeStudentId
+            )
+                .select("seatNumber shifts")
+                .lean();
+
+            if (excludedStudent?.seatNumber) {
+                const excludedSeat = Number(
+                    excludedStudent.seatNumber
+                );
+
+                const excludedShifts = normalizeShifts(
+                    excludedStudent.shifts
+                );
+
+                const seatShifts = occupancyMap.get(
+                    excludedSeat
+                ) || [];
+
+                const remainingShifts = seatShifts.filter(
+                    (shift) =>
+                        !excludedShifts.includes(shift)
+                );
+
+                if (remainingShifts.length > 0) {
+                    occupancyMap.set(
+                        excludedSeat,
+                        remainingShifts
+                    );
+                } else {
+                    occupancyMap.delete(excludedSeat);
+                }
+            }
         }
 
-        // Calculate available seats using shared utility function
-        const { availableSeats } = calculateAvailableSeats(
-            students,
-            requestedShifts
-        );
+        const occupiedSeats = new Set();
+
+        occupancyMap.forEach((shifts, seatNumber) => {
+            if (checkConflict(shifts, requestedShifts)) {
+                occupiedSeats.add(Number(seatNumber));
+            }
+        });
+
+        const availableSeats = [];
+        for (let i = 1; i <= 65; i++) {
+            if (!occupiedSeats.has(i)) {
+                availableSeats.push(i);
+            }
+        }
 
         res.json({ availableSeats });
     } catch (error) {
@@ -381,6 +428,8 @@ app.delete("/student/:id", async (req, res) => {
             req.params.id
         );
 
+        await SeatManager.loadFromDatabase();
+
         res.send(
             "Student Deleted Successfully"
         );
@@ -479,6 +528,8 @@ app.put("/student/:id/seat", async (req, res) => {
 
         await student.save();
 
+        await SeatManager.loadFromDatabase();
+
         res.json({
             message: "Seat assignment updated successfully",
             student
@@ -513,6 +564,9 @@ app.put("/student/approve/:id", async (req, res) => {
    console.log("Saving status:", student.status);
 
     await student.save();
+
+await SeatManager.loadFromDatabase();
+
 const updatedStudent =
 await Student.findById(req.params.id);
 
