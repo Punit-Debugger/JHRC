@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        JHRC Computer Coaching | Admission Form
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+select {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background: rgba(255,255,255,0.04);
+
+    color: white;
+
+    font-size: 18px;
+    height: 55px;
+    outline: none;
+
+    margin-top: 10px;
+
+    margin-bottom: 20px;
+
+    backdrop-filter: blur(10px);
+
+}
+
+select option {
+
+    color: black;
+
+}
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+
+        }
+
+        body{
+
+            background:
+            radial-gradient(circle at top left,#18233d,#050816 55%);
+
+            color:white;
+
+            min-height:100vh;
+
+            overflow-x:hidden;
+
+        }
+
+        body::before{
+
+            content:'';
+
+            position:fixed;
+
+            width:350px;
+            height:350px;
+
+            background:#ffcc00;
+
+            filter:blur(170px);
+
+            opacity:0.08;
+
+            top:-120px;
+            left:-100px;
+
+            z-index:-1;
+
+        }
+
+        .navbar{
+
+            width:100%;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:22px 50px;
+
+            border-bottom:
+            1px solid rgba(255,255,255,0.06);
+
+        }
+
+        .brand{
+
+            display:flex;
+            align-items:center;
+            gap:15px;
+
+        }
+
+        .brand img{
+
+            width:75px;
+
+            filter:
+            drop-shadow(
+                0 0 14px rgba(255,204,0,0.35)
+            );
+
+        }
+
+        .brand-text h1{
+
+            font-size:38px;
+            color:#ffcc00;
+            line-height:1;
+
+        }
+
+        .brand-text p{
+
+            font-size:14px;
+            color:#e2e8f0;
+            letter-spacing:3px;
+
+        }
+
+        .home-btn{
+
+            color:white;
+
+            text-decoration:none;
+
+            font-size:16px;
+
+            display:flex;
+            align-items:center;
+            gap:8px;
+
+            transition:0.3s;
+
+        }
+
+        .home-btn:hover{
+
+            color:#ffcc00;
+
+        }
+
+        /* ANNOUNCEMENT */
+
+        .announcement{
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+            flex:0 0 auto;
+            margin-left:15px;
+
+        }
+
+        .announcement i{
+
+            font-size:24px;
+            color:white;
+            flex-shrink:0;
+
+        }
+
+        .announcement-text{
+
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+
+        }
+
+        .announcement-main{
+
+            color:white;
+            font-weight:600;
+            font-size:14px;
+            letter-spacing:0.5px;
+            white-space:nowrap;
+
+        }
+
+        .announcement-highlight{
+
+            color:#ffcc00;
+            font-weight:700;
+            font-size:13px;
+            font-style:italic;
+            white-space:nowrap;
+
+        }
+
+        .main{
+
+            width:100%;
+
+            display:flex;
+            justify-content:center;
+
+            padding:60px 20px;
+
+        }
+
+        .form-container{
+
+            width:100%;
+            max-width:980px;
+
+            background:
+            rgba(255,255,255,0.04);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:30px;
+
+            padding:45px;
+
+            backdrop-filter:blur(16px);
+
+            box-shadow:
+            0 0 50px rgba(0,0,0,0.4);
+
+        }
+
+        .heading{
+
+            text-align:center;
+
+            margin-bottom:45px;
+
+        }
+
+        .heading h2{
+
+            font-size:48px;
+            font-weight:700;
+
+        }
+
+        .heading span{
+
+            color:#ffcc00;
+
+        }
+
+        .heading p{
+
+            color:#d1d5db;
+
+            margin-top:8px;
+
+            font-size:18px;
+
+        }
+
+        .premium-divider{
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            gap:18px;
+
+            margin-top:22px;
+
+        }
+
+        .divider-line{
+
+            width:110px;
+
+            height:2px;
+
+            background:
+            linear-gradient(
+                90deg,
+                transparent,
+                #d4a128,
+                transparent
+            );
+
+            border-radius:20px;
+
+        }
+
+        .divider-star{
+
+            color:#f4c542;
+
+            font-size:22px;
+
+            text-shadow:
+            0 0 10px rgba(244,197,66,0.6);
+
+        }
+
+        .required{
+
+            color:#ff4d4d;
+
+            margin-left:3px;
+
+            font-weight:600;
+
+        }
+
+        .section-title{
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+
+            color:#ffcc00;
+
+            font-size:25px;
+
+            margin-bottom:28px;
+
+            font-weight:600;
+
+        }
+
+        .form-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(300px,1fr));
+
+            gap:24px;
+
+            margin-bottom:45px;
+
+        }
+
+        .input-group{
+
+            display:flex;
+            flex-direction:column;
+
+        }
+
+        .input-group label{
+
+            margin-bottom:10px;
+
+            color:#f8fafc;
+
+            font-size:15px;
+
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea{
+
+            background:
+            rgba(255,255,255,0.03);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:14px;
+            padding-left: 24px;
+            padding-right: 24px;
+            padding:16px 18px;
+
+            color:white;
+
+            font-size:15px;
+
+            outline:none;
+
+            transition:0.3s;
+
+        }
+
+      .dark-select {
+
+    width: 100%;
+        
+    padding: 0 24px;
+
+    height: 58px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background: rgba(255,255,255,0.025);
+
+    color: white;
+
+    font-size: 17px;
+
+    outline: none;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    -moz-appearance: none;
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.3s;
+
+}
+
+        .dark-select option{
+
+            background:#111827;
+
+            color:white;
+
+        }
+
+        .input-group textarea{
+
+            resize:none;
+            min-height:120px;
+
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus{
+
+            border-color:#ffcc00;
+
+            box-shadow:
+            0 0 18px rgba(255,204,0,0.15);
+
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder{
+
+            color:#94a3b8;
+
+        }
+
+        .upload-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(300px,1fr));
+
+            gap:25px;
+
+            margin-top:25px;
+
+        }
+
+        .upload-box{
+
+            border:
+            2px dashed rgba(255,255,255,0.12);
+
+            border-radius:20px;
+
+            padding:35px 20px;
+
+            text-align:center;
+
+            background:
+            rgba(255,255,255,0.02);
+
+            transition:0.3s;
+
+        }
+
+        .upload-box:hover{
+
+            border-color:#ffcc00;
+
+        }
+
+        .upload-box i{
+
+            font-size:40px;
+
+            color:white;
+
+            margin-bottom:20px;
+
+        }
+
+        .upload-box h4{
+
+            margin-bottom:15px;
+
+            font-size:18px;
+
+        }
+
+        .upload-box p{
+
+            color:#cbd5e1;
+
+            font-size:14px;
+
+            margin-bottom:15px;
+
+        }
+
+        .upload-box input{
+
+            color:white;
+
+        }
+
+        .checkbox{
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+
+            margin-top:35px;
+
+            color:#e2e8f0;
+
+        }
+
+        .submit-btn{
+
+            width:100%;
+
+            margin-top:30px;
+
+            background:
+            linear-gradient(
+                90deg,
+                #d4a128,
+                #f4c542
+            );
+
+            border:none;
+
+            padding:20px;
+
+            border-radius:18px;
+
+            color:white;
+
+            font-size:22px;
+
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.4s;
+
+            box-shadow:
+            0 0 25px rgba(255,204,0,0.25);
+
+        }
+
+        .submit-btn:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 0 40px rgba(255,204,0,0.4);
+
+        }
+
+        .secure{
+
+            text-align:center;
+
+            margin-top:20px;
+
+            color:#94a3b8;
+
+            font-size:14px;
+
+        }
+
+        footer{
+
+            width:100%;
+
+            padding:25px 40px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            color:#cbd5e1;
+
+            border-top:
+            1px solid rgba(255,255,255,0.06);
+
+            margin-top:50px;
+
+        }
+
+        footer span{
+
+            color:#ffcc00;
+
+        }
+
+        @media(max-width:768px){
+
+            .navbar{
+
+                padding:12px 5%;
+                flex-wrap:wrap;
+                justify-content:flex-start;
+                align-content:flex-start;
+
+            }
+
+            .brand{
+
+                gap:12px;
+
+            }
+
+            .brand img{
+
+                width:80px;
+
+            }
+
+            .brand-text h1{
+
+                font-size:26px;
+
+            }
+
+            .brand-text p{
+
+                font-size:11px;
+                letter-spacing:2px;
+
+            }
+
+            .announcement{
+
+                flex-basis:100%;
+                margin-left:0;
+                margin-top:12px;
+                justify-content:center;
+
+            }
+
+            .form-container{
+
+                padding:28px 20px;
+
+                border-radius:24px;
+
+            }
+
+            .heading h2{
+
+                font-size:34px;
+
+            }
+
+            footer{
+
+                flex-direction:column;
+                gap:10px;
+                text-align:center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="backend/assets/logo.png"
+                alt="JHRC Logo"
+            >
+
+            <div class="brand-text">
+
+                <h1>JHRC</h1>
+
+                <p>COMPUTER COACHING</p>
+
+            </div>
+
+        </div>
+
+        <!-- COMPUTER COACHING ANNOUNCEMENT - REMOVE THIS ENTIRE DIV WHEN CAMPAIGN ENDS -->
+        <div class="announcement">
+
+            <i class="fa-solid fa-laptop"></i>
+
+            <div class="announcement-text">
+
+                <span class="announcement-main">JHRC COMPUTER COACHING</span>
+
+                <span class="announcement-highlight">Admissions Open</span>
+
+            </div>
+
+        </div>
+        <!-- END ANNOUNCEMENT -->
+
+        <a
+            href="index.html"
+            class="home-btn"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            Home
+
+        </a>
+
+    </nav>
+
+    <section class="main">
+
+        <div class="form-container">
+
+            <div class="heading">
+
+                <h2>
+
+                    JHRC
+                    <span>
+                        COMPUTER COACHING
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Admission Form
+
+                </p>
+
+                <div class="premium-divider">
+
+                    <span class="divider-line"></span>
+
+                    <span class="divider-star">
+                        ★
+                    </span>
+
+                    <span class="divider-line"></span>
+
+                </div>
+
+            </div>
+
+            <form
+                id="coachingAdmissionForm"
+                enctype="multipart/form-data"
+            >
+
+                <div class="section-title">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    Personal Information
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>
+                            Full Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Father's Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="fatherName"
+                            placeholder="Enter father's name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Date of Birth
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            name="dob"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Mobile Number
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="mobileNumber"
+                            placeholder="Enter mobile number"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Gender
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            name="gender"
+                            class="dark-select"
+                            required
+                        >
+
+                            <option value="" disabled selected>
+
+                                Select Gender
+
+                            </option>
+
+                            <option value="Male">
+
+                                Male
+
+                            </option>
+
+                            <option value="Female">
+
+                                Female
+
+                            </option>
+
+                            <option value="Other">
+
+                                Other
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Admission Date
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            name="admissionDate"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Course / Class
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            required
+                            class="dark-select"
+                            name="course"
+                        >
+
+                            <option value="" disabled selected>
+
+                                Select your course / class
+
+                            </option>
+
+                            <option>
+
+                                Student
+
+                            </option>
+
+                            <option>
+
+                                Faculty
+
+                            </option>
+
+                            <option>
+
+                                Research Scholar
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="section-title">
+
+                    <i class="fa-regular fa-file-lines"></i>
+
+                    Address Information
+
+                </div>
+
+                 <div class="form-grid">
+
+                    <div class="input-group" style="grid-column:1/-1;">
+
+                        <label>
+                            Full Address
+                            <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            name="address"
+                            placeholder="Enter your full address"
+                            required
+                        ></textarea>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            City
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="city"
+                            placeholder="Enter city"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            State
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="state"
+                            placeholder="Enter state"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Pincode
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="pincode"
+                            placeholder="Enter pincode"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-upload"></i>
+
+                    Document Upload
+
+                </div>
+
+                <div class="upload-grid">
+
+                    <div class="upload-box">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <h4>
+
+                            Aadhaar Card Front
+
+                            <span class="required">*</span>
+
+                        </h4>
+
+                        <p>
+
+                            JPG, PNG or PDF (Max 5MB)
+
+                        </p>
+
+                        <input
+                            type="file"
+                            name="aadhaarFront"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="upload-box">
+
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                        <h4>
+
+                            Aadhaar Card Back
+
+                            <span class="required">*</span>
+
+                        </h4>
+
+                        <p>
+
+                            JPG, PNG or PDF (Max 5MB)
+
+                        </p>
+
+                        <input
+                            type="file"
+                            name="aadhaarBack"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        required
+                    >
+
+                    <label>
+
+                        I confirm that all the information provided by me is correct.
+
+                    </label>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+
+                    <span id="btnText">
+
+                        <i class="fa-regular fa-paper-plane"></i>
+
+                        Submit & Get PDF Receipt
+
+                    </span>
+
+                    <span
+                        id="loader"
+                        style="display:none;"
+                    >
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                        Submitting...
+
+                    </span>
+
+                </button>
+
+                <div class="secure">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Your information is secure and will not be shared.
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div>
+
+            © 2026 JHRC Library. All Rights Reserved.
+
+        </div>
+
+        <div>
+
+            Empowering Future,
+            <span>
+                Enriching Knowledge.
+            </span>
+
+        </div>
+
+    </footer>
+
+    <script>
+        document
+        .getElementById("coachingAdmissionForm")
+        .addEventListener("submit", async function(e){
+
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            const submitBtn =
+            document.getElementById("submitBtn");
+
+            const btnText =
+            document.getElementById("btnText");
+
+            const loader =
+            document.getElementById("loader");
+
+            submitBtn.disabled = true;
+
+            btnText.style.display = "none";
+
+            loader.style.display = "inline-block";
+
+            try{
+
+                const response = await fetch(
+
+                    "https://jhrc.onrender.com/coaching-admission",
+
+                    {
+
+                        method:"POST",
+
+                        body:formData
+
+                    }
+
+                );
+
+                const result = await response.json();
+                
+                if(response.ok){
+
+                   alert(
+
+                    `${result.message}\n\nEnrollment ID: ${result.enrollmentId}\n\nPlease save this Enrollment ID for future reference.`
+
+                    );
+
+                    form.reset();
+
+                }
+
+                else{
+
+                    alert(result.message || "Submission Failed");
+
+                }
+
+            }
+
+            catch(error){
+
+                console.error(error);
+
+                alert("Server Error. Please try again later.");
+
+            }
+
+            finally{
+
+                submitBtn.disabled = false;
+
+                btnText.style.display = "inline-block";
+
+                loader.style.display = "none";
+
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
