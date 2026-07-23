@@ -11,6 +11,7 @@ const path = require("path");
 const multer = require("multer");
 
 const Student = require("./models/Student");
+const CoachingStudent = require("./models/CoachingStudent");
 const SeatManager = require("./services/SeatManager");
 const app = express();
 const generatePDF = require("./generatePDF");
@@ -359,6 +360,105 @@ app.post(
     }
 
 );
+
+app.post(
+
+    "/coaching-admission",
+
+    upload.fields([
+
+        {
+
+            name: "aadhaarFront",
+            maxCount: 1
+
+        },
+
+        {
+
+            name: "aadhaarBack",
+            maxCount: 1
+
+        }
+
+    ]),
+
+    async (req, res) => {
+        try {
+            // ==========================================
+            // PHASE 1: VALIDATE REQUIRED FIELDS
+            // ==========================================
+
+            if (!req.body.fullName) {
+                return res.status(400).json({
+                    message: "Full Name is required"
+                });
+            }
+
+            if (!req.body.course) {
+                return res.status(400).json({
+                    message: "Course selection is required"
+                });
+            }
+
+            const validCourses = [
+                "ADCA", "DCA", "PGDCA", "CCC",
+                "Basic Computer", "Tally Prime",
+                "Advanced Excel", "MS Office", "Typing"
+            ];
+
+            if (!validCourses.includes(req.body.course)) {
+                return res.status(400).json({
+                    message: "Invalid course selection"
+                });
+            }
+
+            // ==========================================
+            // PHASE 2: PREPARE AND SAVE STUDENT DATA
+            // ==========================================
+
+            // Generate receipt ID (similar to library but with COACH prefix)
+            const receiptId =
+                "JHRC-" + Date.now().toString().slice(-6) + "-COACH";
+
+            // Build student document with file uploads
+            const studentData = {
+                ...req.body,
+                receiptId,
+                status: "Pending",
+                aadhaarFront:
+                    req.files?.aadhaarFront?.[0]?.path || "",
+                aadhaarBack: req.files?.aadhaarBack?.[0]?.path || "",
+            };
+
+            // Create and save new coaching student record
+            const newCoachingStudent = new CoachingStudent(studentData);
+            await newCoachingStudent.save();
+
+            // ==========================================
+            // PHASE 3: RETURN SUCCESS RESPONSE
+            // ==========================================
+
+            res.json({
+                message:
+                    "Enrollment Submitted Successfully. Pending Verification.",
+                receiptId,
+            });
+        } catch (error) {
+            console.error(
+                "========== COACHING ADMISSION ERROR =========="
+            );
+            console.error(error);
+            console.error(error.stack);
+
+            res.status(500).json({
+                error: error.message,
+            });
+        }
+    }
+
+);
+
 app.get("/status/:receiptId", async (req, res) => {
 
     try {
