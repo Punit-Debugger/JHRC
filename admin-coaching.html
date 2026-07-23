@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JHRC Computer Coaching | Admin Dashboard</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+
+        }
+
+        body {
+
+            background: radial-gradient(circle at top left, #18233d, #050816 55%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+        }
+
+        .admin-container {
+
+            display: flex;
+            min-height: 100vh;
+
+        }
+
+        /* ========== SIDEBAR ========== */
+
+        .sidebar {
+
+            width: 280px;
+            background: rgba(5, 8, 22, 0.95);
+            border-right: 1px solid rgba(255, 204, 0, 0.1);
+            padding: 25px 0;
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s ease;
+
+        }
+
+        .sidebar-header {
+
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.1);
+            margin-bottom: 20px;
+
+        }
+
+        .sidebar-header h2 {
+
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffcc00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+        }
+
+        .sidebar-header i {
+
+            font-size: 24px;
+
+        }
+
+        .sidebar-menu {
+
+            list-style: none;
+
+        }
+
+        .sidebar-menu li {
+
+            margin: 0;
+
+        }
+
+        .sidebar-menu a {
+
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+
+        }
+
+        .sidebar-menu a:hover {
+
+            background: rgba(255, 204, 0, 0.1);
+            color: #ffcc00;
+            border-left-color: #ffcc00;
+
+        }
+
+        .sidebar-menu a.active {
+
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            border-left-color: #ffcc00;
+
+        }
+
+        .sidebar-menu i {
+
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+
+        }
+
+        .sidebar-logout {
+
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            padding: 0 25px;
+
+        }
+
+        .sidebar-logout a {
+
+            background: rgba(255, 77, 77, 0.15);
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #ff4d4d;
+            justify-content: center;
+            border-left: none;
+
+        }
+
+        .sidebar-logout a:hover {
+
+            background: rgba(255, 77, 77, 0.25);
+
+        }
+
+        /* ========== MAIN CONTENT ========== */
+
+        .main-content {
+
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+
+        }
+
+        .header {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+
+        }
+
+        .header h1 {
+
+            font-size: 32px;
+            font-weight: 700;
+
+        }
+
+        .header h1 span {
+
+            color: #ffcc00;
+
+        }
+
+        .header-info {
+
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+        }
+
+        .admin-name {
+
+            text-align: right;
+
+        }
+
+        .admin-name p {
+
+            color: #cbd5e1;
+            font-size: 14px;
+            margin: 0;
+
+        }
+
+        .profile-icon {
+
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 204, 0, 0.2);
+            border: 2px solid #ffcc00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+
+        }
+
+        /* ========== STATS CARDS ========== */
+
+        .stats-grid {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+
+        }
+
+        .stat-card {
+
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+
+        }
+
+        .stat-card:hover {
+
+            background: rgba(255, 204, 0, 0.08);
+            border-color: rgba(255, 204, 0, 0.3);
+            transform: translateY(-5px);
+
+        }
+
+        .stat-icon {
+
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 204, 0, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ffcc00;
+            margin-bottom: 15px;
+
+        }
+
+        .stat-value {
+
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: white;
+
+        }
+
+        .stat-label {
+
+            color: #cbd5e1;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+        }
+
+        .stat-change {
+
+            font-size: 12px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 204, 0, 0.1);
+
+        }
+
+        .change-positive {
+
+            color: #10b981;
+
+        }
+
+        .change-negative {
+
+            color: #ef4444;
+
+        }
+
+        /* ========== CONTENT SECTIONS ========== */
+
+        .content-section {
+
+            display: none;
+
+        }
+
+        .content-section.active {
+
+            display: block;
+
+        }
+
+        .section-title {
+
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+        }
+
+        .section-title i {
+
+            color: #ffcc00;
+            font-size: 28px;
+
+        }
+
+        /* ========== TABLES ========== */
+
+        .table-container {
+
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+
+        }
+
+        table {
+
+            width: 100%;
+            border-collapse: collapse;
+
+        }
+
+        th {
+
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.1);
+
+        }
+
+        td {
+
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.05);
+            color: #cbd5e1;
+            font-size: 14px;
+
+        }
+
+        tr:hover {
+
+            background: rgba(255, 204, 0, 0.05);
+
+        }
+
+        .action-btn {
+
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+
+        }
+
+        .action-btn:hover {
+
+            background: rgba(255, 204, 0, 0.3);
+
+        }
+
+        .approve-btn {
+
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+
+        }
+
+        .approve-btn:hover {
+
+            background: rgba(16, 185, 129, 0.3);
+
+        }
+
+        .reject-btn {
+
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+
+        }
+
+        .reject-btn:hover {
+
+            background: rgba(239, 68, 68, 0.3);
+
+        }
+
+        .status-badge {
+
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+
+        }
+
+        .status-pending {
+
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+
+        }
+
+        .status-approved {
+
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+
+        }
+
+        .status-rejected {
+
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+
+        }
+
+        /* ========== SEARCH BAR ========== */
+
+        .search-bar {
+
+            margin-bottom: 20px;
+
+        }
+
+        .search-bar input {
+
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+        }
+
+        .search-bar input:focus {
+
+            outline: none;
+            background: rgba(255, 204, 0, 0.08);
+            border-color: rgba(255, 204, 0, 0.3);
+
+        }
+
+        .search-bar input::placeholder {
+
+            color: #cbd5e1;
+
+        }
+
+        /* ========== EMPTY STATE ========== */
+
+        .empty-state {
+
+            text-align: center;
+            padding: 50px 20px;
+            color: #cbd5e1;
+
+        }
+
+        .empty-state i {
+
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+
+        }
+
+        .empty-state p {
+
+            font-size: 16px;
+
+        }
+
+        /* ========== RESPONSIVE ========== */
+
+        @media (max-width: 1024px) {
+
+            .sidebar {
+
+                width: 250px;
+
+            }
+
+            .main-content {
+
+                margin-left: 250px;
+                padding: 20px;
+
+            }
+
+            .header {
+
+                flex-direction: column;
+                align-items: flex-start;
+
+            }
+
+            .header-info {
+
+                width: 100%;
+                justify-content: space-between;
+
+            }
+
+        }
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 204, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+
+            }
+
+            .sidebar.active {
+
+                max-height: 500px;
+
+            }
+
+            .main-content {
+
+                margin-left: 0;
+                padding: 15px;
+
+            }
+
+            .header h1 {
+
+                font-size: 24px;
+
+            }
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .sidebar-logout {
+
+                position: static;
+                padding: 15px 25px;
+                border-top: 1px solid rgba(255, 204, 0, 0.1);
+                margin-top: 15px;
+
+            }
+
+            .sidebar-logout a {
+
+                display: flex;
+
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .header h1 {
+
+                font-size: 20px;
+
+            }
+
+            .stat-value {
+
+                font-size: 24px;
+
+            }
+
+            .admin-name {
+
+                display: none;
+
+            }
+
+        }
+
+        /* ========== TOGGLE BUTTON ========== */
+
+        .toggle-sidebar {
+
+            display: none;
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+
+        }
+
+        @media (max-width: 768px) {
+
+            .toggle-sidebar {
+
+                display: block;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- SIDEBAR -->
+
+        <nav class="sidebar">
+
+            <div class="sidebar-header">
+
+                <h2>
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    JHRC Coaching
+
+                </h2>
+
+            </div>
+
+            <ul class="sidebar-menu">
+
+                <li>
+
+                    <a href="#" class="menu-link active" data-section="dashboard">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="pending">
+
+                        <i class="fa-solid fa-hourglass-end"></i>
+
+                        Pending Admissions
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="students">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        Students
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="courses">
+
+                        <i class="fa-solid fa-book"></i>
+
+                        Courses
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="fees">
+
+                        <i class="fa-solid fa-receipt"></i>
+
+                        Fees
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="attendance">
+
+                        <i class="fa-solid fa-calendar-check"></i>
+
+                        Attendance
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="certificates">
+
+                        <i class="fa-solid fa-certificate"></i>
+
+                        Certificates
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#" class="menu-link" data-section="settings">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <div class="sidebar-logout">
+
+                <a href="#" onclick="logout()">
+
+                    <i class="fa-solid fa-sign-out-alt"></i>
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </nav>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <button class="toggle-sidebar" onclick="toggleSidebar()">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+                <div>
+
+                    <h1>
+
+                        Coaching Admin
+
+                        <span>Dashboard</span>
+
+                    </h1>
+
+                </div>
+
+                <div class="header-info">
+
+                    <div class="admin-name">
+
+                        <p>Welcome, Admin</p>
+
+                        <p id="currentDate" style="font-size: 12px; color: #ffcc00;"></p>
+
+                    </div>
+
+                    <div class="profile-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DASHBOARD SECTION -->
+
+            <div class="content-section active" id="dashboard">
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="fa-solid fa-users"></i>
+
+                        </div>
+
+                        <div class="stat-value">0</div>
+
+                        <div class="stat-label">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            Total Students
+
+                        </div>
+
+                        <div class="stat-change change-positive">
+
+                            +0 this month
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="fa-solid fa-hourglass-end"></i>
+
+                        </div>
+
+                        <div class="stat-value">0</div>
+
+                        <div class="stat-label">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Pending Admissions
+
+                        </div>
+
+                        <div class="stat-change">
+
+                            Awaiting verification
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="fa-solid fa-book"></i>
+
+                        </div>
+
+                        <div class="stat-value">0</div>
+
+                        <div class="stat-label">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                            Active Courses
+
+                        </div>
+
+                        <div class="stat-change">
+
+                            Across all programs
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                        </div>
+
+                        <div class="stat-value">₹0</div>
+
+                        <div class="stat-label">
+
+                            <i class="fa-solid fa-trending-up"></i>
+
+                            Fee Collection
+
+                        </div>
+
+                        <div class="stat-change change-positive">
+
+                            +₹0 this month
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PENDING ADMISSIONS SECTION -->
+
+            <div class="content-section" id="pending">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-hourglass-end"></i>
+
+                    Pending Admissions
+
+                </div>
+
+                <div class="search-bar">
+
+                    <input
+
+                        type="text"
+
+                        placeholder="Search by name, email, course..."
+
+                        id="pendingSearch"
+
+                    >
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-inbox"></i>
+
+                    <p>No pending admissions yet</p>
+
+                </div>
+
+            </div>
+
+            <!-- STUDENTS SECTION -->
+
+            <div class="content-section" id="students">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    All Students
+
+                </div>
+
+                <div class="search-bar">
+
+                    <input
+
+                        type="text"
+
+                        placeholder="Search by name, email, course..."
+
+                        id="studentsSearch"
+
+                    >
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-user-slash"></i>
+
+                    <p>No students enrolled yet</p>
+
+                </div>
+
+            </div>
+
+            <!-- COURSES SECTION -->
+
+            <div class="content-section" id="courses">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-book"></i>
+
+                    Course Management
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    <p>Courses will be displayed here</p>
+
+                </div>
+
+            </div>
+
+            <!-- FEES SECTION -->
+
+            <div class="content-section" id="fees">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-receipt"></i>
+
+                    Fee Management
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+
+                    <p>Fee records will be displayed here</p>
+
+                </div>
+
+            </div>
+
+            <!-- ATTENDANCE SECTION -->
+
+            <div class="content-section" id="attendance">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    Attendance Tracking
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-calendar"></i>
+
+                    <p>Attendance records will be displayed here</p>
+
+                </div>
+
+            </div>
+
+            <!-- CERTIFICATES SECTION -->
+
+            <div class="content-section" id="certificates">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-certificate"></i>
+
+                    Certificate Management
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-award"></i>
+
+                    <p>Certificates will be displayed here</p>
+
+                </div>
+
+            </div>
+
+            <!-- SETTINGS SECTION -->
+
+            <div class="content-section" id="settings">
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Settings
+
+                </div>
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-sliders"></i>
+
+                    <p>Settings options will be displayed here</p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+
+        // Display current date
+        function updateDate() {
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            const today = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('currentDate').textContent = today;
+        }
+        updateDate();
+
+        // Sidebar menu navigation
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Remove active class from all links
+                menuLinks.forEach(l => l.classList.remove('active'));
+
+                // Add active class to clicked link
+                link.classList.add('active');
+
+                // Hide all sections
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Show selected section
+                const sectionId = link.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                }
+
+                // Close sidebar on mobile
+                const sidebar = document.querySelector('.sidebar');
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Optional: Check admin login status (can be enabled when backend is ready)
+        /*
+        const isLoggedIn = localStorage.getItem('adminLoggedIn');
+        if (isLoggedIn !== 'true') {
+            window.location.replace('login.html');
+        }
+        */
+
+    </script>
+
+</body>
+
+</html>
