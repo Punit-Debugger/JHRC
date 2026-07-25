@@ -459,6 +459,102 @@ app.post(
 
 );
 
+// ========== COACHING STUDENT ENDPOINTS ==========
+
+app.get("/coaching-students", async (req, res) => {
+
+    try {
+
+        const status = req.query.status || null;
+
+        let query = {};
+
+        if (status) {
+            query.status = status;
+        }
+
+        const coachingStudents = await CoachingStudent.find(query);
+
+        res.json(coachingStudents);
+
+    }
+
+    catch (error) {
+        console.error("COACHING STUDENTS FETCH ERROR:");
+        console.error(error);
+        res.status(500).json({
+            message: error.message
+        });
+    }
+
+});
+
+app.put("/coaching-student/approve/:id", async (req, res) => {
+
+    try {
+
+        const coachingStudent = await CoachingStudent.findById(req.params.id);
+
+        if (!coachingStudent) {
+            return res.status(404).json({
+                message: "Coaching student not found"
+            });
+        }
+
+        coachingStudent.status = "Approved";
+
+        await coachingStudent.save();
+
+        res.json({
+            message: "Coaching Student Approved Successfully",
+            student: coachingStudent
+        });
+
+    }
+
+    catch (error) {
+        console.error("COACHING APPROVE ERROR:");
+        console.error(error);
+        res.status(500).json({
+            message: "Error Approving Coaching Student"
+        });
+    }
+
+});
+
+app.put("/coaching-student/reject/:id", async (req, res) => {
+
+    try {
+
+        const coachingStudent = await CoachingStudent.findById(req.params.id);
+
+        if (!coachingStudent) {
+            return res.status(404).json({
+                message: "Coaching student not found"
+            });
+        }
+
+        coachingStudent.status = "Rejected";
+
+        await coachingStudent.save();
+
+        res.json({
+            message: "Coaching Student Rejected Successfully",
+            student: coachingStudent
+        });
+
+    }
+
+    catch (error) {
+        console.error("COACHING REJECT ERROR:");
+        console.error(error);
+        res.status(500).json({
+            message: "Error Rejecting Coaching Student"
+        });
+    }
+
+});
+
 app.get("/status/:receiptId", async (req, res) => {
 
     try {
