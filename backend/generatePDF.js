@@ -189,17 +189,17 @@ doc.pipe(stream);
         receiptId: { x: 35, y: 266 },
         admissionDate: { x: 180, y: 266 },
         referenceCode: { x: 470, y: 252 },
-        fullName: { x: 135, y: 378, width: 250, height: 42, fontSize: 9 },
-        fatherName: { x: 135, y: 415, width: 250, height: 42, fontSize: 9 },
-        dob: { x: 135, y: 455, width: 180, height: 38, fontSize: 10 },
-        mobileNumber: { x: 135, y: 497, width: 180, height: 38, fontSize: 10 },
-        email: { x: 135, y: 538, width: 220, height: 55, fontSize: 9 },
-        gender: { x: 135, y: 580, width: 180, height: 38, fontSize: 10 },
-        course: { x: 393, y: 376, width: 120, height: 38, fontSize: 10 },
-        address: { x: 393, y: 418, width: 180, height: 75, fontSize: 9 },
-        city: { x: 393, y: 498, width: 120, height: 38, fontSize: 10 },
-        state: { x: 393, y: 538, width: 120, height: 38, fontSize: 10 },
-        pincode: { x: 393, y: 580, width: 120, height: 38, fontSize: 10 }
+        fullName: { x: 135, y: 360, width: 250, height: 42, fontSize: 9 },
+        fatherName: { x: 135, y: 400, width: 250, height: 42, fontSize: 9 },
+        dob: { x: 135, y: 440, width: 180, height: 38, fontSize: 10 },
+        mobileNumber: { x: 135, y: 485, width: 180, height: 38, fontSize: 10 },
+        email: { x: 135, y: 530, width: 220, height: 55, fontSize: 9 },
+        gender: { x: 135, y: 570, width: 180, height: 38, fontSize: 10 },
+        course: { x: 410, y: 355, width: 120, height: 38, fontSize: 10 },
+        address: { x: 410, y: 440, width: 180, height: 75, fontSize: 9 },
+        city: { x: 410, y: 498, width: 120, height: 38, fontSize: 10 },
+        state: { x: 410, y: 525, width: 120, height: 38, fontSize: 10 },
+        pincode: { x: 410, y: 560, width: 120, height: 38, fontSize: 10 }
     };
 
     const coordinates = module === "coaching" ? coachingCoordinates : libraryCoordinates;
