@@ -984,7 +984,6 @@ app.post("/admin/login", async (req, res) => {
         const { username, password } = req.body;
          console.log("=== ADMIN LOGIN ===");
         console.log("Body:", req.body);
-         const admin = await Admin.findOne({ username });
 
         console.log("Admin found:", admin ? "YES" : "NO");
           if (admin) {
