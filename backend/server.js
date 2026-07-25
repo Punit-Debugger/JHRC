@@ -12,6 +12,10 @@ const multer = require("multer");
 
 const Student = require("./models/Student");
 const CoachingStudent = require("./models/CoachingStudent");
+const Admin = require("./models/Admin");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const authenticateAdmin = require("./middleware/authMiddleware");
 const SeatManager = require("./services/SeatManager");
 const app = express();
 const generatePDF = require("./generatePDF");
@@ -909,6 +913,153 @@ app.get('/export-students', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+// ==========================================
+// ADMIN LOGIN ENDPOINT - TEST INSTRUCTIONS
+// ==========================================
+//
+// ENDPOINT: POST /admin/login
+//
+// PURPOSE: Authenticate admin users by username and password
+//
+// REQUEST FORMAT (JSON):
+// {
+//     "username": "jhrcadmin",
+//     "password": "YOUR_ADMIN_PASSWORD"
+// }
+//
+// HOW TO TEST WITH POSTMAN:
+//
+// 1. Open Postman
+// 2. Click "Create a new request" or use the + tab
+// 3. Set Method: POST
+// 4. Set URL: http://localhost:5000/admin/login
+//    (or https://jhrc.onrender.com/admin/login for production)
+// 5. Go to "Body" tab
+// 6. Select "raw"
+// 7. Change format to JSON (dropdown on the right)
+// 8. Paste:
+//    {
+//        "username": "jhrcadmin",
+//        "password": "YOUR_ADMIN_PASSWORD"
+//    }
+// 9. Click "Send"
+//
+// EXPECTED RESPONSES:
+//
+// SUCCESS (HTTP 200):
+// {
+//     "success": true,
+//     "message": "Login successful"
+// }
+//
+// MISSING USERNAME OR PASSWORD (HTTP 400):
+// {
+//     "success": false,
+//     "message": "Username and password are required"
+// }
+//
+// INVALID USERNAME OR PASSWORD (HTTP 401):
+// {
+//     "success": false,
+//     "message": "Invalid username or password"
+// }
+//
+// SERVER ERROR (HTTP 500):
+// {
+//     "success": false,
+//     "message": "Server error"
+// }
+//
+// NOTES:
+// - This endpoint does NOT return JWT tokens yet
+// - The lastLogin timestamp is automatically updated on successful login
+// - Passwords are hashed using bcrypt and never stored in plain text
+// - Use the exact password provided during admin creation (createAdmin.js)
+//
+// ==========================================
+
+app.post("/admin/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // Validate input
+        if (!username || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Username and password are required"
+            });
+        }
+
+        // Find admin by username
+        const admin = await Admin.findOne({ username });
+
+        if (!admin) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username or password"
+            });
+        }
+
+        // Compare password using bcrypt
+        const passwordMatch = await bcrypt.compare(password, admin.passwordHash);
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username or password"
+            });
+        }
+
+        // Update last login timestamp
+        admin.lastLogin = new Date();
+        await admin.save();
+
+        // Check if JWT_SECRET is configured
+        if (!process.env.JWT_SECRET) {
+            return res.status(500).json({
+                success: false,
+                message: "JWT configuration error"
+            });
+        }
+
+        // Generate JWT token (24 hours expiry)
+        const token = jwt.sign(
+            {
+                adminId: admin._id,
+                username: admin.username,
+                role: admin.role
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h" }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Login successful",
+            token: token
+        });
+
+    } catch (error) {
+        console.error("Admin login error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+    }
+});
+
+// ==========================================
+// ADMIN PROFILE ROUTE - TEST AUTHENTICATION
+// ==========================================
+
+app.get("/admin/profile", authenticateAdmin, (req, res) => {
+    return res.status(200).json({
+        success: true,
+        admin: req.admin
+    });
+});
+
 app.listen(PORT, () => {
 
     console.log(
