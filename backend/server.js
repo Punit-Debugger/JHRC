@@ -982,20 +982,7 @@ app.get('/export-students', async (req, res) => {
 app.post("/admin/login", async (req, res) => {
     try {
         const { username, password } = req.body;
-         console.log("=== ADMIN LOGIN ===");
-        console.log("Body:", req.body);
-
-        console.log("Admin found:", admin ? "YES" : "NO");
-          if (admin) {
-            console.log("DB Username:", admin.username);
-            console.log("Hash exists:", !!admin.passwordHash);
-        }
-
-        const passwordMatch = admin
-            ? await bcrypt.compare(password, admin.passwordHash)
-            : false;
-
-        console.log("Password match:", passwordMatch);
+        
         // Validate input
         if (!username || !password) {
             return res.status(400).json({
