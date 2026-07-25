@@ -163,6 +163,48 @@ doc.pipe(stream);
     .font(fontPath);
 
     // =========================
+    // COORDINATE SYSTEMS (Module-Specific)
+    // =========================
+
+    // Library coordinates (existing, production-tested)
+    const libraryCoordinates = {
+        receiptId: { x: 35, y: 266 },
+        admissionDate: { x: 180, y: 266 },
+        referenceCode: { x: 470, y: 252 },
+        fullName: { x: 135, y: 378, width: 250, height: 42, fontSize: 9 },
+        fatherName: { x: 135, y: 415, width: 250, height: 42, fontSize: 9 },
+        dob: { x: 135, y: 455, width: 180, height: 38, fontSize: 10 },
+        mobileNumber: { x: 135, y: 497, width: 180, height: 38, fontSize: 10 },
+        email: { x: 135, y: 538, width: 220, height: 55, fontSize: 9 },
+        gender: { x: 135, y: 580, width: 180, height: 38, fontSize: 10 },
+        course: { x: 393, y: 376, width: 120, height: 38, fontSize: 10 },
+        address: { x: 393, y: 418, width: 180, height: 75, fontSize: 9 },
+        city: { x: 393, y: 498, width: 120, height: 38, fontSize: 10 },
+        state: { x: 393, y: 538, width: 120, height: 38, fontSize: 10 },
+        pincode: { x: 393, y: 580, width: 120, height: 38, fontSize: 10 }
+    };
+
+    // Coaching coordinates (dedicated, independent system)
+    const coachingCoordinates = {
+        receiptId: { x: 35, y: 266 },
+        admissionDate: { x: 180, y: 266 },
+        referenceCode: { x: 470, y: 252 },
+        fullName: { x: 135, y: 378, width: 250, height: 42, fontSize: 9 },
+        fatherName: { x: 135, y: 415, width: 250, height: 42, fontSize: 9 },
+        dob: { x: 135, y: 455, width: 180, height: 38, fontSize: 10 },
+        mobileNumber: { x: 135, y: 497, width: 180, height: 38, fontSize: 10 },
+        email: { x: 135, y: 538, width: 220, height: 55, fontSize: 9 },
+        gender: { x: 135, y: 580, width: 180, height: 38, fontSize: 10 },
+        course: { x: 393, y: 376, width: 120, height: 38, fontSize: 10 },
+        address: { x: 393, y: 418, width: 180, height: 75, fontSize: 9 },
+        city: { x: 393, y: 498, width: 120, height: 38, fontSize: 10 },
+        state: { x: 393, y: 538, width: 120, height: 38, fontSize: 10 },
+        pincode: { x: 393, y: 580, width: 120, height: 38, fontSize: 10 }
+    };
+
+    const coordinates = module === "coaching" ? coachingCoordinates : libraryCoordinates;
+
+    // =========================
     // TOP SECTION
     // =========================
 
@@ -175,18 +217,18 @@ doc.pipe(stream);
     .fillColor("#b8860b")
     .fontSize(12)
 
-    .text(receiptId, 35, 266)
+    .text(receiptId, coordinates.receiptId.x, coordinates.receiptId.y)
 
     .text(
         studentData.admissionDate || "-",
-        180,
-        266
+        coordinates.admissionDate.x,
+        coordinates.admissionDate.y
     )
 
     .text(
         referenceCode,
-        470,
-        252
+        coordinates.referenceCode.x,
+        coordinates.referenceCode.y
     );
 
     // =========================
@@ -199,11 +241,11 @@ drawParagraphText(
     doc,
     studentData.fullName ||
     `${studentData.firstName || ""} ${studentData.lastName || ""}`,
-    135,
-    378,
-    250,
-    42,
-    9
+    coordinates.fullName.x,
+    coordinates.fullName.y,
+    coordinates.fullName.width,
+    coordinates.fullName.height,
+    coordinates.fullName.fontSize
 );
 
 drawParagraphText(
@@ -211,20 +253,21 @@ drawParagraphText(
     studentData.fatherName ||
     studentData.guardian ||
     "-",
-    135,
-    415,
-    250,
-    42,
-    9
+    coordinates.fatherName.x,
+    coordinates.fatherName.y,
+    coordinates.fatherName.width,
+    coordinates.fatherName.height,
+    coordinates.fatherName.fontSize
 );
 
 drawParagraphText(
     doc,
     studentData.dob,
-    135,
-    455,
-    180,
-    38
+    coordinates.dob.x,
+    coordinates.dob.y,
+    coordinates.dob.width,
+    coordinates.dob.height,
+    coordinates.dob.fontSize
 );
 
 drawParagraphText(
@@ -232,29 +275,31 @@ drawParagraphText(
     studentData.mobileNumber ||
     studentData.phone ||
     "-",
-    135,
-    497,
-    180,
-    38
+    coordinates.mobileNumber.x,
+    coordinates.mobileNumber.y,
+    coordinates.mobileNumber.width,
+    coordinates.mobileNumber.height,
+    coordinates.mobileNumber.fontSize
 );
 
 drawParagraphText(
     doc,
     studentData.email,
-    135,
-    538,
-    220,
-    55,
-    9
+    coordinates.email.x,
+    coordinates.email.y,
+    coordinates.email.width,
+    coordinates.email.height,
+    coordinates.email.fontSize
 );
 
 drawParagraphText(
     doc,
     studentData.gender,
-    135,
-    580,
-    180,
-    38
+    coordinates.gender.x,
+    coordinates.gender.y,
+    coordinates.gender.width,
+    coordinates.gender.height,
+    coordinates.gender.fontSize
 );
 
     // =========================
@@ -268,47 +313,50 @@ drawParagraphText(
 drawParagraphText(
     doc,
     studentData.course,
-    393,
-    376,
-    120,
-    38
+    coordinates.course.x,
+    coordinates.course.y,
+    coordinates.course.width,
+    coordinates.course.height,
+    coordinates.course.fontSize
 );
 drawAddressText(
     doc,
     studentData.address,
-     393,
-    418,
-    180,
-    75,
-    9
+    coordinates.address.x,
+    coordinates.address.y,
+    coordinates.address.width,
+    coordinates.address.height
 );
 
 
 drawParagraphText(
     doc,
     studentData.city,
-    393,
-    498,
-    120,
-    38
+    coordinates.city.x,
+    coordinates.city.y,
+    coordinates.city.width,
+    coordinates.city.height,
+    coordinates.city.fontSize
 );
 
 drawParagraphText(
     doc,
     studentData.state,
-    393,
-    538,
-    120,
-    38
+    coordinates.state.x,
+    coordinates.state.y,
+    coordinates.state.width,
+    coordinates.state.height,
+    coordinates.state.fontSize
 );
 
 drawParagraphText(
     doc,
     studentData.pincode,
-    393,
-    580,
-    120,
-    38
+    coordinates.pincode.x,
+    coordinates.pincode.y,
+    coordinates.pincode.width,
+    coordinates.pincode.height,
+    coordinates.pincode.fontSize
 );
 
     // =========================
