@@ -417,9 +417,9 @@ app.post(
             // PHASE 2: PREPARE AND SAVE STUDENT DATA
             // ==========================================
 
-            // Generate receipt ID (similar to library but with COACH prefix)
+            // Generate receipt ID (same format as library)
             const receiptId =
-                "JHRC-" + Date.now().toString().slice(-6) + "-COACH";
+                "JHRC-" + Date.now().toString().slice(-6);
 
             // Build student document with file uploads
             const studentData = {
@@ -832,19 +832,18 @@ app.get("/download/:receiptId", async (req, res) => {
     try {
 
         const receiptId = req.params.receiptId;
-        const isCoachingReceipt = receiptId.endsWith("-COACH");
-
         let student = null;
         let module = "library";
 
-        if (isCoachingReceipt) {
-            // Try to find in CoachingStudent collection
+        // First check if it's a Library receipt
+        student = await Student.findOne({ receiptId });
+
+        // If not found in Library, check Coaching collection
+        if (!student) {
             student = await CoachingStudent.findOne({ receiptId });
-            module = "coaching";
-        } else {
-            // Try to find in Student collection (Library)
-            student = await Student.findOne({ receiptId });
-            module = "library";
+            if (student) {
+                module = "coaching";
+            }
         }
 
         if(!student){
