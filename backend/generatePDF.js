@@ -50,7 +50,7 @@ function drawParagraphText(
             }
         );
 }
-function generatePDF(studentData, filePath) {
+function generatePDF(studentData, filePath, module = "library") {
 
     const doc = new PDFDocument({
 
@@ -78,11 +78,27 @@ doc.pipe(stream);
         "logo.png"
     );
 
+    // Determine module-specific text and background
+    const moduleText = {
+        library: {
+            organization: "JHRC LIBRARY",
+            receiptType: "ADMISSION CONFIRMATION RECEIPT",
+            backgroundImage: "receipt-bg.jpg"
+        },
+        coaching: {
+            organization: "JHRC COMPUTER COACHING",
+            receiptType: "COACHING ADMISSION RECEIPT",
+            backgroundImage: "receipt-bg-coaching.jpg"
+        }
+    };
+
+    const moduleConfig = moduleText[module] || moduleText.library;
+
     const receiptBg =
     path.join(
         __dirname,
         "assets",
-        "receipt-bg.jpg"
+        moduleConfig.backgroundImage
     );
 
     // BACKGROUND

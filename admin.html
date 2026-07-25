@@ -1228,7 +1228,7 @@ onclick="approveStudent('${student._id}')"
                     <tr>
                         <td>${student.fullName || ""}</td>
                         <td>${student.course || ""}</td>
-                        <td>${student.phoneNumber || ""}</td>
+                        <td>${student.mobileNumber || ""}</td>
                         <td>${student.admissionDate || "N/A"}</td>
                         <td>${student.receiptId || "N/A"}</td>
                         <td>
@@ -1237,9 +1237,14 @@ onclick="approveStudent('${student._id}')"
                                 View Docs
                             </button>
                             <button onclick="editCoachingStudent('${student._id}')" 
-                                style="background: #FF9800; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">
+                                style="background: #FF9800; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-right: 5px;">
                                 Edit
                             </button>
+                            <a href="https://jhrc.onrender.com/download/${student.receiptId}" 
+                                target="_blank"
+                                style="display: inline-block; background: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: 600;">
+                                📥 PDF
+                            </a>
                         </td>
                     </tr>
                 `;

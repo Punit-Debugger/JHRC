@@ -831,18 +831,27 @@ app.get("/download/:receiptId", async (req, res) => {
 
     try {
 
-        const student = await Student.findOne({
+        const receiptId = req.params.receiptId;
+        const isCoachingReceipt = receiptId.endsWith("-COACH");
 
-            receiptId:
-            req.params.receiptId
+        let student = null;
+        let module = "library";
 
-        });
+        if (isCoachingReceipt) {
+            // Try to find in CoachingStudent collection
+            student = await CoachingStudent.findOne({ receiptId });
+            module = "coaching";
+        } else {
+            // Try to find in Student collection (Library)
+            student = await Student.findOne({ receiptId });
+            module = "library";
+        }
 
         if(!student){
 
             return res
             .status(404)
-            .send("Student Not Found");
+            .send("Receipt Not Found");
 
         }
 
@@ -858,7 +867,8 @@ path.join(
 
 await generatePDF(
     student.toObject(),
-    filePath
+    filePath,
+    module
 );
 
 res.download(filePath);
