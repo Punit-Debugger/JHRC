@@ -570,6 +570,10 @@
 
         // ========== JWT TOKEN AUTHENTICATION ==========
 
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://jhrc.onrender.com';
+
         (async function validateToken() {
             const token = sessionStorage.getItem("adminToken");
 
@@ -579,7 +583,7 @@
             }
 
             try {
-                const response = await fetch("/admin/profile", {
+                const response = await fetch(`${API_BASE}/admin/profile`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -600,17 +604,6 @@
                 window.location.href = "admin-login.html";
             }
         })();
-
-        // ========== AUTHENTICATION ==========
-
-        const isLoggedIn =
-        localStorage.getItem("adminLoggedIn");
-
-        if(isLoggedIn !== "true"){
-
-            window.location.replace("login.html");
-
-        }
 
         // ========== SIDEBAR & MODULE SWITCHING ==========
 
@@ -1374,9 +1367,9 @@ onclick="approveStudent('${student._id}')"
 
         function logout(){
 
-            localStorage.removeItem("adminLoggedIn");
+            sessionStorage.removeItem("adminToken");
 
-            window.location.replace("login.html");
+            window.location.replace("admin-login.html");
 
         }
 
