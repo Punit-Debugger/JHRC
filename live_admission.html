@@ -1457,8 +1457,6 @@ select option {
 // ========== SEAT PICKER FUNCTIONS ==========
 let selectedSeat = null;
 let availableSeats = [];
-let shiftListenersAttached = false;
-let latestSeatRequestId = 0;
 
 function initSeatPicker() {
     document.querySelectorAll('.seat').forEach(btn => {
@@ -1493,7 +1491,6 @@ function clearSeatSelection() {
 }
 
 function updateSeatStates(availableSeatsFromAPI) {
-    console.log('[updateSeatStates] executing with seats:', availableSeatsFromAPI);
     availableSeats = availableSeatsFromAPI;
     document.querySelectorAll('.seat').forEach(seatBtn => {
         const seatNum = parseInt(seatBtn.dataset.seat);
@@ -1532,20 +1529,15 @@ function updateSeatPickerDisplay() {
 const seatDropdown =
 document.getElementById("seatNumber");
 
-function getSelectedShifts() {
-    const selectedShifts = Array.from(
-        document.querySelectorAll('input[name="shifts"]:checked')
-    ).map(cb => cb.value);
-
-    console.log('[getSelectedShifts] selected shifts:', selectedShifts);
-    return selectedShifts;
-}
-
 async function loadSeats() {
-    const requestId = ++latestSeatRequestId;
-    console.log(`[loadSeats] called (request ${requestId})`);
+    console.log("loadSeats() called");
     try {
-        const selectedShifts = getSelectedShifts();
+
+        // Collect currently checked shifts
+        const selectedShifts = [];
+        document.querySelectorAll('input[name="shifts"]:checked').forEach(cb => {
+            selectedShifts.push(cb.value);
+        });
 
         if(selectedShifts.length === 0){
 
@@ -1553,34 +1545,20 @@ async function loadSeats() {
             '<option value="">Select Shift First</option>';
 
             document.getElementById('statusText').textContent = 'Please select at least one shift';
-            console.log(`[loadSeats] request ${requestId} aborted: no shifts selected`);
 
             return;
 
         }
-
-        const requestUrl =
-        `https://jhrc.onrender.com/available-seats?shifts=${encodeURIComponent(selectedShifts.join(","))}`;
-
-        console.log(`[loadSeats] request ${requestId} URL:`, requestUrl);
-
+console.log("Selected shifts:", selectedShifts);
         const response =
         await fetch(
 
-        requestUrl
+        `https://jhrc.onrender.com/available-seats?shifts=${selectedShifts.join(",")}`
 
         );
-
-                console.log(`[loadSeats] request ${requestId} response status:`, response.status);
+        console.log("Response status:", response.status);
                 const data =
                 await response.json();
-
-                console.log(`[loadSeats] request ${requestId} API response:`, data);
-
-                if (requestId !== latestSeatRequestId) {
-                    console.log(`[loadSeats] skipping stale response for request ${requestId}; latest is ${latestSeatRequestId}`);
-                    return;
-                }
 
                 seatDropdown.innerHTML =
                 '<option value="">Select Seat</option>';
@@ -1603,8 +1581,6 @@ async function loadSeats() {
                 updateSeatStates(data.availableSeats);
                 document.getElementById('statusText').textContent = `${data.availableSeats.length} seats available`;
 
-                console.log(`[loadSeats] request ${requestId} completed`);
-
             }
 
             catch(error){
@@ -1620,20 +1596,13 @@ async function loadSeats() {
 
 }
 
-function attachShiftListenersOnce() {
-    if (shiftListenersAttached) {
-        return;
-    }
-
-    document.addEventListener('change', (event) => {
-        if (!event.target || !event.target.matches('input[name="shifts"]')) {
-            return;
-        }
-
-        const fullShift = document.querySelector('input[name="shifts"][value="FULL"]');
+// Register event listeners ONCE, outside loadSeats()
+document.querySelectorAll('input[name="shifts"]').forEach(cb => {
+    cb.addEventListener("change", () => {
+        const fullShift = document.querySelector('input[value="FULL"]');
         const normalShifts = document.querySelectorAll('input[name="shifts"]:not([value="FULL"])');
 
-        if (fullShift && fullShift.checked) {
+        if(fullShift.checked){
             normalShifts.forEach(shift => {
                 shift.checked = false;
                 shift.disabled = true;
@@ -1644,25 +1613,11 @@ function attachShiftListenersOnce() {
             });
         }
 
-        console.log('[shift change] triggering loadSeats');
         loadSeats();
     });
+});
 
-    shiftListenersAttached = true;
-    console.log('[init] shift listeners attached once');
-}
-
-function initializeAdmissionSeatAllocation() {
-    attachShiftListenersOnce();
-    console.log('[init] running initial seat load');
-    loadSeats();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeAdmissionSeatAllocation, { once: true });
-} else {
-    initializeAdmissionSeatAllocation();
-}
+loadSeats();
 document
 .getElementById("admissionForm")
 .addEventListener("submit", async function(e){
