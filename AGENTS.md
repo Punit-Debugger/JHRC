@@ -95,7 +95,7 @@ LibraryAdmission/
   shifts: {
     type: [String],
     default: [],
-    values: ["S1 (6:00 AM - 10:00 AM)", "S2 (10:00 AM - 2:00 PM)", "S3 (2:00 PM - 6:00 PM)", "S4 (6:00 PM - 10:00 PM)", "Full Shift (6:00 AM - 10:00 PM)"]
+    values: ["S1", "S2", "S3", "S4", "FULL"]
   },
   
   // Membership
