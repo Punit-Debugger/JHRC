@@ -733,6 +733,56 @@ select option {
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #seatPickerContainer.loading .seat-picker-grid,
+        #seatPickerContainer.loading .seat-picker-footer,
+        #seatPickerContainer.loading .seat-picker-legend {
+            opacity: 0.6;
+        }
+
+        #seatPickerContainer.loading .seat,
+        #seatPickerContainer.loading #clearBtn {
+            pointer-events: none;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 8, 22, 0.72);
+            backdrop-filter: blur(4px);
+            z-index: 5;
+            border-radius: 16px;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .loading-spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(255,255,255,0.2);
+            border-top-color: #ffcc00;
+            border-radius: 50%;
+            animation: seatSpin 0.9s linear infinite;
+        }
+
+        @keyframes seatSpin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .seat-picker-legend {
@@ -1160,7 +1210,7 @@ select option {
         <label>
             Select Shift(s)
         </label>
-
+ 
         <label>
             <input
                 type="checkbox"
@@ -1211,6 +1261,12 @@ select option {
     <div class="input-group" style="grid-column: 1/-1;">
         <label>Seat Number</label>
         <div id="seatPickerContainer">
+            <div id="seatLoadingOverlay" class="loading-overlay" aria-hidden="true">
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <span>Loading available seats...</span>
+                </div>
+            </div>
             <div class="seat-picker-legend">
                 <div class="legend-item"><span class="legend-seat available"></span><span>Available</span></div>
                 <div class="legend-item"><span class="legend-seat reserved"></span><span>Reserved</span></div>
@@ -1459,6 +1515,26 @@ let selectedSeat = null;
 let availableSeats = [];
 let shiftListenersAttached = false;
 let latestSeatRequestId = 0;
+let seatPickerLoading = false;
+
+function setSeatPickerLoading(isLoading) {
+    seatPickerLoading = isLoading;
+    const container = document.getElementById('seatPickerContainer');
+    const overlay = document.getElementById('seatLoadingOverlay');
+    const clearBtn = document.getElementById('clearBtn');
+    const seatButtons = document.querySelectorAll('#seatPickerContainer .seat');
+
+    container.classList.toggle('loading', isLoading);
+    overlay.style.display = isLoading ? 'flex' : 'none';
+
+    seatButtons.forEach(seatBtn => {
+        seatBtn.disabled = isLoading;
+    });
+
+    if (clearBtn) {
+        clearBtn.disabled = isLoading;
+    }
+}
 
 function initSeatPicker() {
     document.querySelectorAll('.seat').forEach(btn => {
@@ -1472,6 +1548,10 @@ function initSeatPicker() {
 }
 
 function handleSeatClick(seatNumber) {
+    if (seatPickerLoading) {
+        return;
+    }
+
     if (selectedSeat === seatNumber) {
         clearSeatSelection();
         return;
@@ -1486,6 +1566,10 @@ function handleSeatClick(seatNumber) {
 }
 
 function clearSeatSelection() {
+    if (seatPickerLoading) {
+        return;
+    }
+
     selectedSeat = null;
     document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected'));
     document.getElementById('seatNumber').value = '';
@@ -1544,6 +1628,8 @@ function getSelectedShifts() {
 async function loadSeats() {
     const requestId = ++latestSeatRequestId;
     console.log(`[loadSeats] called (request ${requestId})`);
+    setSeatPickerLoading(true);
+
     try {
         const selectedShifts = getSelectedShifts();
 
@@ -1616,6 +1702,11 @@ async function loadSeats() {
 
                 document.getElementById('statusText').textContent = 'Error loading seat availability';
 
+            }
+            finally {
+                if (requestId === latestSeatRequestId) {
+                    setSeatPickerLoading(false);
+                }
             }
 
 }
