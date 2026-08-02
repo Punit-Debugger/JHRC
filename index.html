@@ -152,6 +152,14 @@
 
         }
 
+        .mobile-menu-toggle,
+        .mobile-menu-backdrop,
+        .mobile-menu-panel{
+
+            display:none;
+
+        }
+
         /* ANNOUNCEMENT */
 
         .announcement{
@@ -655,7 +663,7 @@
 
         }
 
-        @media(max-width:700px){
+        @media(max-width:767px){
 
             .navbar{
 
@@ -685,6 +693,7 @@
             .logo{
 
                 gap:12px;
+                flex:1 1 auto;
 
             }
 
@@ -704,6 +713,7 @@
 
             .announcement{
 
+                order:3;
                 flex-basis:100%;
                 margin-left:0;
                 margin-top:12px;
@@ -714,6 +724,111 @@
             .nav-links{
 
                 display:none;
+
+            }
+
+            .mobile-menu-toggle{
+
+                order:2;
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                margin-left:auto;
+                width:44px;
+                height:44px;
+                border:1px solid rgba(255,255,255,0.12);
+                border-radius:12px;
+                background:rgba(255,255,255,0.06);
+                color:#ffffff;
+                font-size:20px;
+                cursor:pointer;
+                transition:0.3s ease;
+
+            }
+
+            .mobile-menu-toggle:hover,
+            .mobile-menu-toggle:focus-visible{
+
+                border-color:rgba(255,204,0,0.5);
+                color:#ffcc00;
+                outline:none;
+
+            }
+
+            .mobile-menu-backdrop{
+
+                display:block;
+                position:fixed;
+                inset:0;
+                background:rgba(5,8,22,0.46);
+                backdrop-filter:blur(2px);
+                opacity:0;
+                pointer-events:none;
+                transition:opacity 0.25s ease;
+                z-index:998;
+
+            }
+
+            .mobile-menu-panel{
+
+                display:flex;
+                flex-direction:column;
+                gap:6px;
+                position:absolute;
+                left:0;
+                right:0;
+                top:100%;
+                padding:14px 5% 18px;
+                background:rgba(5,8,22,0.98);
+                border-bottom:1px solid rgba(255,255,255,0.08);
+                box-shadow:0 18px 40px rgba(0,0,0,0.28);
+                opacity:0;
+                transform:translateY(-12px);
+                pointer-events:none;
+                transition:opacity 0.25s ease, transform 0.25s ease;
+                z-index:1001;
+
+            }
+
+            .mobile-menu-panel a{
+
+                text-decoration:none;
+                color:#ffffff;
+                font-weight:600;
+                font-size:16px;
+                padding:14px 16px;
+                border-radius:12px;
+                transition:0.25s ease;
+
+            }
+
+            .mobile-menu-panel a:hover,
+            .mobile-menu-panel a:focus-visible{
+
+                color:#ffcc00;
+                background:rgba(255,255,255,0.06);
+                outline:none;
+
+            }
+
+            .navbar.menu-open .mobile-menu-backdrop{
+
+                opacity:1;
+                pointer-events:auto;
+
+            }
+
+            .navbar.menu-open .mobile-menu-panel{
+
+                opacity:1;
+                transform:translateY(0);
+                pointer-events:auto;
+
+            }
+
+            body.menu-open{
+
+                overflow:hidden;
 
             }
 
@@ -990,6 +1105,30 @@
         <!-- END ANNOUNCEMENT -->
 
         <div class="nav-links">
+
+            <a href="#">Home</a>
+
+            <a href="#features">Facilities</a>
+
+            <a href="#contact">Contact</a>
+
+            <a href="admin-login.html">Admin</a>
+
+        </div>
+
+        <button
+            class="mobile-menu-toggle"
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-controls="mobileMenu"
+            aria-expanded="false"
+        >
+            <span aria-hidden="true">☰</span>
+        </button>
+
+        <div class="mobile-menu-backdrop" aria-hidden="true"></div>
+
+        <div class="mobile-menu-panel" id="mobileMenu" aria-label="Mobile navigation">
 
             <a href="#">Home</a>
 
@@ -1371,6 +1510,44 @@
 
     <!-- ENROLLMENT MODAL JAVASCRIPT -->
     <script>
+        const navbar = document.querySelector('.navbar');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenuBackdrop = document.querySelector('.mobile-menu-backdrop');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-panel a');
+
+        function openMobileMenu() {
+            navbar.classList.add('menu-open');
+            document.body.classList.add('menu-open');
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMobileMenu() {
+            navbar.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        function toggleMobileMenu() {
+            if (navbar.classList.contains('menu-open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        mobileMenuLinks.forEach(function(link) {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
         function openEnrollmentModal() {
             const modal = document.getElementById('enrollmentModal');
             modal.classList.add('active');
@@ -1396,6 +1573,7 @@
         // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
+                closeMobileMenu();
                 closeEnrollmentModal();
             }
         });
