@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JHRC Running Center | Admission</title>
+    <link rel="icon" href="backend/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #050816;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page::before,
+        .page::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.2;
+        }
+
+        .page::before {
+            width: 280px;
+            height: 280px;
+            background: #ffcc00;
+            top: 80px;
+            left: -80px;
+        }
+
+        .page::after {
+            width: 320px;
+            height: 320px;
+            background: #00bfff;
+            bottom: -80px;
+            right: -60px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 760px;
+            background: rgba(5, 8, 22, 0.95);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-radius: 28px;
+            padding: 42px 32px;
+            box-shadow: 0 0 45px rgba(255, 204, 0, 0.12);
+            backdrop-filter: blur(16px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 204, 0, 0.12);
+            color: #ffcc00;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 14px;
+            color: white;
+        }
+
+        .highlight {
+            color: #ffcc00;
+        }
+
+        p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-size: 16px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 14px 22px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #d4a128, #f4c542);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.33);
+        }
+
+        .btn-secondary {
+            color: #ffcc00;
+            border: 1px solid rgba(255, 204, 0, 0.25);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 204, 0, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="card">
+            <div class="badge">JHRC Running Center</div>
+            <h1>Welcome to <span class="highlight">JHRC Running Center</span></h1>
+            <p>This module is now available from the homepage selection flow. The Running Center admission experience is being prepared with the same visual style and structure as the rest of the JHRC project.</p>
+            <div class="actions">
+                <a class="btn btn-primary" href="index.html">Back to Home</a>
+                <a class="btn btn-secondary" href="admission.html">Visit Library Admissions</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
